@@ -1,9 +1,10 @@
+import json
+
 from django.shortcuts import render, redirect
 
-from haru import get_data_by_code
-from .models import ChartData, CoName
 from data.data_excel import get_data_json
-import json
+from haru import get_data_by_code
+from .models import CoName
 
 
 def home(request):
@@ -54,10 +55,8 @@ def data_show(request, name):
     for i in x:
         price.append(i[1])
 
-    return render(request, "data/new_new_list.html", {'data': price, 'name': name})
-
+    return render(request, "data/trading_game.html", {'data': price, 'name': name})
 
 
 def loading(request):
     return render(request, 'data/loading.html')
-
