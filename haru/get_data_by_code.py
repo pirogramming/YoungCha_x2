@@ -60,7 +60,7 @@ for tag in ooo:
 zip_all = list(zip(이름, 코드, 가격, 등락액, 등락률, 시가총액))
 
 
-print(zip_all)
+
 
 
 def get_for_haru():
@@ -78,3 +78,13 @@ def get_for_haru():
         return 0
 
     return str(x[7] + x[8] + x[10])
+
+
+def get_river():
+    response = requests.get('https://www.wpws.kr/hangang/')
+    html = response.text
+    soup = BS(html, 'html.parser')
+    for tag in soup.select('div[class=content]'):
+        print(tag.text)
+
+
