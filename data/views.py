@@ -54,7 +54,7 @@ def data_show(request, name):
     for i in x:
         price.append(i[1])
 
-    return render(request, "data/new_new_list.html", {'data': price, 'name': name})
+    return render(request, "data/trading_game.html", {'data': price, 'name': name})
 
 
 

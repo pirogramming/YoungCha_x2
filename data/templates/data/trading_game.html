@@ -145,7 +145,7 @@
             var sell_at_place = document.createElement('span');
             var endTime = new Date().getTime();
             // console.log(endTime-startTime);
-            sell_at_place.innerHTML = "매도가: " + sell_at_s[p] + " " + "매매손익: " + result + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + (endTime - startTime) / 1000 + "초";
+            sell_at_place.innerHTML = "매도가: " + sell_at_s[p] + " " + "매매손익: " + result + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + Math.floor(60*((endTime - startTime) / 1000)) + "일";
             div.appendChild(sell_at_place)
             p++
             var count = document.getElementById('count')
