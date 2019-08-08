@@ -222,7 +222,7 @@ series.events.on("validated", function() {
 		var h2s = document.createElement('span');
 		var endTime = new Date().getTime();
 		console.log(endTime-startTime);
-		h2s.innerHTML = "매도가: "+sell_at+" "+"매매손익:"+result.toFixed(2)+" 존버기간:"+(endTime-startTime)/1000+"초";
+		h2s.innerHTML = "매도가: "+sell_at+" "+"매매손익:"+result.toFixed(2)+" 존버기간:"+Math.floor(60*((endTime-startTime)/1000))+"일";
 		div.appendChild(h2s)
 		p++
 		var count = document.getElementById('count')
