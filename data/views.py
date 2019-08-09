@@ -57,7 +57,3 @@ def data_show(request, name):
 
     return render(request, "data/trading_game.html", {'data': price, 'name': name})
 
-
-
-def loading(request):
-    return render(request, 'data/loading.html')
