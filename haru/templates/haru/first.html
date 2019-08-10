@@ -10,10 +10,13 @@
     .item {
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        {#transform: translate(-50%, -50%);#}
         color: white;
         font-size: 8em;
-        position: fixed;
+        {#position: fixed;#}
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
     }
 
     #hey {
@@ -23,8 +26,10 @@
         height: 100px;
         cursor: pointer;
         -webkit-transition: width 2s, height 2s, background-color 2s, -webkit-transform 2s;
-        transition: width 2s, height 2s, background-color 2s, transform 5s;
-
+        transition: width 2s, height 2s, background-color 2s, transform 2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     #hey:hover {
@@ -38,14 +43,19 @@
     #hey .hello {
         font-size: 20%;
 
-        position: relative;
-        left: 17px;
-        top: 10px;
+        {#position: relative;#}
+        {#left: 17px;#}
+        {#top: 10px;#}
     }
 
 
     .container {
-        background: gold;
+        {#background: gold;#}
+        {% load staticfiles %}
+        {#<img data data data src="{% static "data/ant2.gif" %}">#}
+        background-image: url('{% static "data/nyse.jpg" %}');
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
@@ -84,8 +94,8 @@
         /*background: #E9E8E3;*/
         background: white;
         z-index: 99;
-        -webkit-animation: offscreen .8s 8s forwards;
-        animation: offscreen .8s 8s forwards;
+        -webkit-animation: offscreen .1s 3s forwards;
+        animation: offscreen .1s 3s forwards;
     }
 
     #refresher {
@@ -102,8 +112,8 @@
         align-items: center;
         z-index: 1;
         opacity: 0;
-        -webkit-animation: show .5s 9s forwards;
-        animation: show .5s 9s forwards;
+        -webkit-animation: show .1s 3s forwards;
+        animation: show .1s 3s forwards;
     }
 
     #refresher a {
@@ -113,7 +123,7 @@
     }
 
     .refresh {
-        color: black;
+        color: white;
         font-family: 'Open Sans Condensed', sans-serif;
         font-size: 2rem;
         text-transform: uppercase;
@@ -142,8 +152,8 @@
         left: 0;
         width: 0;
         background: #58585A;
-        -webkit-animation: load 8s 1s forwards;
-        animation: load 8s 1s forwards;
+        -webkit-animation: load 3s 1s forwards;
+        animation: load 3s 1s forwards;
     }
 
     .loading-bar, .loading-bar:before {
@@ -249,18 +259,19 @@
 <div id="refresher">
 
     <div class="container">
-        <h1 class="refresh">
-            환영합니다.
-        </h1>
-
+                <h1 class="refresh">
+                    당신은 시장을 이길 수 있습니까?
+                </h1>
         <div class="item">
 
+
+
             <div id="hey">
-                <a href="{% url 'data:data_home' %}">
-                    <div class="hello">
-                        game start!
-                    </div>
-                </a>
+                <div class="hello">
+                    <a href="{% url 'data:data_home' %}">
+                        START
+                    </a>
+                </div>
             </div>
         </div>
 
