@@ -6,7 +6,7 @@
         height: 500px;
     }
 </style>
-
+<link href="https://fonts.googleapis.com/css?family=Song+Myung&display=swap" rel="stylesheet">
 <!-- Resources -->
 
 <!-- Resources -->
@@ -18,7 +18,12 @@
 
 <!-- {% load static %}
 	<link rel="stylesheet" type="text/javascript" href="{% static "javascript/mouseevent.js" %}"> -->
-
+<style>
+    body {
+        font-family: 'Song Myung', serif;
+        font-weight: lighter;
+    }
+</style>
 
 <!-- HTML -->
 <div id="chartdiv"></div>
@@ -170,7 +175,7 @@
                 buy_at_s[p] = b[j - 1];
                 // console.log("매수가:"+buy_at);
                 var buy_at_place = document.createElement('span');
-                buy_at_place.innerHTML = (p + 1) + "번째 - " + "매수가: " + buy_at_s[p] + " ";
+                buy_at_place.innerHTML = (p + 1) + "번째 - " + "매수가: " + buy_at_s[p].toLocaleString() + " ";
                 div.appendChild(buy_at_place);
                 startTime = new Date().getTime();
                 {#document.body.style.backgroundColor = "#A8F552"#}
@@ -186,7 +191,7 @@
                 var endTime = new Date().getTime();
                 var jonber_period = ((endTime - startTime) / 1000).toFixed(1);
                 // console.log(endTime-startTime);
-                sell_at_place.innerHTML = "매도가: " + sell_at_s[p] + " " + "매매손익: " + result + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + jonber_period + "개월";
+                sell_at_place.innerHTML = "매도가: " + sell_at_s[p].toLocaleString() + " " + "매매손익: " + result.toLocaleString() + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + jonber_period + "개월";
                 div.appendChild(sell_at_place);
                 p++;
                 var count = document.getElementById('count');
@@ -206,7 +211,7 @@
                     chart.addData(
                         {date: new Date(lastdataItem.dateX.getTime() + 1000), value: visits}, 1
                     );
-                    content.innerHTML = b[j];
+                    content.innerHTML = b[j].toLocaleString();
                     content.innerHTML += " 현재 수익률: " + calculate_yields(is_down, b[j], sell_at_s[p]) + "% " + comments(calculate_yields(is_down, b[j], sell_at_s[p]));
                     bgchange(is_down, calculate_yields(is_down, b[j], sell_at_s[p]));
                     {#colorchange()#}
