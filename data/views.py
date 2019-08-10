@@ -54,6 +54,15 @@ def data_show(request, name):
     for i in x:
         price.append(i[1])
 
+    price_result = []
+
+    for i in range(0, 10, 2):
+        for j in range(5):
+            (price[i+1]-price[i])/10
+
+
+
+
     return render(request, "data/trading_game.html", {'data': price, 'name': name})
 
 

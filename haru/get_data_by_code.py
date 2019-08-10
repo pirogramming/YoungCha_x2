@@ -26,8 +26,14 @@ html = response.text
 soup = BS(html, 'html.parser')
 
 tag_list = []
+
+
 for tag in soup.select('td[class=number]'):
     x = tag.text.split()
+
+
+
+
     tag_list.append(x[0])
 
 
@@ -60,7 +66,7 @@ for tag in ooo:
 zip_all = list(zip(이름, 코드, 가격, 등락액, 등락률, 시가총액))
 
 
-
+print(zip_all)
 
 
 def get_for_haru():
