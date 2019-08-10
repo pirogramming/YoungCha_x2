@@ -1,217 +1,252 @@
 <!DOCTYPE html>
+<style>
+
+    .container {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+    }
+
+    .item {
+        top: 50%;
+        left: 50%;
+        {#transform: translate(-50%, -50%);#}
+        color: white;
+        font-size: 8em;
+        {#position: fixed;#}
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    #hey {
+        background-color: black;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        -webkit-transition: width 2s, height 2s, background-color 2s, -webkit-transform 2s;
+        transition: width 2s, height 2s, background-color 2s, transform 2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #hey:hover {
+        -webkit-transform: rotate(1440deg);
+        transform: rotate(1440deg);
+
+
+    }
+
+
+    #hey .hello {
+        font-size: 20%;
+
+        {#position: relative;#}
+        {#left: 17px;#}
+        {#top: 10px;#}
+    }
+
+
+    .container {
+        {#background: gold;#}
+        {% load staticfiles %}
+        {#<img data data data src="{% static "data/ant2.gif" %}">#}
+        background-image: url('{% static "data/nyse.jpg" %}');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
+
+    *, *:before, *:after {
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: white;
+        -webkit-transform: translateZ(0);
+    }
+
+    html, body {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    #loader {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /*background: #E9E8E3;*/
+        background: white;
+        z-index: 99;
+        -webkit-animation: offscreen .1s 3s forwards;
+        animation: offscreen .1s 3s forwards;
+    }
+
+    #refresher {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        opacity: 0;
+        -webkit-animation: show .1s 3s forwards;
+        animation: show .1s 3s forwards;
+    }
+
+    #refresher a {
+        text-decoration: none;
+        color: gold;
+
+    }
+
+    .refresh {
+        color: white;
+        font-family: 'Open Sans Condensed', sans-serif;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: .1rem;
+        text-align: center;
+        margin: 250px 0 0 0;
+    }
+
+
+    /*
+    ----------------------------------------------
+    LOADING BAR
+    ----------------------------------------------
+    */
+    .loading-bar {
+        position: relative;
+        margin-top: 4rem;
+        width: 250px;
+        background: #C1C0BC;
+    }
+
+    .loading-bar:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        background: #58585A;
+        -webkit-animation: load 3s 1s forwards;
+        animation: load 3s 1s forwards;
+    }
+
+    .loading-bar, .loading-bar:before {
+        height: 4px;
+        border-radius: 5px;
+    }
+
+
+    /*
+    ----------------------------------------------
+    ANIMATIONS
+    ----------------------------------------------
+    */
+
+    @-webkit-keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            -webkit-transform: translateY(0);
+        }
+        40% {
+            -webkit-transform: translateY(-30px)
+        }
+        60% {
+            -webkit-transform: translateY(-20px);
+        }
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-30px);
+        }
+        60% {
+            transform: translateY(-20px);
+        }
+    }
+
+
+    .bounce {
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-name: bounce;
+        animation-name: bounce;
+    }
+
+    /*{#위가 원 튀게#}*/
+    /*{##}*/
+    @keyframes load {
+        0% {
+            width: 0;
+        }
+        40% {
+            width: 180px;
+        }
+        60% {
+            width: 230px;
+        }
+
+        100% {
+            width: 250px;
+        }
+    }
+
+    @keyframes offscreen {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-200%);
+        }
+    }
+
+    @keyframes show {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+</style>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-
-        .container {
-            height: 100%;
-            width: 100%;
-            position: fixed;
-        }
-
-        .item {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 8em;
-            position: fixed;
-        }
-
-        #hey {
-            background-color: black;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-        }
-
-
-        @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
-
-        *, *:before, *:after {
-            margin: 0;
-            padding: 0;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: white;
-            -webkit-transform: translateZ(0);
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
-
-
-        #loader {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            /*background: #E9E8E3;*/
-            background: white;
-            z-index: 99;
-            -webkit-animation: offscreen .5s 10s forwards;
-            animation: offscreen .5s 10s forwards;
-        }
-
-        #refresher {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-            opacity: 0;
-            -webkit-animation: show .8s 8s forwards;
-            animation: show .8s 8s forwards;
-        }
-
-        #refresher a {
-            text-decoration: none;
-            color: gold;
-
-        }
-
-        .refresh {
-            color: black;
-            font-family: 'Open Sans Condensed', sans-serif;
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: .1rem;
-        }
-
-
-        /*
-        ----------------------------------------------
-        LOADING BAR
-        ----------------------------------------------
-        */
-        .loading-bar {
-            position: relative;
-            margin-top: 4rem;
-            width: 250px;
-            background: #C1C0BC;
-        }
-
-        .loading-bar:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            background: #58585A;
-            -webkit-animation: load 10s 1s forwards;
-            animation: load 10s 1s forwards;
-        }
-
-        .loading-bar, .loading-bar:before {
-            height: 4px;
-            border-radius: 5px;
-        }
-
-
-        /*
-        ----------------------------------------------
-        ANIMATIONS
-        ----------------------------------------------
-        */
-
-        @-webkit-keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                -webkit-transform: translateY(0);
-            }
-            40% {
-                -webkit-transform: translateY(-30px)
-            }
-            60% {
-                -webkit-transform: translateY(-20px);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-30px);
-            }
-            60% {
-                transform: translateY(-20px);
-            }
-        }
-
-
-        .bounce {
-            -webkit-animation-duration: 1s;
-            animation-duration: 1s;
-            -webkit-animation-name: bounce;
-            animation-name: bounce;
-        }
-
-        /*{#위가 원 튀게#}*/
-        /*{##}*/
-        @keyframes load {
-            0% {
-                width: 0;
-            }
-            40% {
-                width: 180px;
-            }
-            60% {
-                width: 230px;
-            }
-
-            100% {
-                width: 250px;
-            }
-        }
-
-        @keyframes offscreen {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(-200%);
-            }
-        }
-
-        @keyframes show {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-    </style>
 </head>
 <body>
 
 <div id="loader">
     <div class="img">
         {% load staticfiles %}
-        <img src="{% static "data/ant2.gif" %}">
+        <img data data data src="{% static "data/ant2.gif" %}">
 
 
     </div>
@@ -223,42 +258,47 @@
 
 <div id="refresher">
 
+    <div class="container">
+                <h1 class="refresh">
+                    당신은 시장을 이길 수 있습니까?
+                </h1>
+        <div class="item">
 
-    <a href="{% url 'data:data_home' %}">
-        <div class="container">
-            <p class="refresh">
-                안녕하세요
 
-                메인화면으로 이동
-            </p>
-            <div class="item">
-                <div id="hey"/>
+
+            <div id="hey">
+                <div class="hello">
+                    <a href="{% url 'data:data_home' %}">
+                        START
+                    </a>
+                </div>
             </div>
         </div>
-<!--        {#위가 검은원#}-->
 
 
-    </a>
+        <!--        {#위가 검은원#}-->
 
 
-<!--    {#팡팡튀는 원#}-->
-    <script>
-        element = document.getElementById("hey");
+        <!--    {#팡팡튀는 원#}-->
+        <script>
+            element = document.getElementById("hey");
 
-        element.addEventListener("click", function (e) {
-            e.preventDefault;
+            element.addEventListener("click", function (e) {
+                e.preventDefault;
 
-            // -> removing the class
-            element.classList.remove("bounce");
+                // -> removing the class
+                element.classList.remove("bounce");
 
-            // -> triggering reflow /* The actual magic */
-            // without this it wouldn't work. Try uncommenting the line and the transition won't be retriggered.
-            element.offsetWidth = element.offsetWidth;
+                // -> triggering reflow /* The actual magic */
+                // without this it wouldn't work. Try uncommenting the line and the transition won't be retriggered.
+                element.offsetWidth = element.offsetWidth;
 
-            // -> and re-adding the class
-            element.classList.add("bounce");
-        }, false);
-    </script>
-    <!--    <p class="refresh">refresh</p>-->
+                // -> and re-adding the class
+                element.classList.add("bounce");
+            }, false);
+        </script>
+        <!--    <p class="refresh">refresh</p>-->
+    </div>
 </div>
+
 </body>

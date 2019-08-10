@@ -66,3 +66,5 @@ def data_show(request, name):
 
 def loading(request):
     return render(request, 'data/loading.html')
+
+
