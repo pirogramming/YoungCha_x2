@@ -60,6 +60,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'YoungCha_x2', 'templates'),
 
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -131,10 +132,14 @@ AUTH_USER_MODEL = "users_management.UserManage"
 from django.urls import reverse_lazy
 
 LOGIN_URL = reverse_lazy('login')
-# LOGIN_REDIRECT_URL = reverse_lazy('profile')
-LOGOUT_REDIRECT_URL = reverse_lazy('login')
+LOGIN_REDIRECT_URL = reverse_lazy('profile')
+#로그인 후 프로필로 이동하숑의 뜻
+LOGOUT_REDIRECT_URL = reverse_lazy('profile')
 
 AUTH_USER_MODEL = 'accounts.User'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+FILTERS_DISABLE_HELP_TEXT = True
+#헬프 텍스트 지우기

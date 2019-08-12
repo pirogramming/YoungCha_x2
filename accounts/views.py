@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordChangeView
+from django.core.exceptions import ValidationError
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.utils.http import urlsafe_base64_decode
@@ -16,23 +17,10 @@ from .forms import SignupForm, ProfileForm
 from .models import Profile
 
 
-'''
-def signup(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)  # 로그인 처리
-            next_url = request.GET.get('next') or 'profile'
-            return redirect(next_url)
-    else:
-        form = SignupForm()
-    return render(request, 'accounts/signup.html', {
-        'form': form,
-    })
-'''
 
+#회원가입
 class SignupView(CreateView):
+
     model = User
     form_class = SignupForm
     template_name = 'accounts/signup.html'
@@ -45,8 +33,6 @@ class SignupView(CreateView):
         user = form.save()
         auth_login(self.request, user)
         return redirect(self.get_success_url())
-
-
 
 signup = SignupView.as_view()
 
@@ -64,6 +50,7 @@ class ProfileUpdateView(UpdateView, LoginRequiredMixin):
     def get_object(self):
         return self.request.user.profile
 
+#profile_edit = ProfileUpdateView.as_view()
 profile_edit = ProfileUpdateView.as_view()
 
 

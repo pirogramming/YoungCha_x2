@@ -6,11 +6,9 @@
     <h3>Email</h3>
     {{ user.email|default:"&dash;" }}
 
-    <h3>Bio</h3>
-    {{ user.profile.bio|default:"&dash;" }}
+    <h3>이름(별명)</h3>
+    {{ user.profile.usr_id|default:"&dash;" }}
 
-    <h3>WebSite URL</h3>
-    {{ user.profile.website_url|default:"&dash;" }}
 
     <hr/>
 

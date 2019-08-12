@@ -26,8 +26,8 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    bio = models.TextField(blank=True)
-    website_url = models.URLField(blank=True)
+    usr_id = models.TextField(blank=True)
+    #website_url = models.URLField(blank=True)
 
 
 def on_post_save_for_user(sender, **kwargs):

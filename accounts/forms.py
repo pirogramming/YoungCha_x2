@@ -5,16 +5,17 @@ from .models import User, Profile
 
 
 class SignupForm(UserCreationForm):
-    bio = forms.CharField(required=False)
-    website_url = forms.URLField(required=False)
+    usr_id= forms.CharField(required=False)#꼭 필요는 아님
+   # address = forms.URLField(required=False)
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].validators = [validate_email]
-        self.fields['username'].help_text = 'Enter Email Format.'
-        self.fields['username'].label = 'Email'
-        for fieldname in ['username', 'password1', 'password2']:
-            self.fields[fieldname].help_text = None
+         super().__init__(*args, **kwargs)
+         self.fields['username'].validators = [validate_email]
+         self.fields['username'].help_text = 'Enter Email Format.'
+         self.fields['username'].label = 'Email'
+
+
+
 
 
 
@@ -22,24 +23,23 @@ class SignupForm(UserCreationForm):
         user = super().save(commit=False)
         user.email = user.username
         user.save()
+        usr_id = self.cleaned_data.get('usr_id', None)
+        #address = self.cleaned_data.get('address', None)
 
-        bio = self.cleaned_data.get('bio', None)
-        website_url = self.cleaned_data.get('website_url', None)
-
-        Profile.objects.create(user=user, bio=bio, website_url=website_url)
+        Profile.objects.create(user=user, usr_id=usr_id,)
 
         return user
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ('bio', 'website_url')
+        fields = UserCreationForm.Meta.fields + ('usr_id',)
 
 
     '''
     def clean_username(self):
         value = self.cleaned_data.get('username')
         if value:
-            validate_email(value)
+            valusr_idate_email(value)
         return value
     '''
 
@@ -47,5 +47,5 @@ class SignupForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['bio', 'website_url']
+        fields = ['usr_id',]
 

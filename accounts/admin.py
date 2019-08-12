@@ -55,5 +55,5 @@ class UserAdmin(AuthUserAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'bio']
+    list_display = ['user', 'usr_id']
 
