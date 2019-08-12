@@ -1,92 +1,77 @@
-
 {% extends "accounts/layout.html" %}
 
 {% block content %}
-<style>
-form{
-  border: 1px dotted #999;
-  border-radius: 0;
-  margin: 0 auto;
+    <style>
+        form {
+            border: 1px dotted #999;
+            border-radius: 0;
+            margin: 0 auto;
 
 
-}
+        }
 
 
-</style>
-<body>
+    </style>
+    <body>
 
-<form>
-  <div class="form-row">
-    <div class="col-md-4 mb-3">
-      <label for="validationServer01">Email</label>
-      <input type="text" class="form-control is-valid" id="validationServer01" placeholder="Email" value="XXX@email.com" required>
-      <div class="valid-feedback">
-        Looks good!
-      </div>
-
-
-
-
-
-
-    </div>
-    <div class="col-md-4 mb-3">
-      <label for="validationServer02">password</label>
-      <input type="password" class="form-control is-valid" id="validationServer02" placeholder="password" value="password" required>
-      <div class="valid-feedback">
-        Looks good!
-      </div>
-
-
-
-
-    </div>
-        <div class="col-md-4 mb-3">
-      <label for="validationServer02">password 확인</label>
-      <input type="password" class="form-control is-valid" id="validationServer02" placeholder="password" value="password" required>
-      <div class="valid-feedback">
-        Looks good!
-      </div>
-    <div class="col-md-4 mb-3">
+    <form>
+        <div class="form-row">
+            <div class="col-md-12 mb-12">
+                <label for="username">Email</label>
+                <input type="text" name='username' class="form-control is-valid" id="id_username" placeholder="Email"
+                        required>
+                <div class="valid-feedback">
+                    please write your email
+                    {{ form.errors.username }}
+                </div>
+            </div>
+            <div class="col-md-12 mb-12">
+                <label for="password1">password</label>
+                <input type="password" name="password1" class="form-control is-valid" id="id_password1"
+                       placeholder="password"  required>
+                <div class="valid-feedback">
+                      {{ form.errors.password1}}
+                </div>
+            </div>
+            <div class="col-md-12 mb-12">
+                <label for="password2">password 확인</label>
+                <input type="password" name="password2" class="form-control is-valid" id="id_password2"
+                        value="password_check" required>
+                <div class="valid-feedback">
+                                       {{ form.errors.password2}}
+                </div>
+            </div>
 
 
-      <label for="validationServerUsername">Username</label>
-        <input type="text" class="form-control is-invalid" id="validationServerUsername" placeholder="Username" aria-describedby="inputGroupPrepend3" required>
-        <div class="invalid-feedback">
-          Please choose a username.
+            <div class="col-md-12 mb-12">
+
+
+                <label for="Username">Username</label>
+                <input type="text" class="form-control is-invalid" id="validationServerUsername"
+                       placeholder="Username" aria-describedby="inputGroupPrepend3" required>
+                <div class="invalid-feedback">
+                    Please choose a username.
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
 
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-
-  </div>
-
-  <div class="form-group">
-    <div class="form-check">
-      <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
-      <label class="form-check-label" for="invalidCheck3">
-        Agree to terms and conditions
-      </label>
-      <div class="invalid-feedback">
-        You must agree before submitting.
-      </div>
-    </div>
-  </div>
-  <button class="btn btn-primary" type="submit">Submit form</button>
-</form>
-</body>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+                <label class="form-check-label" for="invalidCheck3">
+                    Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                    You must agree before submitting.
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+    </form>
+    </body>
 
 
 
