@@ -15,25 +15,57 @@
 <script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
 <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
 <!-- <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script> -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <!-- {% load static %}
 	<link rel="stylesheet" type="text/javascript" href="{% static "javascript/mouseevent.js" %}"> -->
 <style>
-    body {
+    body  {
         font-family: 'Song Myung', serif;
-        font-weight: lighter;
+        {#font-weight: lighter;#}
     }
 </style>
 
 <!-- HTML -->
 <div id="chartdiv"></div>
-<h1>보유 자산: &#8361; <span id="ceed_place"></span></h1>
-<h1 id="content">---</h1>
-<h2>총 <span id="count">--</span>번의 거래를 통해, <span id="results_place">---</span>의 손익이 발생하였습니다.</h2>
-<div id="trading_place"></div>
+<h2>기초 자산: &#8361; <span id="ceed_place"></span> 기말 자산: &#8361; <span id="total_return_place"></span> 증감액: &#8361; <span id="delta_return_place">---</span></h2>
+<h2 id="content">---</h2>
+{#<h3>총 <span id="count">--</span>번의 거래를 통해, <span id="results_place">---</span>의 손익이 발생하였습니다.</h3>#}
+{#<div id="trading_place"></div>#}
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">투자 결과 {{ name }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span> {#이건 우측 상단 x 종료 아이콘#}
+        </button>
+      </div>
+      <div class="modal-body">
+{#          <h2>보유 자산: &#8361; <span id="ceed_place"></span></h2>#}
+{#          <h2 id="content">---</h2>#}
+          <h3>총 <span id="count">--</span>번의 거래를 통해,<br> <span id="results_place">---</span>의 손익이 발생하였습니다.</h3>
+          <div id="trading_place"></div>
+          <div>누적 수익률: <spna id="total_yield_place">--</spna>(%)</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-
     am4core.ready(
         function ()
         {
@@ -41,32 +73,41 @@
          am4core.useTheme(am4themes_dataviz);
 // Themes end
 
-        var data = [];
-        var visits = [];
-        var b = {{ data }};
-        var c = [];
-        {#var x = [];#}
-        var x_axis = [];
-        var chart_place = document.getElementById("chartdiv");
-        var content = document.getElementById("content");
-        var trading_place = document.getElementById("trading_place");
-        var buy_at_s = [];
-        var sell_at_s = [];
-        var result = 0;
-        var results = 0;
-        var startTime;
-        var j = 0;
-        var p = 0;
-        var is_end = false;
+            var data = [];
+            var visits = [];
+            var b = {{ data }};
+            var c = [];
+            {#var x = [];#}
+            var x_axis = [];
+            var chart_place = document.getElementById("chartdiv");
+            var content = document.getElementById("content");
+            var trading_place = document.getElementById("trading_place");
+            var buy_at_s = [];
+            var sell_at_s = [];
+            var result = 0;
+            var results = 0;
+            var startTime;
+            var j = 0;
+            var p = 0;
+            var is_end = false;
             {#var current;#}
             var ceed = {{ ceed }}
-    var holdingshares;
-    var ceed_place = document.getElementById("ceed_place")
-    ceed_place.innerHTML += ceed.toLocaleString()
-
+            var delta_return = 0;
+            var total_return = ceed + delta_return;
+            var holdingshares;
+            var buy_at_place;
+            var sell_at_place;
+            var ceed_place = document.getElementById("ceed_place")
+            ceed_place.innerHTML += ceed.toLocaleString()
+            var total_return_place = document.getElementById("total_return_place")
+            total_return_place.innerHTML += total_return.toLocaleString()
+            var results_place = document.getElementById("results_place");
+            var count = document.getElementById('count');
+            var total_yield_place = document.getElementById("total_yield_place");
+            var delta_return_place = document.getElementById("delta_return_place");
             var yields;
-            var deltatime = 1000;
-            var duration = 1000;
+            var deltatime = 100;
+            var duration = 100;
             var is_down = false;
             for (var i = 0; i <= 36; i++) {
                 visits = c[i];
@@ -196,7 +237,7 @@
                     buy_at_s[p] = b[j - 1];
                     holdingshares = Math.floor(ceed / buy_at_s[p]);
                     // console.log("매수가:"+buy_at);
-                    var buy_at_place = document.createElement('span');
+                    buy_at_place = document.createElement('span');
                     buy_at_place.innerHTML = (p + 1) + "번째 - 보유 수량: "+holdingshares+"주 "+"매수가: " + buy_at_s[p].toLocaleString() + " ";
                     div.appendChild(buy_at_place);
                     startTime = new Date().getTime();
@@ -208,25 +249,27 @@
             };
             function sell_action(){
                 is_down = false;
-                div = document.getElementById('div' + p);
                 sell_at_s[p] = b[j - 1];
                 result = (sell_at_s[p] - buy_at_s[p])*holdingshares;
-                ceed += result;
-                ceed_place.innerHTML = ceed.toLocaleString();
+                delta_return += result;
+                total_return += result;
+                total_return_place.innerHTML = (total_return).toLocaleString();
+                delta_return_place.innerHTML = delta_return.toLocaleString();
                 yields = (((sell_at_s[p] - buy_at_s[p]) / buy_at_s[p]) * 100).toFixed(2);// console.log("매도가:"+sell_at)
                 // console.log(buy_at+"에 매수해서 "+sell_at+"에 매도했습니다.")
-                var sell_at_place = document.createElement('span');
+                div = document.getElementById('div' + p);
+                sell_at_place = document.createElement('span');
                 var endTime = new Date().getTime();
                 var jonber_period = ((endTime - startTime) / 1000).toFixed(1);
                 // console.log(endTime-startTime);
-                sell_at_place.innerHTML = "매도가: " + sell_at_s[p].toLocaleString() + " " + "매매손익: " + result.toLocaleString() + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + jonber_period + "개월";
+                sell_at_place.innerHTML = "매도가: " + sell_at_s[p].toLocaleString() + " " +"<br>"+ "매매손익: " + result.toLocaleString() + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + jonber_period + "개월"+"<hr>";
                 div.appendChild(sell_at_place);
                 p++;
-                var count = document.getElementById('count');
+                total_yield_place.innerHTML = ((delta_return / ceed)*100).toFixed(2)
                 count.innerHTML = p;
                 results += result;
                 // content.innerHTML += (" "+sell_at)		// console.log(results)
-                var results_place = document.getElementById("results_place");
+
                 results_place.innerHTML = results.toLocaleString();
                 document.body.style.backgroundColor = "white";
             }
@@ -302,29 +345,12 @@
                     j++
                 } else {
                     clearInterval(interval);
-
-                        {#is_down = false;#}
-                        {#div = document.getElementById('div' + p);#}
-                        {#sell_at_s[p] = b[j - 1];#}
-                        {#result = sell_at_s[p] - buy_at_s[p];#}
-                        {#yields = (((sell_at_s[p] - buy_at_s[p]) / buy_at_s[p]) * 100).toFixed(2);// console.log("매도가:"+sell_at)#}
-                        {#// console.log(buy_at+"에 매수해서 "+sell_at+"에 매도했습니다.")#}
-                        {#var sell_at_place = document.createElement('span');#}
-                        {#var endTime = new Date().getTime();#}
-                        {#var jonber_period = ((endTime - startTime) / 1000).toFixed(1);#}
-                        {#// console.log(endTime-startTime);#}
-                        {#sell_at_place.innerHTML = "매도가: " + sell_at_s[p].toLocaleString() + " " + "매매손익: " + result.toLocaleString() + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + jonber_period + "개월";#}
-                        {#div.appendChild(sell_at_place);#}
-                        {#p++;#}
-                        {#var count = document.getElementById('count');#}
-                        {#count.innerHTML = p;#}
-                        {#results += result;#}
-                        {#// content.innerHTML += (" "+sell_at)		// console.log(results)#}
-                        {#var results_place = document.getElementById("results_place");#}
-                        {#results_place.innerHTML = results.toLocaleString();#}
-                        {#document.body.style.backgroundColor = "white";#}
-                    sell_action()
                     is_end = true;
+                    if(buy_at_s[p]){
+                        sell_action()
+                    }
+
+                    $("#exampleModal").modal()
                     alert("종료되었습니다!")
                 }
             }, deltatime);
@@ -336,7 +362,7 @@
             gradient.addColor(chart.colors.getIndex(0), 0);
             series.fill = gradient;
         });
-
 </script>
+
 
 
