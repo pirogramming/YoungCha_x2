@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'UTC'
 
@@ -125,3 +125,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+AUTH_USER_MODEL = "users_management.UserManage"
+
+
+from django.urls import reverse_lazy
+
+LOGIN_URL = reverse_lazy('login')
+# LOGIN_REDIRECT_URL = reverse_lazy('profile')
+LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
+AUTH_USER_MODEL = 'accounts.User'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
