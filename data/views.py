@@ -81,10 +81,14 @@ def data_show(request):
     # return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed})
     return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed, 'sector':sector})
 
+
 def user_result(request):
     if request.method == 'POST':
         user_result = request.POST.get("abc")
         user_result = user_result.split(",") #스플릿 결과는 리스트
+        print(user_result)
+        user_result[4:] = sum(list(map(float, user_result[4:])))
+
         return render(request, "data/user_result.html", {'user_result': user_result})
 
 def loading(request):

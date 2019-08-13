@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <script crossorigin="anonymous"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -178,11 +177,11 @@
 
 
    <a class="opener" href="#popup"> 회원가입 </a>
-    <!--    <a href="{% url 'signup'%}">회원가입</a>-->
+
     <div class="layer" id="popup">
         <div class="box">
             <div class="container">
-                <form action="" method="post">
+                <form action="{% url "profile" %}" method="post">
                     {% csrf_token %}
 
                     <div class="col-md-8">
