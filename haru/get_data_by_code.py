@@ -66,7 +66,7 @@ for tag in ooo:
 zip_all = list(zip(이름, 코드, 가격, 등락액, 등락률, 시가총액))
 
 
-print(zip_all)
+# print(zip_all)
 
 
 def get_for_haru():
