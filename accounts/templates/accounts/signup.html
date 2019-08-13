@@ -18,9 +18,11 @@ color: midnightblue;
                 <label for="username">Email</label>
                 <input type="text" name='username' class="form-control is-valid" id="id_username" placeholder="Email"
                         required>
+{#                 이것은 {{ form.username }}과 같아#}
                 <div class="valid-feedback">
                     이메일을 입력하세요!
                     {{ form.errors.username }}
+{#                    현재 위에 메시지는 작동이 안됩니다..errors.username이것들 다 안되고 있어#}
                 </div>
             </div>
 
@@ -44,7 +46,7 @@ color: midnightblue;
             </div>
 <div class="col-md-8">
              <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1"  required>
     <label class="form-check-label" for="exampleCheck1">개인정보 사용에 동의합니다</label>
   </div>
   </div>
