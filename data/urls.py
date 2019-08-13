@@ -8,6 +8,7 @@ app_name='data'
 urlpatterns = [
     # path('home/<str:name>/', views.data_show),
     path('home/ing/', views.data_show),
+    path('home/result', views.user_result, name = 'result'),
     # path('', views.loading, ),
     path('home/', views.home, name ='data_home'),
 
