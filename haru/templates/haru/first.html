@@ -8,54 +8,14 @@
         position: fixed;
     }
 
-    .item {
-        top: 50%;
-        left: 50%;
-        /*{#transform: translate(-50%, -50%);#}*/
-        color: white;
-        font-size: 8em;
-        /*{#position: fixed;#}*/
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    #hey {
-        background-color: black;
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-        cursor: pointer;
-        -webkit-transition: width 2s, height 2s, background-color 2s, -webkit-transform 2s;
-        transition: width 2s, height 2s, background-color 2s, transform 2s;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #hey:hover {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
 
 
-    }
-
-
-    #hey .hello {
-        font-size: 20%;
-
-        /*{ # position: relative;#}*/
-        /*{#left: 17px;#}*/
-        /*{#top: 10px;#}*/
-    }
-
-
-    .container {
+    .container{
 
         {% load staticfiles %}
         /*{#<img data data data src="{% static "data/ant2.gif" %}">#}*/
-        background-image: url('{% static "data/nyse.jpg" %}');
-        background-repeat: no-repeat;
+        background-image : url('{% static "data/nyse.jpg" %}');
+        background-repeat : no-repeat;
         background-size: cover;
 
     }
@@ -396,43 +356,6 @@ button:hover span{
         </button>
 </div>
 
-
-
-<!--        <div class="item">-->
-<!--<a href="{% url 'data:data_home' %}">-->
-<!--            <div id="hey">-->
-<!--                <div class="hello">-->
-
-<!--                        START-->
-
-<!--                </div>-->
-<!--            </div>-->
-<!--      </a>-->
-<!--        </div>-->
-
-
-        <!--        {#위가 검은원#}-->
-
-
-        <!--    {#팡팡튀는 원#}-->
-        <script>
-            element = document.getElementById("hey");
-
-            element.addEventListener("click", function (e) {
-                e.preventDefault;
-
-                // -> removing the class
-                element.classList.remove("bounce");
-
-                // -> triggering reflow /* The actual magic */
-                // without this it wouldn't work. Try uncommenting the line and the transition won't be retriggered.
-                element.offsetWidth = element.offsetWidth;
-
-                // -> and re-adding the class
-                element.classList.add("bounce");
-            }, false);
-        </script>
-        <!--    <p class="refresh">refresh</p>-->
     </div>
 </div>
 
