@@ -6,7 +6,8 @@ from django.conf import settings
 app_name='data'
 
 urlpatterns = [
-    path('home/<str:name>/', views.data_show),
+    # path('home/<str:name>/', views.data_show),
+    path('home/ing/', views.data_show),
     # path('', views.loading, ),
     path('home/', views.home, name ='data_home'),
 

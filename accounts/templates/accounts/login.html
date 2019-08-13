@@ -1,0 +1,145 @@
+{% extends "accounts/layout.html" %}
+
+{% block content %}
+<style>
+/*<!--   여기부터 회원가입 modal 페이지  css  -->*/
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul, li {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .layer {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .layer .box {
+        padding: 20px 20px 60px;
+        margin: 20px;
+        width: 500px;
+        background: #fff;
+        position: relative;
+    }
+
+    .layer .close {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        display: block;
+        background: #09F;
+        color: #fff;
+        text-align: center;
+        padding: 5px 20px;
+        font-size: 13px;
+    }
+
+    .layer:target {
+        display: flex;
+        animation: open 0.5s;
+    }
+
+    @keyframes open {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+/*    여기까지 회원가입 modal*/
+</style>
+
+
+
+
+<!--회원가입 및 로그인 폼-->
+<div class="container">
+    <h2>로그인</h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+
+            {{ form.as_table }}
+        </table>
+        <input type="submit"/>
+    </form>
+
+    <hr/>
+    <a class="opener" href="#popup"> 회원가입 </a>
+    <!--    <a href="{% url 'signup'%}">회원가입</a>-->
+    <div class="layer" id="popup">
+        <div class="box">
+            <div class="container">
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                    <div class="col-md-8">
+                        <label for="username">Email</label>
+
+                        <!--{#                 이것은 {{ form.username }}과 같아#}-->
+                        <div class="valid-feedback">
+                            이메일을 입력하세요!
+                            {{ form.errors.username }}
+                            <!--{#                    현재 위에 메시지는 작동이 안됩니다..errors.username이것들 다 안되고 있어#}-->
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <label for="password1">password</label>
+                        <input class="form-control is-valid" id="id_password1" name="password1" placeholder="password"
+                               required type="password">
+                        <div class="valid-feedback">
+                            최소 8문자 이상의 비밀번호를 입력하세요!
+                            {{ form.errors.password1}}
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="password2">password 확인</label>
+                        <input class="form-control is-valid" id="id_password2" name="password2"
+                               placeholder="password_check"
+                               required
+                               type="password">
+                        <div class="valid-feedback">
+                            비밀번호를 한 번더 입력해주세요!
+                            {{ form.errors.password2}}
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group form-check">
+                            <input class="form-check-input" id="exampleCheck1" required type="checkbox">
+                            <label class="form-check-label" for="exampleCheck1">개인정보 사용에 동의합니다</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </div>
+                </form>
+            </div>
+            <a class="close" href="#">닫기</a>
+        </div>
+    </div>
+
+</div>
+<!--회원가입 및 로그인 폼-->
+
+
+
+{% endblock %}
+
