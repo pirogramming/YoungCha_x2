@@ -46,5 +46,3 @@ def get_data_json(name):
 
     return data
 
-
-print(get_data_json('삼성전자'))
