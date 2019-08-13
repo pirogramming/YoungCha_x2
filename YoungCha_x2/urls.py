@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
+
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 app_name='root'
@@ -25,6 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('data/', include('data.urls')),
     path('', include('haru.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
 
     # path('', lambda r: redirect('haru:first'), name='root'),
 
