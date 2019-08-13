@@ -3,12 +3,16 @@ import json
 from django.shortcuts import render, redirect
 
 from data.data_excel import get_data_json
-from haru import get_data_by_code
+from data import get_data_by_code
 from .models import CoName
 
 ceed_choice = None
 sector_choice =None
-def home(request):
+
+def index(request):
+    return render(request, 'data/index.html')
+
+def ready(request):
     kkk = CoName.objects.all()
     if not kkk:
         yyy = '''
@@ -44,7 +48,7 @@ def home(request):
         sector_choice = request.POST.get('sector')
         return redirect(url)
     name = CoName.objects.all()
-    return render(request, "data/home.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice})
+    return render(request, "data/ready.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice})
 
 
 # def data_show(request, name):

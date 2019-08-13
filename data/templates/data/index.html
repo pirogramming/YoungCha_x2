@@ -1,0 +1,119 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>트레이딩 게임</title>
+    <style>
+        body {
+            width: 100%;
+            height: 1500px;
+            margin: 0;
+            padding: 0;
+        }
+        .up_page{
+            width: 100%;
+            height: 700px;
+            background-image : url('{% static "data/nyse.jpg" %}');
+            background-repeat : no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .up_page_content{
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .up_page_content h1{
+            text-shadow: 2px 2px 6px gray;
+        }
+        .down_page{
+            margin-top: 100px;
+            color: #0099FF;
+        }
+        .bottom_margin{
+            margin-bottom: 50px;
+        }
+        .bg_blue{
+            color: white;
+            background-color: #0099FF;
+            text-align: center;
+        }
+        .top_margin{
+            margin-top: 100px;
+        }
+    </style>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!--https://michalsnik.github.io/aos/-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="up_page container-fluid">
+    <div class="row ">
+        <div class="col-sm-12 col-xs-6 up_page_content">
+            <h1>
+                당신은 시장을 이길 수 있습니까?
+            </h1>
+        </div>
+        <div class="col-sm-12 col-xs-6 up_page_content">
+            <a class="btn btn-primary btn-lg" role="button" href="{% url 'data:data_home' %}">Game Start!</a>
+        </div>
+
+
+    </div>
+
+</div>
+
+<div data-aos="fade-down" class="down_page container">
+    <div class="row">
+        <div class="col-12">
+            <div class="bottom_margin">
+                <h1>주식 시장에 뛰어들 때 분할 매수, 분할 매도는 필수입니다.</h1>
+                <h1>누군가는 투자 원칙이 단 2가지라고 합니다.</h1>
+            </div>
+            <div class="bottom_margin">
+                <h1>첫째, 절대로 돈을 잃지 마라.</h1>
+                <h1>둘째, 제 1원칙을 절대 잊지 마라.</h1>
+            </div>
+            <div class="">
+                <h1>손실을 최소화하기 위한 방법이 바로 분할 매수, 분할 매도인데,</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-aos="fade-down" class="down_page container-fluid bg_blue">
+    <div class="row">
+        <div class="col-12">
+            <div class="bottom_margin top_margin">
+                <h2>그러나 당신이 지금 하게 될 게임은 분할 매수, 분할 매도 따윈 없습니다.</h2>
+                <h2>투자금 안에서 전량 매수, 전량 매도 밖에 할 수 없어요.</h2>
+            </div>
+            <div class="bottom_margin">
+                <h2>마우스를 클릭하는 순간 전량 매수가 되며,</h2>
+                <h2>누르고 있는 동안은 보유하게 됩니다. 영어로 HOLD라고 하죠 :D</h2>
+                <h2>마우스를 떼는 순간 전량 매도가 됩니다.</h2>
+            </div>
+            <div class="bottom_margin">
+                <h2>참고로 게임에서 1초는 현실에서 1달에 해당합니다. </h2>
+                <h2>과거 데이터를 바탕으로 여러분이 투자에 적합한 지 체크할 수 있어요.</h2>
+                <p class="bottom_margin">
+                    <h1>행운을 빕니다.</h1>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+    <script>
+          AOS.init()
+    </script>
+</html>

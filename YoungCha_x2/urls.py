@@ -25,8 +25,8 @@ app_name='root'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('data/', include('data.urls')),
-    path('', include('haru.urls')),
+    path('trading/', include('data.urls')),
+    path('', include('data.urls')),
     path('accounts/', include('accounts.urls')),
     path('accoubts/sign/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
 

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{%block content%}
+    {% load staticfiles %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row align">
+                <div class="col-6 align">
+                    <select name="sector">
+                        <option value="jaebol_4">투자는 안정적이고 보수적으로 깐깐하게! - 4대 대기업</option>
+                        <option value="pharma">마- 앗쌀하게 한탕 해야지 안카나! - 바이오</option>
+                        <option value="media">IT 강국, 콘텐츠 대국 - 미디어/엔터</option>
+                        <option value="staples">콜라, 햄버거, 커피는 죽지 않는다. - 미국 필수소비재</option>
+                        <option value="faang">진짜 IT 공룡들 - FAANG</option>
+                    </select>
+                    <button type="submit">시작!</button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align">
+                <div class="col-6 align">
+                    <label for="seedmoney">초기 투자금:</label>
+                    <select name="ceed" style="width: 200px; height: 50px">
+                        <option value="10000000">1000</option>
+                        <option value="30000000">3000</option>
+                        <option value="50000000">5000</option>
+                    </select>
+                    <label for="seedmoney">(만원)</label>
+
+                </div>
+            </div>
+        </div>
+    </form>
+<div style="margin: 0 auto; width: 250px; margin-top: 120px">
+    <img src="{% static "data/main_ycyc.png" %}" style="width: 100%; height: 180px">
+</div>
+<div style="width: 600px; margin:0 auto;">
+
+</div>
+{% endblock %}

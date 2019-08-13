@@ -14,8 +14,8 @@ urlpatterns = [
 
     # path('', first, name="first"),
 
-    path('home/', views.home, name="home"),
-    path('', views.first, name="first"),
+    # path('trading/', views.home, name="home"),
+    # path('', views.first, name="first"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
