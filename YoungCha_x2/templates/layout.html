@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <style>
 
+        a {
+            text-decoration: None;
+        }
 
         html {
             position: relative;
@@ -24,14 +27,14 @@ margin: 0 auto;
         font-family: 'Song Myung', serif;
             font-size: 2em;
         }
-        #page-footer {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            line-height: 60px;
-            background-color: #f5f5f5;
-        }
+        /*#page-footer {*/
+        /*    position: absolute;*/
+        /*    bottom: 0;*/
+        /*    width: 100%;*/
+        /*    height: 60px;*/
+        /*    line-height: 60px;*/
+        /*    background-color: #f5f5f5;*/
+        /*}*/
         a,  main{
             text-decoration : none;
         }
@@ -78,8 +81,13 @@ margin: 0 auto;
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">회원가입</a></li>
-                <li><a href="#">로그인</a></li>
+               {% if user.is_authenticated %}
+        <a href='{% url "profile" %}'>{{ user }}</a>
+        <a href="{% url 'logout' %}?next={{ request.path }}" onclick="return confirm('Are you sure?');">로그아웃</a>
+    {% else %}
+    	<a href="{% url 'signup' %}?next={{ request.path }}">회원가입</a>
+        <a href="{% url 'login' %}?next={{ request.path }}">로그인</a>
+    {% endif %}
             </ul>
 
         </div>
@@ -89,18 +97,7 @@ margin: 0 auto;
 
 {% block content %}
 {% endblock %}
-<hr/>
-</div>
 
-
-<div id="page-footer">
-    <div class="container">
-        <p class="text-muted">
-            &copy; 2019 YCYC
-
-        </p>
-    </div>
-</div>
 </body>
 </html>
 
