@@ -15,10 +15,6 @@ class SignupForm(UserCreationForm):
          self.fields['username'].label = 'Email'
 
 
-
-
-
-
     def save(self):
         user = super().save(commit=False)
         user.email = user.username

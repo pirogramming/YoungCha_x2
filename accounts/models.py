@@ -21,6 +21,7 @@ class User(AbstractUser):
                 ('m', 'male'),
             ))
 
+    score = models.TextField()
     objects = UserManager()
 
 
