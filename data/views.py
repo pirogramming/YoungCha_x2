@@ -87,7 +87,7 @@ def user_result(request):
         user_result = request.POST.get("abc")
         user_result = user_result.split(",") #스플릿 결과는 리스트
         print(user_result)
-        user_result[4:] = sum(list(map(float, user_result[4:])))
+        user_result[4:] = [sum(list(map(float, user_result[4:])))]
 
         return render(request, "data/user_result.html", {'user_result': user_result})
 
