@@ -1,0 +1,41 @@
+/*.logo {*/
+/*    overflow: hidden;*/
+/*    margin: 0;*/
+/*}*/
+
+/*.logo li {*/
+/*    float: left;*/
+/*    list-style: none;*/
+/*    margin-right: 40px;*/
+/*    margin-left: -20px;*/
+/*}*/
+
+/*.nav-item {*/
+
+/*    margin-right: 30px;*/
+/*    margin-left : 10px;*/
+/*       height : 20px;*/
+/*    line-height : 5px;*/
+/*}*/
+
+/*.navbar-nav li:first-child{*/
+/*    font-weight : bold;*/
+/*    font-family: 'Anton', sans-serif;*/
+/*    font-size : 2em;*/
+/*    margin-left : 10px;*/
+
+
+/*}*/
+
+/*.navbar-nav li:nth-child(2){*/
+/*    margin-left : 60px;*/
+/*}*/
+/*.navbar-nav li:nth-child(3){*/
+/*    margin-left : -10px;*/
+/*}*/
+
+/*.dropdown-item{*/
+/*    height : 20px;*/
+/*    line-height : 10px;*/
+/*}*/
+

@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import path, include
+
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 app_name='root'
 
@@ -28,3 +29,5 @@ urlpatterns = [
     # path('', lambda r: redirect('haru:first'), name='root'),
 
 ]
+
+
