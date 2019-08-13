@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>당신의 수익률은?</title>
+
+</head>
+<body>
+여기에는 유저 결과가 출력됩니다.
+수익률: {{ user_result.0 }}
+기말 자산 총액: <span id="final">{{ user_result.1 }}</span>
+자산 증감액: <span id="delta">{{ user_result.2 }}</span>
+매매 횟수: {{ user_result.3 }}회
+존버 기간: <span id="jb"></span>
+
+{#템플릿언어에서 인덱스, 딕셔너리 키 지정하는 방식#}
+{{ user_result }}
+</body>
+    <script>
+        var final_3, delta_3;
+        jb = document.getElementById('jb')
+        final = document.getElementById('final')
+        delta = document.getElementById('delta')
+        jonber_period={{ user_result.4 }}
+        {#jonber_period = jonber_period.toLocaleString()#}
+        final_3 = {{ user_result.1 }}
+        delta_3 = {{ user_result.2 }}
+            {#delta = delta.toLocaleString()#}
+        jb.innerHTML = jonber_period
+        final.innerHTML = final_3.toLocaleString()
+        delta.innerHTML = delta_3.toLocaleString()
+    </script>
+</html>

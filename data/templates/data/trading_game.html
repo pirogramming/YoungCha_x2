@@ -55,17 +55,22 @@
 {#          <h2 id="content">---</h2>#}
           <h3>총 <span id="count">--</span>번의 거래를 통해,<br> <span id="results_place">---</span>의 손익이 발생하였습니다.</h3>
           <div id="trading_place"></div>
-          <div>누적 수익률: <spna id="total_yield_place">--</spna>(%)</div>
+          <div>누적 수익률: <span id="total_yield_place">--</span>(%)</div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+          <form action="{% url 'data:result'%}" method="post">
+                {% csrf_token %}
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="user" name="abc" value="">Save changes</button>
+{#              <input type="hidden" name="total" id="total" value="">#}
+          </form>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+
     am4core.ready(
         function ()
         {
@@ -106,9 +111,17 @@
             var total_yield_place = document.getElementById("total_yield_place");
             var delta_return_place = document.getElementById("delta_return_place");
             var yields;
+            var total_yield;
             var deltatime = 100;
-            var duration = 100;
+            var duration = 0;
             var is_down = false;
+            var user_result = []
+            var jonber_period;
+
+            function setValue() {
+                document.getElementById("user").value = user_result;
+            }
+
             for (var i = 0; i <= 36; i++) {
                 visits = c[i];
                 data.push({date: new Date().setSeconds(i - 36), value: visits});
@@ -260,7 +273,7 @@
                 div = document.getElementById('div' + p);
                 sell_at_place = document.createElement('span');
                 var endTime = new Date().getTime();
-                var jonber_period = ((endTime - startTime) / 1000).toFixed(1);
+                jonber_period = ((endTime - startTime) / 1000).toFixed(1);
                 // console.log(endTime-startTime);
                 sell_at_place.innerHTML = "매도가: " + sell_at_s[p].toLocaleString() + " " +"<br>"+ "매매손익: " + result.toLocaleString() + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + jonber_period + "개월"+"<hr>";
                 div.appendChild(sell_at_place);
@@ -275,26 +288,6 @@
             }
             chart_place.onmouseup = function () {
                 sell_action()
-                {#is_down = false;#}
-                {#div = document.getElementById('div' + p);#}
-                {#sell_at_s[p] = b[j - 1];#}
-                {#result = sell_at_s[p] - buy_at_s[p];#}
-                {#yields = (((sell_at_s[p] - buy_at_s[p]) / buy_at_s[p]) * 100).toFixed(2);// console.log("매도가:"+sell_at)#}
-                {#// console.log(buy_at+"에 매수해서 "+sell_at+"에 매도했습니다.")#}
-                {#var sell_at_place = document.createElement('span');#}
-                {#var endTime = new Date().getTime();#}
-                {#var jonber_period = ((endTime - startTime) / 1000).toFixed(1);#}
-                {#// console.log(endTime-startTime);#}
-                {#sell_at_place.innerHTML = "매도가: " + sell_at_s[p].toLocaleString() + " " + "매매손익: " + result.toLocaleString() + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + jonber_period + "개월";#}
-                {#div.appendChild(sell_at_place);#}
-                {#p++;#}
-                {#var count = document.getElementById('count');#}
-                {#count.innerHTML = p;#}
-                {#results += result;#}
-                {#// content.innerHTML += (" "+sell_at)		// console.log(results)#}
-                {#var results_place = document.getElementById("results_place");#}
-                {#results_place.innerHTML = results.toLocaleString();#}
-                {#document.body.style.backgroundColor = "white";#}
             };
 
             function createTrendLine(data) {
@@ -320,11 +313,12 @@
                 if(is_down){
                     createTrendLine([
                         {"date": x_axis, "value": buy_at_s[p]},
-                        {"date": new Date(lastdataItem.dateX.getTime() + 1000), "value": buy_at_s[p]}
+                        {"date": new Date(lastdataItem.dateX.getTime() + 100), "value": buy_at_s[p]}
                     ]);
                 }
             }
 // add data
+
             var xaxis;
             var interval = setInterval(function ()
             {
@@ -349,9 +343,16 @@
                     if(buy_at_s[p]){
                         sell_action()
                     }
-
+                    total_yield= (delta_return / ceed)*100;
                     $("#exampleModal").modal()
                     alert("종료되었습니다!")
+                    user_result.push(total_yield.toFixed(2))
+                    user_result.push(total_return)
+                    user_result.push(delta_return)
+                    user_result.push(p)
+                    user_result.push(jonber_period)
+                    setValue()
+                    console.log(user_result)
                 }
             }, deltatime);
 // all the below is optional, makes some fancy effects

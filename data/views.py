@@ -6,8 +6,8 @@ from data.data_excel import get_data_json
 from haru import get_data_by_code
 from .models import CoName
 
-ceed_choice = 0
-sector_choice = 0
+ceed_choice = None
+sector_choice =None
 def home(request):
     kkk = CoName.objects.all()
     if not kkk:
@@ -81,7 +81,11 @@ def data_show(request):
     # return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed})
     return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed, 'sector':sector})
 
-
+def user_result(request):
+    if request.method == 'POST':
+        user_result = request.POST.get("abc")
+        user_result = user_result.split(",") #스플릿 결과는 리스트
+        return render(request, "data/user_result.html", {'user_result': user_result})
 
 def loading(request):
     return render(request, 'data/loading.html')
