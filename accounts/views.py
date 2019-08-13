@@ -106,3 +106,7 @@ class MyPasswordResetConfirmView(PasswordResetConfirmView):
         messages.info(self.request, '암호 리셋을 완료했습니다.')
         return super().form_valid(form)
 
+
+def Signup(request):
+    return render(request, 'signup.html')
+
