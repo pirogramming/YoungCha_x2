@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('data/', include('data.urls')),
     path('', include('haru.urls')),
+    path('accounts/', include('accounts.urls')),
 
     # path('', lambda r: redirect('haru:first'), name='root'),
 
