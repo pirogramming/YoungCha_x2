@@ -45,7 +45,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">투자 결과 {{ name }}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">종목명: {{ name }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span> {#이건 우측 상단 x 종료 아이콘#}
         </button>
@@ -91,7 +91,7 @@
             var p = 0;
             var is_end = false;
             {#var current;#}
-            var ceed = {{ ceed }}
+            var ceed = {{ ceed }};
             var delta_return = 0;
             var total_return = ceed + delta_return;
             var holdingshares;

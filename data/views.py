@@ -6,7 +6,8 @@ from data.data_excel import get_data_json
 from haru import get_data_by_code
 from .models import CoName
 
-
+ceed_choice = 0
+sector_choice = 0
 def home(request):
     kkk = CoName.objects.all()
     if not kkk:
@@ -36,20 +37,36 @@ def home(request):
 
     if request.method == 'POST':
         z = request.POST.get('name')
-        url = '%s/' % z
+        # url = '%s/' % z
+        url = 'ing/'
+        global ceed_choice, sector_choice
+        ceed_choice = request.POST.get('ceed')
+        sector_choice = request.POST.get('sector')
         return redirect(url)
     name = CoName.objects.all()
-    return render(request, "data/home.html", {'name': name})
+    return render(request, "data/home.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice})
 
 
-def data_show(request, name):
+# def data_show(request, name):
+def data_show(request):
+    ceed = ceed_choice
+    sector = sector_choice
+    if(sector == 'jaebol_4'):
+        name = "삼성전자"
+    elif(sector == "pharma"):
+        name = "신라젠"
+    elif(sector == "media"):
+        name = "NAVER"
+    else:
+        name = "현대차"
     x = get_data_json(name)
     x = json.loads(x)
     y = get_data_by_code.zip_all
 
-    for i in y:
-        if name in i:
-            pass
+
+    # for i in y:
+    #     if name in i:
+    #         pass
 
     price = []
     for i in x:
@@ -61,7 +78,9 @@ def data_show(request, name):
         for j in range(5):
             (price[i+1]-price[i])/10
 
-    return render(request, "data/trading_game.html", {'data': price, 'name': name})
+    # return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed})
+    return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed, 'sector':sector})
+
 
 
 def loading(request):
