@@ -107,3 +107,8 @@ def user_result(request):
 def loading(request):
     return render(request, 'data/loading.html')
 
+
+def reader_board(request):
+    reader_board_data = User.objects.all()
+
+    return render(request, 'data/reader_board.html', {'reader_board_data': reader_board_data})

@@ -11,7 +11,7 @@ urlpatterns = [
     path('home/result', views.user_result, name = 'result'),
     # path('', views.loading, ),
     path('home/', views.home, name ='data_home'),
-
+    path('readerboard/', views.reader_board, name='reader_board')
 
 ]
 

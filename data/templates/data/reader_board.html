@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    reader board
+</div>
+
+
+<div>
+    <table style="border: 1px black solid">
+        {% for r in reader_board_data %}
+            <tr>
+                <td>
+                    {{ r.id }}
+                </td>
+                <td>
+                    {{ r.email }}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>
