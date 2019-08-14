@@ -1,10 +1,11 @@
 import json
 
 from django.shortcuts import render, redirect
-
+from accounts.models import UserHistory, User
 from data.data_excel import get_data_json
 from haru import get_data_by_code
 from .models import CoName
+import random
 
 ceed_choice = None
 sector_choice =None
@@ -86,6 +87,20 @@ def user_result(request):
     if request.method == 'POST':
         user_result = request.POST.get("abc")
         user_result = user_result.split(",") #스플릿 결과는 리스트
+        print(user_result)
+
+        user_instance = User.objects.filter(id=request.user.id)[0]
+
+        UserHistory.objects.create(
+            user=user_instance,
+            stock_name=user_result[5],
+            rate_of_return=user_result[0],
+            total_assets=user_result[1],
+            amount_of_asset_change=user_result[2],
+            trade_numbers=user_result[3],
+            john_bur_term=user_result[4],
+        )
+
         return render(request, "data/user_result.html", {'user_result': user_result})
 
 

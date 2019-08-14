@@ -325,6 +325,7 @@
 
             var xaxis;
             var interval = setInterval(function ()
+
             {
                 if (j < b.length) {
                     visits = b[j];
@@ -355,6 +356,7 @@
                     user_result.push(delta_return)
                     user_result.push(p)
                     user_result.push(jonber_period)
+                    user_result.push('{{ name }}')
                     setValue()
                     console.log(user_result)
                 }

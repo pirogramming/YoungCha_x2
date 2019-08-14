@@ -21,6 +21,18 @@ class Profile(models.Model):
     name = models.CharField(max_length=30,blank=True)
     score = models.CharField(blank=True,max_length=600,)
 
+
+class UserHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    stock_name = models.CharField(max_length=30)
+    rate_of_return = models.CharField(max_length=10)
+    total_assets = models.CharField(max_length=100)
+    amount_of_asset_change = models.CharField(max_length=100)
+    trade_numbers = models.CharField(max_length=100)
+    john_bur_term = models.CharField(max_length=10)
+    game_date = models.DateTimeField(auto_now_add=True)
+
+
 # def on_post_save_for_user(sender, **kwargs):
 #     if kwargs['created']:
 #         # 가입시기
