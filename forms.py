@@ -5,8 +5,8 @@ from .models import User, Profile
 
 
 class SignupForm(UserCreationForm):
-    name= forms.CharField(max_length=30,required=False)#꼭 필요는 아님
-    score = forms.CharField(max_length=600,required=False)
+    usr_id= forms.CharField(required=False)#꼭 필요는 아님
+   # address = forms.URLField(required=False)
 
     def __init__(self, *args, **kwargs):
          super().__init__(*args, **kwargs)
@@ -19,17 +19,16 @@ class SignupForm(UserCreationForm):
         user = super().save(commit=False)
         user.email = user.username
         user.save()
+        usr_id = self.cleaned_data.get('usr_id', None)
+        #address = self.cleaned_data.get('address', None)
 
-        name = self.cleaned_data.get('name', None)
-        score= self.cleaned_data.get('score', None)
-
-        Profile.objects.create(user=user, name=name,score=score,)
+        Profile.objects.create(user=user, usr_id=usr_id,)
 
         return user
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ('name','score')
+        fields = UserCreationForm.Meta.fields + ('usr_id',)
 
 
     '''
@@ -44,5 +43,5 @@ class SignupForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['name','score']
+        fields = ['usr_id',]
 
