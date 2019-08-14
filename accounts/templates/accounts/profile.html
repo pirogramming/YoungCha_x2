@@ -1,13 +1,14 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
-    <h2>{{ user.username }}'s Profile</h2>
+    <h3>{{ user.username }}'s Profile</h3>
+    <br>
+    <h3>성적</h3>
+            {{ user.profile.score|default:"전적이 없습니다."}}
 
-    <h3>Email</h3>
-    {{ user.email|default:"&dash;" }}
-
+    <br>
     <h3>이름(별명)</h3>
-    {{ user.profile.usr_id|default:"&dash;" }}
+    {{ user.profile.name|default:"&dash;" }}
 
 
     <hr/>

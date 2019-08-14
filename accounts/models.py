@@ -15,21 +15,18 @@ class UserManager(AuthUserManager):
 
 class User(AbstractUser):
     sex = models.CharField(
-            max_length=1,
-            choices=(
-                ('f', 'female'),
-                ('m', 'male'),
-            ))
-
-    score = models.TextField()
+        max_length=1,
+        choices=(
+            ('f', 'female'),
+            ('m', 'male'),
+        ))
     objects = UserManager()
 
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    usr_id = models.TextField(blank=True)
-    #website_url = models.URLField(blank=True)
-
+    name = models.CharField(max_length=30,blank=True)
+    score = models.CharField(blank=True,max_length=600,)
 
 def on_post_save_for_user(sender, **kwargs):
     if kwargs['created']:
@@ -44,6 +41,7 @@ def on_post_save_for_user(sender, **kwargs):
             [user.email],
             fail_silently=False,
         )
+
 
 post_save.connect(on_post_save_for_user, sender=settings.AUTH_USER_MODEL)
 

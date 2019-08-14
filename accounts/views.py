@@ -54,28 +54,8 @@ class ProfileUpdateView(UpdateView, LoginRequiredMixin):
 profile_edit = ProfileUpdateView.as_view()
 
 
-class RequestLoginViaUrlView(PasswordResetView):
-    template_name = 'accounts/request_login_via_url_form.html'
-    title = '이메일을 통한 로그인'
-    email_template_name = 'accounts/login_via_url.html'
-    success_url = settings.LOGIN_URL
 
 
-def login_via_url(request, uidb64, token):
-    User = get_user_model()
-    try:
-        uid = urlsafe_base64_decode(uidb64).decode()
-        current_user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist, ValidationError):
-        raise Http404
-
-    if default_token_generator.check_token(current_user, token):
-        auth_login(request, current_user)
-        messages.info(request, '로그인이 승인되었습니다.')
-        return redirect('root')
-
-    messages.error(request, '로그인이 거부되었습니다.')
-    return redirect('root')
 
 
 class MyPasswordChangeView(PasswordChangeView):
@@ -87,22 +67,7 @@ class MyPasswordChangeView(PasswordChangeView):
         return super().form_valid(form)
 
 
-class MyPasswordResetView(PasswordResetView):
-    success_url = reverse_lazy('login')
-    template_name = 'accounts/password_reset_form.html'
-    # email_template_name = ...
-    # html_email_template_name = ...
-
-    def form_valid(self, form):
-        messages.info(self.request, '암호 변경 메일을 발송했습니다.')
-        return super().form_valid(form)
 
 
-class MyPasswordResetConfirmView(PasswordResetConfirmView):
-    success_url = reverse_lazy('login')
-    template_name = 'accounts/password_reset_confirm.html'
 
-    def form_valid(self, form):
-        messages.info(self.request, '암호 리셋을 완료했습니다.')
-        return super().form_valid(form)
 
