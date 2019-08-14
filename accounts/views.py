@@ -1,26 +1,19 @@
-from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordChangeView
-from django.core.exceptions import ValidationError
-from django.http import Http404
-from django.urls import reverse_lazy
-from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect, render, resolve_url
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
+
 from .forms import SignupForm, ProfileForm
 from .models import Profile
 
 
-
-#회원가입
+# 회원가입
 class SignupView(CreateView):
-
     model = User
     form_class = SignupForm
     template_name = 'accounts/signup.html'
@@ -33,6 +26,7 @@ class SignupView(CreateView):
         user = form.save()
         auth_login(self.request, user)
         return redirect(self.get_success_url())
+
 
 signup = SignupView.as_view()
 
@@ -50,12 +44,9 @@ class ProfileUpdateView(UpdateView, LoginRequiredMixin):
     def get_object(self):
         return self.request.user.profile
 
-#profile_edit = ProfileUpdateView.as_view()
+
+# profile_edit = ProfileUpdateView.as_view()
 profile_edit = ProfileUpdateView.as_view()
-
-
-
-
 
 
 class MyPasswordChangeView(PasswordChangeView):
@@ -67,11 +58,5 @@ class MyPasswordChangeView(PasswordChangeView):
         return super().form_valid(form)
 
 
-
-
-
-
-
 def Signup(request):
     return render(request, 'signup.html')
-

@@ -28,7 +28,7 @@ urlpatterns = [
     path('data/', include('data.urls')),
     path('', include('haru.urls')),
     path('accounts/', include('accounts.urls')),
-    path('', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
 
     # path('', lambda r: redirect('haru:first'), name='root'),
 
