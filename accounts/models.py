@@ -58,5 +58,6 @@ class UserSession(models.Model):
 def on_user_logged_in(sender, request, user, **kwargs):
     user.is_user_logged_in = True
 
+
 user_logged_in.connect(on_user_logged_in)
 

@@ -7,11 +7,11 @@
 </head>
 <body>
 여기에는 유저 결과가 출력됩니다.
-수익률: {{ user_result.0 }}
-기말 자산 총액: <span id="final">{{ user_result.1 }}</span>
-자산 증감액: <span id="delta">{{ user_result.2 }}</span>
-매매 횟수: {{ user_result.3 }}회
-존버 기간: <span id="jb"></span>
+수익률: {{ user_result.1 }}
+기말 자산 총액: <span id="final">{{ user_result.2 }}</span>
+자산 증감액: <span id="delta">{{ user_result.3 }}</span>
+매매 횟수: {{ user_result.4 }}회
+전체 존버 기간: <span id="jb"></span>개월
 
 {#템플릿언어에서 인덱스, 딕셔너리 키 지정하는 방식#}
 {{ user_result }}
@@ -21,10 +21,10 @@
         jb = document.getElementById('jb')
         final = document.getElementById('final')
         delta = document.getElementById('delta')
-        jonber_period={{ user_result.4 }}
+        jonber_period={{ user_result.5 }}
         {#jonber_period = jonber_period.toLocaleString()#}
-        final_3 = {{ user_result.1 }}
-        delta_3 = {{ user_result.2 }}
+        final_3 = {{ user_result.2 }}
+        delta_3 = {{ user_result.3 }}
             {#delta = delta.toLocaleString()#}
         jb.innerHTML = jonber_period
         final.innerHTML = final_3.toLocaleString()

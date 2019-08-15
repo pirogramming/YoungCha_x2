@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css?family=Song+Myung&display=swap" rel="stylesheet">
-<style>
 
+<style>
+    .ad_place{
+        margin: 50px 0;
+        width: 336px;
+        height: 280px;
+        background-color: gray;
+        font-size: 3em;
+        {#<!--구글에드샌스 사이즈 기준-->#}
+    }
     .container {
-        height: 100%;
+        height: 600px;
         width: 100%;
         position: fixed;
-    }
-
-
-
-    .container{
-
         {% load staticfiles %}
         /*{#<img data data data src="{% static "data/ant2.gif" %}">#}*/
         background-image : url('{% static "data/nyse.jpg" %}');
@@ -31,22 +33,13 @@
     }
 
     body {
-        background: white;
         -webkit-transform: translateZ(0);
-    }
-
-    html, body {
         width: 100%;
         height: 100%;
     }
 
 
     #loader {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
         width: 100%;
         height: 100%;
         display: flex;
@@ -61,13 +54,8 @@
     }
 
     #refresher {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
         width: 100%;
-        height: 100%;
+        height: 900px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -86,15 +74,12 @@
 
     .refresh {
         color: white;
-<<<<<<< HEAD
-        /*font-family: 'Open Sans Condensed', sans-serif;*/
-        font-size: 2rem;
-=======
+
         {#font-family: 'Open Sans Condensed', sans-serif;#}
         font-family: 'Song Myung', serif;
         font-size: 3rem;
         font-weight: bold;
->>>>>>> 90c8246d543ad84180fe145a7c032fd4bcf07add
+
         text-transform: uppercase;
         letter-spacing: .1rem;
         text-align: center;
@@ -109,7 +94,7 @@
     */
     .loading-bar {
         position: relative;
-        margin-top: 4rem;
+        margin-top: 2rem;
         width: 250px;
         background: #C1C0BC;
     }
@@ -317,13 +302,36 @@ button:hover span{
     animation-play-state: paused;
 }
 
+    .hideme{
+        opacity: 0;
+    }
 </style>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>트레이딩 게임</title>
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Advent+Pro|Orbitron&display=swap" rel="stylesheet">
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+    /* 1 */
+    $(window).scroll( function(){
+        /* 2 */
+        $('.hideme').each( function(i){
+            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            /* 3 */
+            if( bottom_of_window > bottom_of_object/2 ){
+                $(this).animate({'opacity':'1'},500);
+            }
+        });
+    });
+});
+    </script>
 </head>
 <body>
 
@@ -331,32 +339,49 @@ button:hover span{
     <div class="img">
         {% load staticfiles %}
         <img src="{% static "data/ant2.gif" %}">
-
-
     </div>
-
-
     <div class="loading-bar"></div>
+    <div class="ad_place">
+        광고주 선생님들, 충성!충성
+    </div>
 </div>
-
 
 <div id="refresher">
-
-    <div class="container">
-                <h1 class="refresh">
-                    당신은 시장을 이길 수 있습니까?
-                </h1>
-        <div class="wrapper">
-  <button>
-      <a href="{% url 'data:data_home' %}">Game Start!</a>
-      <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+<div class="container">
+    <h1 class="refresh">
+        당신은 시장을 이길 수 있습니까?
+    </h1>
+    <div class="wrapper">
+        <button>
+            <a href="{% url 'data:data_home' %}">Game Start!</a>
         </button>
-</div>
-
     </div>
 </div>
+</div>
+
+<div>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+</div>
+
+<div>
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+</div>
+<div class="hideme">
+            주식 시장에 뛰어들 때 분할 매수, 분할 매도는 필수입니다.
+            누군가는 투자 원칙이 단 2가지라고 합니다.
+            첫째, 절대로 돈을 잃지 마라.
+            둘째, 제 1원칙을 절대 잊지 마라.
+            손실을 최소화하기 위한 방법은 바로 분할 매수, 분할 매도입니다.
+        </div>
+        <div class="hideme">
+            그러나 당신이 지금 하게 될 게임은 분할 매수, 분할 매도 따윈 없습니다.
+            투자금 안에서 전량 매수, 전량 매도 밖에 할 수 없어요.
+            마우스를 클릭하는 순간 전량 매수가 되며, 누르고 있는 동안은 보유하게 됩니다. 영어로 HOLD라고 하죠:D
+            마우스를 떼는 순간 전량 매도가 됩니다.
+        </div>
+        <div class="hideme">
+            참고로 게임에서 1초는 현실에서 1달에 해당합니다. 과거 데이터를 바탕으로 여러분이 투자에 적합한 지 체크할 수 있어요.
+            행운을 빕니다.
+        </div>
 
 </body>

@@ -119,6 +119,7 @@
             var is_down = false;
             var user_result = []
             var jonber_period;
+            var jonber_periods = [];
 
             function setValue() {
                 document.getElementById("user").value = user_result;
@@ -276,6 +277,7 @@
                 sell_at_place = document.createElement('span');
                 var endTime = new Date().getTime();
                 jonber_period = ((endTime - startTime) / 1000).toFixed(1);
+                jonber_periods.push(jonber_period);
                 // console.log(endTime-startTime);
                 sell_at_place.innerHTML = "매도가: " + sell_at_s[p].toLocaleString() + " " +"<br>"+ "매매손익: " + result.toLocaleString() + "(원) " + " 수익률: " + yields + "(%) " + " 존버기간:" + jonber_period + "개월"+"<hr>";
                 div.appendChild(sell_at_place);
@@ -290,7 +292,6 @@
             }
             chart_place.onmouseup = function () {
                 sell_action()
-
 
             };
 
@@ -357,6 +358,7 @@
                     user_result.push(p)
                     user_result.push(jonber_period)
                     user_result.push('{{ name }}')
+                    user_result.push(jonber_periods)
                     setValue()
                     console.log(user_result)
                 }

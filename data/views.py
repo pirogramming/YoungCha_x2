@@ -3,13 +3,18 @@ import json
 from django.shortcuts import render, redirect
 from accounts.models import UserHistory, User
 from data.data_excel import get_data_json
-from haru import get_data_by_code
+from data import get_data_by_code
 from .models import CoName
-import random
 
 ceed_choice = None
 sector_choice =None
-def home(request):
+
+
+def index(request):
+    return render(request, 'data/index.html')
+
+
+def ready(request):
     kkk = CoName.objects.all()
     if not kkk:
         yyy = '''
@@ -45,7 +50,7 @@ def home(request):
         sector_choice = request.POST.get('sector')
         return redirect(url)
     name = CoName.objects.all()
-    return render(request, "data/home.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice})
+    return render(request, "data/ready.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice})
 
 
 # def data_show(request, name):
@@ -100,6 +105,11 @@ def user_result(request):
             trade_numbers=user_result[3],
             john_bur_term=user_result[4],
         )
+        s = user_result[5]
+        user_result[5:6] = []
+        user_result[:0] = [s]
+
+        user_result[5:] = [sum(list(map(float, user_result[5:])))]
 
         return render(request, "data/user_result.html", {'user_result': user_result})
 
@@ -108,7 +118,8 @@ def loading(request):
     return render(request, 'data/loading.html')
 
 
-def reader_board(request):
-    reader_board_data = User.objects.all()
+def leader_board(request):
+    leader_board_data = User.objects.all()
 
-    return render(request, 'data/reader_board.html', {'reader_board_data': reader_board_data})
+    return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data})
+

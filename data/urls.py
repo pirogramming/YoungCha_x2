@@ -7,12 +7,12 @@ app_name='data'
 
 urlpatterns = [
     # path('home/<str:name>/', views.data_show),
-    path('home/ing/', views.data_show),
-    path('home/result', views.user_result, name = 'result'),
+    path('ing/', views.data_show),
+    path('result/', views.user_result, name = 'result'),
     # path('', views.loading, ),
-    path('home/', views.home, name ='data_home'),
-    path('readerboard/', views.reader_board, name='reader_board')
-
+    path('leaderboard/', views.leader_board, name='leader_board'),
+    path('ready', views.ready, name ='data_home'),
+    path('', views.index, name="index"),
 ]
 
 
