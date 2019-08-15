@@ -40,7 +40,7 @@ def profile(request):
 class ProfileUpdateView(UpdateView, LoginRequiredMixin):
     model = Profile
     form_class = ProfileForm
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('accounts:history')
 
     def get_object(self):
         return self.request.user.profile
@@ -51,7 +51,7 @@ profile_edit = ProfileUpdateView.as_view()
 
 
 class MyPasswordChangeView(PasswordChangeView):
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('accounts:history')
     template_name = 'accounts/password_change_form.html'
 
     def form_valid(self, form):

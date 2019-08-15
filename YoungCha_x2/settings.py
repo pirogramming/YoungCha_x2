@@ -150,9 +150,9 @@ AUTH_USER_MODEL = "users_management.UserManage"
 from django.urls import reverse_lazy
 
 LOGIN_URL = reverse_lazy('login')
-LOGIN_REDIRECT_URL = reverse_lazy('profile')
+LOGIN_REDIRECT_URL = reverse_lazy('accounts:history')
 #로그인 후 프로필로 이동하숑의 뜻
-LOGOUT_REDIRECT_URL = reverse_lazy('profile')
+LOGOUT_REDIRECT_URL = reverse_lazy('accounts:history')
 
 AUTH_USER_MODEL = 'accounts.User'
 
