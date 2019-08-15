@@ -25,7 +25,7 @@ app_name='root'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('trading/', include('data.urls')),
+    #path('trading/', include('data.urls')),
     path('', include('data.urls')),
     path('accounts/', include('accounts.urls')),
    # path('login/',loginapp.views.login, name='social_login')

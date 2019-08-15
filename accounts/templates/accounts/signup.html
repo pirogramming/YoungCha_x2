@@ -8,20 +8,10 @@
 
     <div class="container">
         <form action="" method="post">    {% csrf_token %}
-            <div class="col-md-8">
-                <label for="score">Score</label>
-                <input type="text" name='score' class="form-control is-valid" id="id_score" placeholder=""
-                       required>
-                {#                 이것은 {{ form.username }}과 같아#}
-                <div class="valid-feedback">
-                    일부로 넣은 score창
-                    {{ form.errors.username }}
-                    {#                    현재 위에 메시지는 작동이 안됩니다..errors.username이것들 다 안되고 있어#}
-                </div>
-            </div>
+
 
             <div class="col-md-8">
-                <label for="name">name</label>
+                <label for="name">your_name</label>
                 <input type="text" name='name' class="form-control is-valid" id="id_name" placeholder=""
                        required>
 
@@ -33,7 +23,7 @@
 
 
             <div class="col-md-8">
-                <label for="username">Email</label>
+                <label for="username">Email(ID)</label>
                 <input type="text" name='username' class="form-control is-valid" id="id_username" placeholder="Email"
                        required>
                 {#                 이것은 {{ form.username }}과 같아#}

@@ -1,7 +1,7 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
-    <h3>{{ user.username }}'s Profile</h3>
+    <h3>{{ user.profile.name|default:"&dash;" }}'s Profile</h3>
     <br>
 
     <table class="table">
@@ -52,11 +52,7 @@
 
 
     <br>
-    <h3>이름(별명)</h3>
-    {{ user.profile.name|default:"&dash;" }}
 
-
-    <hr/>
 
     <a href="{% url "accounts:profile_edit" %}">프로필 수정</a>
     <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
