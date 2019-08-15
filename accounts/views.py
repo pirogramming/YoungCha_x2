@@ -32,7 +32,9 @@ signup = SignupView.as_view()
 
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    user_instance = User.objects.filter(id=request.user.id)[0]
+    user_history = UserHistory.objects.filter(user_id=user_instance.id)
+    return render(request, 'accounts/profile.html', {'user_history': user_history})
 
 
 class ProfileUpdateView(UpdateView, LoginRequiredMixin):

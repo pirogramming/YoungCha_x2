@@ -28,7 +28,7 @@
                 <td>{{ user_h.user }}</td>
                 <td>{{ user_h.stock_name }}</td>
                 <td>{{ user_h.rate_of_return }}(%)</td>
-                <td>{{ user_h.total_assets }}d</td>
+                <td>{{ user_h.total_assets }}</td>
                 <td>{{ user_h.amount_of_asset_change}}</td>
                 <td>{{ user_h.trade_numbers }}</td>
                 <td>{{ user_h.john_bur_term }}</td>
@@ -46,8 +46,10 @@
 
 
 
+{% if not user_history %}
+     {{ user.profile.score|default:"전적이 없습니다." }}
+    {% endif %}
 
-    {{ user.profile.score|default:"전적이 없습니다." }}
 
     <br>
     <h3>이름(별명)</h3>
@@ -58,5 +60,6 @@
 
     <a href="{% url "accounts:profile_edit" %}">프로필 수정</a>
     <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
+
 {% endblock %}
 
