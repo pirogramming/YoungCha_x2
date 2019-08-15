@@ -1,0 +1,19 @@
+{% extends "accounts/layout.html" %}
+
+{% block content %}
+    <h3>{{ user.username }}'s Profile</h3>
+    <br>
+    <h3>성적</h3>
+            {{ user.profile.score|default:"전적이 없습니다."}}
+
+    <br>
+    <h3>이름(별명)</h3>
+    {{ user.profile.name|default:"&dash;" }}
+
+
+    <hr/>
+
+    <a href="{% url "profile_edit" %}">프로필 수정</a>
+    <a href="{% url "password_change" %}">암호 변경하기</a>
+{% endblock %}
+

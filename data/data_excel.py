@@ -44,10 +44,5 @@ def get_data_json(name):
         data.append([str(_d), int(_p), int(_pp)])
     data = json.dumps(list(reversed(data)))
 
-
-
-
     return data
 
-
-print(get_data_json('삼성전자'))

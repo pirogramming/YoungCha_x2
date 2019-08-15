@@ -11,5 +11,5 @@ def home(request):
 
 
 def first(request):
-    return render(request, 'haru/first.html')
+    return render(request, 'haru/index.html')
 
