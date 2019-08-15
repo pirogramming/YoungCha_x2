@@ -12,6 +12,8 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.profile_edit, name='profile_edit'),
 
+    path('user_history', views.user, name="history"),
+
     path('password_change/', views.MyPasswordChangeView.as_view(), name='password_change'),
 
  #   path('login/url/', views.RequestLoginViaUrlView.as_view(), name='request_login_via_url'),

@@ -59,11 +59,33 @@ class MyPasswordChangeView(PasswordChangeView):
 #
 #
 def user(request):
+    print(1)
+    if request.method == 'POST':
+        user_result = request.POST.get("abc")
+        user_result = user_result.split(",")  # 스플릿 결과는 리스트
+        print(user_result)
+        print(2)
+        user_instance = User.objects.filter(id=request.user.id)[0]
+
+        UserHistory.objects.create(
+            user=user_instance,
+            stock_name=user_result[5],
+            rate_of_return=user_result[0],
+            total_assets=user_result[1],
+            amount_of_asset_change=user_result[2],
+            trade_numbers=user_result[3],
+            john_bur_term=user_result[4],
+        )
+        s = user_result[5]
+        user_result[5:6] = []
+        user_result[:0] = [s]
+
+        user_result[5:] = [sum(list(map(float, user_result[5:])))]
 
     user_instance = User.objects.filter(id=request.user.id)[0]
     user_history = UserHistory.objects.filter(user_id=user_instance.id)
-
-    return render(request, "accounts/profile.html", {'user_history': user_history} )
+    print(user_history)
+    return render(request, "accounts/profile.html", {'user_history': user_history})
 
 
 
