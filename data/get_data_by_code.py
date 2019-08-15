@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as BS
 from time import sleep
 
-
+'''
 def get_real_time(code):
     response = requests.get('https://finance.naver.com/item/main.nhn?code=%s' % code)
     sleep(0.5)
@@ -91,4 +91,4 @@ def get_river():
     for tag in soup.select('div[class=content]'):
         print(tag.text)
 
-
+'''

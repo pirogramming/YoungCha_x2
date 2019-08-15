@@ -3,8 +3,7 @@ from bs4 import BeautifulSoup as BS
 
 
 
-
-
+'''
 def get_real_time(code):
     response = requests.get('https://finance.naver.com/item/main.nhn?code=%s' % code)
 
@@ -23,3 +22,4 @@ def get_real_time(code):
 
 
 print(get_real_time("005930"))
+'''
