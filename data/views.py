@@ -1,5 +1,5 @@
 import json
-
+from accounts.models import Profile
 from django.shortcuts import render, redirect
 from accounts.models import UserHistory, User
 from data.data_excel import get_data_json
@@ -90,8 +90,10 @@ def data_show(request):
 
 def user_result(request):
     if request.method == 'POST':
+        user = Profile()
         user_result = request.POST.get("abc")
         user_result = user_result.split(",") #스플릿 결과는 리스트
+
         print(user_result)
 
         user_instance = User.objects.filter(id=request.user.id)[0]
@@ -110,6 +112,7 @@ def user_result(request):
         user_result[:0] = [s]
 
         user_result[5:] = [sum(list(map(float, user_result[5:])))]
+
 
         return render(request, "data/user_result.html", {'user_result': user_result})
 
