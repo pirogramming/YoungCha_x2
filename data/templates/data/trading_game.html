@@ -352,12 +352,12 @@
                     total_yield= (delta_return / ceed)*100;
                     $("#exampleModal").modal()
                     alert("종료되었습니다!")
+                    user_result.push('{{ name }}')
                     user_result.push(total_yield.toFixed(2))
                     user_result.push(total_return)
                     user_result.push(delta_return)
                     user_result.push(p)
                     user_result.push(jonber_period)
-                    user_result.push('{{ name }}')
                     user_result.push(jonber_periods)
                     setValue()
                     console.log(user_result)
