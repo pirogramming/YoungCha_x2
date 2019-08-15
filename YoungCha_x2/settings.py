@@ -26,6 +26,8 @@ SECRET_KEY = '*eq(2zom)y7q^1#r+(o^b=vyf%tw=gzyma%r8pdzwegxu#iz5q'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'http://127.0.0.1:8000/admin',
     'kiljaeeun.pythonanywhere.com'
 ]
 
