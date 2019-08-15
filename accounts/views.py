@@ -58,5 +58,8 @@ class MyPasswordChangeView(PasswordChangeView):
         return super().form_valid(form)
 
 
+
+
+
 def Signup(request):
     return render(request, 'signup.html')
