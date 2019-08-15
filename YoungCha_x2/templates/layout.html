@@ -21,55 +21,7 @@
     <!--    <link href="layout2.css" rel="stylesheet">-->
     <style>
         /*<!--   여기부터 회원가입 modal 페이지  css  -->*/
-    {##}
-    {##}
-    {#ul, li {#}
-    {#    list-style: none;#}
-    {##}
-    {#a {#}
-    {#    text-decoration: none;#}
-    {#    color: inherit;#}
-    {##}
-    {#.layer {#}
-    {#    display: none;#}
-    {#    justify-content: center;#}
-    {#    align-items: center;#}
-    {#    background: rgba(0, 0, 0, 0.5);#}
-    {#    position: fixed;#}
-    {#    left: 0;#}
-    {#    right: 0;#}
-    {#    top: 0;#}
-    {#    bottom: 0;#}
-    {##}
-    {#.layer .box {#}
-    {#    padding: 20px 20px 60px;#}
-    {#    margin: 20px;#}
-    {#    width: 500px;#}
-    {#    background: #fff;#}
-    {#    position: relative;#}
-    {##}
-    {#.layer .close {#}
-    {#    position: absolute;#}
-    {#    right: 20px;#}
-    {#    bottom: 20px;#}
-    {#    display: block;#}
-    {#    background: #09F;#}
-    {#    color: #fff;#}
-    {#    text-align: center;#}
-    {#    padding: 5px 20px;#}
-    {#    font-size: 13px;#}
-    {##}
-    {#.layer:target {#}
-    {#    display: flex;#}
-    {#    animation: open 0.5s;#}
-    {##}
-    {#@keyframes open {#}
-    {#    from {#}
-    {#        opacity: 0;#}
-    {#    }#}
-    {#    to {#}
-    {#        opacity: 1;#}
-    {#    }#}
+
 /*    여기까지 회원가입 modal*/
     nav a{
         font-weight: bolder;
@@ -325,8 +277,8 @@
 {#            <li class="nav-item">#}
 {#                <a class="nav-link" href="{% url "data:index" %}">오늘 하루</a>#}
 {#            </li>#}
-{#                <a class="opener nav-link" href="#popup_signup">회원가입</a>#}
-{#                <a class="opener2 nav-link" href="#popup_login">로그인</a>#}
+{#                <a class="opener nav-link" href=""{% url 'signup' %}?next={{ request.path }}">회원가입</a>#}
+{#                <a class="opener2 nav-link" href="{% url 'login' %}?next={{ request.path }}"로그인</a>#}
 {#        <!--    <li class="nav-item2">-->#}
 {#        <!--        <a aria-disabled="true" class="nav-link" href="#" tabindex="-1">로그인</a>-->#}
 {#        <!--    </li>-->#}
@@ -357,17 +309,21 @@
             </li>
         </ul>
         <ul class="navbar-nav">
+
+             {% if user.is_authenticated %}
+               <a class="nav-link" href='{% url "profile" %}'>{{ user }}</a>
+        <a class="nav-link"  href="{% url 'logout' %}?next={{ request.path }}" onclick="return confirm('Are you sure?');">로그아웃</a>
+    {% else %}
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#signup_Modal" href="#">
-                    회원가입
-                </a>
+                <a class="nav-link" href="{% url 'signup' %}?next={{ request.path }}">회원가입</a>
             </li>
             <li class="nav-item">
-{#                <a class="opener2 nav-link" href="#popup_login">로그인</a>#}
-                <a class="nav-link" data-toggle="modal" data-target="#login_Modal" href="#">
-                    로그인
-                </a>
+               <a class="opener2 nav-link" href="{% url 'login' %}?next={{ request.path }}">로그인</a>
             </li>
+
+
+{% endif %}
+
         </ul>
     </div>
 </nav>
