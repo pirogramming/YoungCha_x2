@@ -1,5 +1,5 @@
 import json
-
+from accounts.models import Profile
 from django.shortcuts import render, redirect
 
 from data.data_excel import get_data_json
@@ -84,8 +84,10 @@ def data_show(request):
 
 def user_result(request):
     if request.method == 'POST':
+        user = Profile()
         user_result = request.POST.get("abc")
         user_result = user_result.split(",") #스플릿 결과는 리스트
+        user.profile.score = ''.join([user.profile.score, request.POST['user_list.0']])
         return render(request, "data/user_result.html", {'user_result': user_result})
 
 
