@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css?family=Contrail+One&display=swap" rel="stylesheet">
 </head>
 <body>
+{% extends "layout.html" %}
+{% block content %}
 
 <div style="text-align: center; margin: 50px;font-family: 'Contrail One', cursive; font-size: 3em">
     Leader board
@@ -32,14 +34,16 @@
                     <th scope="col">#</th>
                     <th scope="col">id</th>
                     <th scope="col">email</th>
+                    <th scope="col">max_rate</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for i in leader_board_data %}
                     <tr>
                         <th scope="row">{{ forloop.counter0 }}</th>
-                        <td>{{ i.id }}</td>
-                        <td>{{ i.email }}</td>
+                        <td>{{ i.0.id }}</td>
+                        <td>{{ i.0.email }}</td>
+                        <td>{{ i.1 }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -49,11 +53,6 @@
     </div>
 
 </div>
-<div>
-
-</div>
-
-
+{%endblock%}
 </body>
 </html>
-

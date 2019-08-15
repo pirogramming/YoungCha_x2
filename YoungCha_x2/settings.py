@@ -25,7 +25,9 @@ SECRET_KEY = '*eq(2zom)y7q^1#r+(o^b=vyf%tw=gzyma%r8pdzwegxu#iz5q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'kiljaeeun.pythonanywhere.com'
+]
 
 
 # Application definition
@@ -33,13 +35,25 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'loginapp.apps.LoginappConfig'
+
+    #what we did
     'data',
     'haru',
     'accounts',
+    #
+    # #allauth
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccout',
+    # #provider
+    # 'allauth.socialaccount.providers.google',
+
 ]
 
 MIDDLEWARE = [
@@ -141,5 +155,3 @@ AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-FILTERS_DISABLE_HELP_TEXT = True
-#헬프 텍스트 지우기

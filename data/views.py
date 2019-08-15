@@ -5,6 +5,8 @@ from accounts.models import UserHistory, User
 from data.data_excel import get_data_json
 
 from .models import CoName
+from operator import itemgetter
+
 
 ceed_choice = None
 sector_choice =None
@@ -95,21 +97,29 @@ def user_result(request):
         print(user_result)
 
         user_instance = User.objects.filter(id=request.user.id)[0]
+        if user_result[3] != '0':
+            UserHistory.objects.create(
+                user=user_instance,
+                stock_name=user_result[0],
+                rate_of_return=user_result[1],
+                total_assets=user_result[2],
+                amount_of_asset_change=user_result[3],
+                trade_numbers=user_result[4],
+                john_bur_term=user_result[5],
+            )
+            user_result[5:] = [sum(list(map(float, user_result[5:])))]
 
-        UserHistory.objects.create(
-            user=user_instance,
-            stock_name=user_result[5],
-            rate_of_return=user_result[0],
-            total_assets=user_result[1],
-            amount_of_asset_change=user_result[2],
-            trade_numbers=user_result[3],
-            john_bur_term=user_result[4],
-        )
-        s = user_result[5]
-        user_result[5:6] = []
-        user_result[:0] = [s]
-
-        user_result[5:] = [sum(list(map(float, user_result[5:])))]
+        else:
+            UserHistory.objects.create(
+                user=user_instance,
+                stock_name=user_result[0],
+                rate_of_return=0,
+                total_assets=user_result[2],
+                amount_of_asset_change=0,
+                trade_numbers=0,
+                john_bur_term=0,
+            )
+            user_result[5:] = ['0']
 
         return render(request, "data/user_result.html", {'user_result': user_result})
 
@@ -121,4 +131,19 @@ def loading(request):
 def leader_board(request):
     leader_board_data = User.objects.all()
 
-    return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data})
+    leader_board_data_list = []
+    for i in leader_board_data:
+        li = []
+        for j in UserHistory.objects.filter(user_id=i.id):
+            li.append(j.rate_of_return)
+
+        if li:
+            max_rate = max(li)
+            leader_board_data_list.append([i, float(max_rate)])
+        else:
+            max_rate = 0
+            leader_board_data_list.append([i, float(max_rate)])
+    leader_board_data_list.sort(key=itemgetter(1), reverse=True)
+    print(leader_board_data_list)
+    return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list})
+
