@@ -57,11 +57,13 @@
       </div>
       <div class="modal-footer">
 
-          <form action="{% url 'data:result'%}" method="post">
-                {% csrf_token %}
+          <form action="{% url 'accounts:history'%}" method="post">
+               {% csrf_token %}
+
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
               <button type="submit" class="btn btn-primary" id="user" name="abc" value="">Save changes</button>
-{#              <input type="hidden" name="total" id="total" value="">#}
+              {#{#              <input type="hidden" name="total" id="total" value="">#}
 
           </form>
       </div>

@@ -3,8 +3,51 @@
 {% block content %}
     <h3>{{ user.username }}'s Profile</h3>
     <br>
-    <h3>성적</h3>
-            {{ user.profile.score|default:"전적이 없습니다."}}
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">사용자이름</th>
+            <th scope="col">기업명</th>
+            <th scope="col">수익률</th>
+            <th scope="col">기말자산</th>
+            <th scope="col">증감액</th>
+            <th scope="col">매매횟수</th>
+            <th scope="col">존버기간</th>
+            <th scope="col">플레이 일시</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+            {% for user_h in user_history %}
+                 <tr>
+                {#    수익 : {{ user_h.rate_of_return }}#}
+                <th scope="row">{{ user_h.id }}</th>
+                <td>{{ user_h.user }}</td>
+                <td>{{ user_h.stock_name }}</td>
+                <td>{{ user_h.rate_of_return }}(%)</td>
+                <td>{{ user_h.total_assets }}d</td>
+                <td>{{ user_h.amount_of_asset_change}}</td>
+                <td>{{ user_h.trade_numbers }}</td>
+                <td>{{ user_h.john_bur_term }}</td>
+                <td>{{ user_h.game_date}}</td>
+
+
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+    {{ user.profile.score|default:"전적이 없습니다." }}
 
     <br>
     <h3>이름(별명)</h3>
@@ -13,7 +56,7 @@
 
     <hr/>
 
-    <a href="{% url "profile_edit" %}">프로필 수정</a>
-    <a href="{% url "password_change" %}">암호 변경하기</a>
+    <a href="{% url "accounts:profile_edit" %}">프로필 수정</a>
+    <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
 {% endblock %}
 

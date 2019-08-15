@@ -3,7 +3,7 @@ import json
 from django.shortcuts import render, redirect
 from accounts.models import UserHistory, User
 from data.data_excel import get_data_json
-from data import get_data_by_code
+
 from .models import CoName
 from operator import itemgetter
 
@@ -130,6 +130,7 @@ def loading(request):
 
 def leader_board(request):
     leader_board_data = User.objects.all()
+
     leader_board_data_list = []
     for i in leader_board_data:
         li = []

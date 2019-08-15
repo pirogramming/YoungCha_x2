@@ -9,8 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
 from .forms import SignupForm, ProfileForm
-from .models import Profile
-
+from .models import Profile, UserHistory, User
 
 # 회원가입
 class SignupView(CreateView):
@@ -57,6 +56,43 @@ class MyPasswordChangeView(PasswordChangeView):
         messages.info(self.request, '암호 변경을 완료했습니다.')
         return super().form_valid(form)
 
+#
+#
+def user(request):
+    if request.method == 'POST':
+        user_result = request.POST.get("abc")
+        user_result = user_result.split(",")  # 스플릿 결과는 리스트
 
-def Signup(request):
-    return render(request, 'signup.html')
+
+        user_instance = User.objects.filter(id=request.user.id)[0]
+        if user_result[3] != '0':
+            UserHistory.objects.create(
+                user=user_instance,
+                stock_name=user_result[0],
+                rate_of_return=user_result[1],
+                total_assets=user_result[2],
+                amount_of_asset_change=user_result[3],
+                trade_numbers=user_result[4],
+                john_bur_term=user_result[5],
+            )
+            user_result[5:] = [sum(list(map(float, user_result[5:])))]
+
+        else:
+            UserHistory.objects.create(
+                user=user_instance,
+                stock_name=user_result[0],
+                rate_of_return=0,
+                total_assets=user_result[2],
+                amount_of_asset_change=0,
+                trade_numbers=0,
+                john_bur_term=0,
+            )
+            user_result[5:] = ['0']
+
+    user_instance = User.objects.filter(id=request.user.id)[0]
+    user_history = UserHistory.objects.filter(user_id=user_instance.id)
+    return render(request, "accounts/profile.html", {'user_history': user_history})
+
+
+
+
