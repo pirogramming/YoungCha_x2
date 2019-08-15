@@ -1,9 +1,9 @@
 import json
-from accounts.models import Profile
+
 from django.shortcuts import render, redirect
 from accounts.models import UserHistory, User
 from data.data_excel import get_data_json
-from data import get_data_by_code
+
 from .models import CoName
 
 ceed_choice = None
@@ -67,7 +67,7 @@ def data_show(request):
         name = "현대차"
     x = get_data_json(name)
     x = json.loads(x)
-    y = get_data_by_code.zip_all
+
 
 
     # for i in y:
@@ -90,10 +90,8 @@ def data_show(request):
 
 def user_result(request):
     if request.method == 'POST':
-        user = Profile()
         user_result = request.POST.get("abc")
         user_result = user_result.split(",") #스플릿 결과는 리스트
-
         print(user_result)
 
         user_instance = User.objects.filter(id=request.user.id)[0]
@@ -113,7 +111,6 @@ def user_result(request):
 
         user_result[5:] = [sum(list(map(float, user_result[5:])))]
 
-
         return render(request, "data/user_result.html", {'user_result': user_result})
 
 
@@ -125,4 +122,3 @@ def leader_board(request):
     leader_board_data = User.objects.all()
 
     return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data})
-

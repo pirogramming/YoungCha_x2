@@ -3,7 +3,7 @@
 {% block content %}
     <h3>{{ user.username }}'s Profile</h3>
     <br>
-    <h3>성적</h3>
+    수익 : {{ user_history }}
             {{ user.profile.score|default:"전적이 없습니다."}}
 
     <br>
@@ -13,7 +13,7 @@
 
     <hr/>
 
-    <a href="{% url "profile_edit" %}">프로필 수정</a>
-    <a href="{% url "password_change" %}">암호 변경하기</a>
+    <a href="{% url "accounts:profile_edit" %}">프로필 수정</a>
+    <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
 {% endblock %}
 
