@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>당신의 수익률은?</title>
 
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
 여기에는 유저 결과가 출력됩니다.
 수익률: {{ user_result.1 }}
 기말 자산 총액: <span id="final">{{ user_result.2 }}</span>
@@ -15,7 +10,7 @@
 
 {#템플릿언어에서 인덱스, 딕셔너리 키 지정하는 방식#}
 {{ user_result }}
-</body>
+
     <script>
         var final_3, delta_3;
         jb = document.getElementById('jb')
@@ -30,4 +25,4 @@
         final.innerHTML = final_3.toLocaleString()
         delta.innerHTML = delta_3.toLocaleString()
     </script>
-</html>
+{%endblock%}

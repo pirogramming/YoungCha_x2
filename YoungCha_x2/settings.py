@@ -35,13 +35,25 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'loginapp.apps.LoginappConfig'
+
+    #what we did
     'data',
     'haru',
     'accounts',
+    #
+    # #allauth
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccout',
+    # #provider
+    # 'allauth.socialaccount.providers.google',
+
 ]
 
 MIDDLEWARE = [
@@ -143,5 +155,3 @@ AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-FILTERS_DISABLE_HELP_TEXT = True
-#헬프 텍스트 지우기

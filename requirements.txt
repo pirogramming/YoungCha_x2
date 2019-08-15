@@ -6,3 +6,4 @@ pandas==0.25.0
 requests==2.22.0
 urllib3==1.25.3
 xlrd==1.2.0
+django-allauth==0.39.1
