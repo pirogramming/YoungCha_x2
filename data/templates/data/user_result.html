@@ -7,6 +7,7 @@
 </head>
 <body>
 여기에는 유저 결과가 출력됩니다.
+종목명: {{ user_result.4 }}
 수익률: {{ user_result.0 }}
 기말 자산 총액: <span id="final">{{ user_result.1 }}</span>
 자산 증감액: <span id="delta">{{ user_result.2 }}</span>
@@ -21,12 +22,12 @@
         jb = document.getElementById('jb')
         final = document.getElementById('final')
         delta = document.getElementById('delta')
-        jonber_period={{ user_result.4 }}
+        jonber_period={{ user_result.5 }}
         {#jonber_period = jonber_period.toLocaleString()#}
         final_3 = {{ user_result.1 }}
         delta_3 = {{ user_result.2 }}
             {#delta = delta.toLocaleString()#}
-        jb.innerHTML = jonber_period
+        jb.innerHTML = jonber_period.toFixed(2)
         final.innerHTML = final_3.toLocaleString()
         delta.innerHTML = delta_3.toLocaleString()
     </script>

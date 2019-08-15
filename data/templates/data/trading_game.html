@@ -77,7 +77,7 @@
 // Themes begin
          am4core.useTheme(am4themes_dataviz);
 // Themes end
-
+            var name = "{{ name }}";
             var data = [];
             var visits = [];
             var b = {{ data }};
@@ -300,22 +300,22 @@
                 trend.stroke = trend.fill = am4core.color("#c00");
                 trend.data = data;
 
-                valueAxis.interpolationDuration = 500;
-                valueAxis.rangeChangeDuration = 500;
+                valueAxis.interpolationDuration = duration;
+                valueAxis.rangeChangeDuration = duration;
 
 
-                series.interpolationDuration = 500;
-                series.defaultState.transitionDuration = 500;
+                series.interpolationDuration = duration;
+                series.defaultState.transitionDuration = duration;
 
-                dateAxis.interpolationDuration = 500;
-                dateAxis.rangeChangeDuration = 500;
+                dateAxis.interpolationDuration = duration;
+                dateAxis.rangeChangeDuration = duration;
                 return trend;
             };
             function show_line(is_down, x_axis, lastdataItem){
                 if(is_down){
                     createTrendLine([
                         {"date": x_axis, "value": buy_at_s[p]},
-                        {"date": new Date(lastdataItem.dateX.getTime() + 100), "value": buy_at_s[p]}
+                        {"date": new Date(lastdataItem.dateX.getTime() + 1000), "value": buy_at_s[p]}
                     ]);
                 }
             }
@@ -352,6 +352,7 @@
                     user_result.push(total_return)
                     user_result.push(delta_return)
                     user_result.push(p)
+                    user_result.push(name)
                     user_result.push(jonber_periods)
                     setValue()
                     console.log(user_result)

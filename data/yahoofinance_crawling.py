@@ -976,12 +976,16 @@ Oct 01, 2004	65.47	100.08	64.51	95.42	95.42	513,620,700
 Sep 01, 2004	51.40	67.58	49.52	64.86	64.86	212,494,700
 Aug 01, 2004	50.05	56.80	48.03	51.24	51.24	133,606,300
 """
-company_data = [aapl_data, amzn_data, fb_data, nflx_data, googl_data]
-for company_datum in company_data:
-    company_list = company_datum.split()
-    company_price = list(reversed(company_list[7::9]))
-    print(company_price)
 
+def companyData(i):
+    company_data = [aapl_data, amzn_data, fb_data, nflx_data, googl_data]
+    company_datum = company_data[i]
+    # for company_datum in company_data:
+    company_list = company_datum.split()
+    company_price = list(map(float, reversed(company_list[7::9])))
+    print(company_price)
+    return company_price
+        # print(company_price)
 ko_data="""
 Aug 12, 2019	53.28	53.44	52.99	53.20	53.20	6,418,760
 Aug 01, 2019	52.78	53.90	51.40	53.42	53.42	109,733,200
@@ -1301,4 +1305,3 @@ Mar 01, 2000	24.59	25.91	21.44	23.47	10.24	303,736,800
 Feb 01, 2000	28.72	29.19	23.78	24.31	10.61	189,933,800
 Jan 01, 2000	29.00	33.44	27.63	28.72	12.53	224,495,200
 """
-print(ko_data.index("Dividend"))
