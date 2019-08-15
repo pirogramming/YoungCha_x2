@@ -67,7 +67,7 @@ def data_show(request):
         name = "현대차"
     x = get_data_json(name)
     x = json.loads(x)
-    y = get_data_by_code.zip_all
+
 
 
     # for i in y:
