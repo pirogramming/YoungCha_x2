@@ -106,11 +106,11 @@ INSTALLED_APPS = [
     'haru',
     'accounts',
     # 안되는 친구들 ######################################
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    # provider 구글, 페이스북, 카톡, 깃헙
-    'allauth.socialaccount.providers.google',  #### 제발 콤마 확인해줘..
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # # provider 구글, 페이스북, 카톡, 깃헙
+    # 'allauth.socialaccount.providers.google',  #### 제발 콤마 확인해줘..
     ################################################
     'social_django',  # 소셜로그인 관련처리 어플
 
@@ -216,13 +216,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 AUTHENTICATION_BACKENDS = (
 
-    'django.contrib.auth.backends.ModelBackend',  # 소셯 로그인 정보를 user모델 클래스에 저장
-    'allauth.account.auth_backends.AuthenticationBackend',
 
-    'social_core.backends.open_id.OpenIdAuth',  # 구글 로그인 처리 위한 파이썬 클래스
-    'social_core.backends.google.GoogleOpenId',
-    'social_core.backends.google.GoogleOAuth2',
-    'social_core.backends.google.GooglePlusAuth',
 
     'social_core.backends.google.GoogleOAuth2',  # Google
     'social_core.backends.facebook.FacebookOAuth2',  # Facebook
