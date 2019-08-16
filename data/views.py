@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from accounts.models import UserHistory, User
 from data.data_excel import get_data_json
 
-from .models import CoName
+from .models import CoName, CoData
 from operator import itemgetter
 
 
@@ -43,6 +43,12 @@ def ready(request):
         for i in yyy.split():
             CoName.objects.create(name=i)
 
+    CoData_instance = CoData.objects.all()
+    CoName_instance = CoName.objects.all()
+    if not CoData_instance:
+        for i in CoName_instance:
+            CoData.objects.create(name=i, data=get_data_json("%s" % i.name))
+
     if request.method == 'POST':
         z = request.POST.get('name')
         # url = '%s/' % z
@@ -67,27 +73,19 @@ def data_show(request):
         name = "NAVER"
     else:
         name = "현대차"
-    x = get_data_json(name)
+
+    x = CoData.objects.filter(name_id=name)[0].data
+
     x = json.loads(x)
 
-
+    print(x)
 
     # for i in y:
     #     if name in i:
     #         pass
 
-    price = []
-    for i in x:
-        price.append(i[1])
-
-    price_result = []
-
-    for i in range(0, 10, 2):
-        for j in range(5):
-            (price[i+1]-price[i])/10
-
     # return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed})
-    return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed, 'sector':sector})
+    return render(request, "data/trading_game.html", {'data': x, 'name': name, 'ceed': ceed, 'sector':sector})
 
 
 def user_result(request):

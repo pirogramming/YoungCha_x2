@@ -9,9 +9,9 @@ class ChartData(models.Model):
 
 
 class CoName(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, primary_key=True)
 
 
-
-
-
+class CoData(models.Model):
+    name = models.ForeignKey(CoName, on_delete=models.CASCADE)
+    data = models.TextField()
