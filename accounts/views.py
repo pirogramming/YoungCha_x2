@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView
-from django.shortcuts import redirect, render, resolve_url
+from django.shortcuts import redirect, render, resolve_url, reverse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
@@ -12,6 +12,7 @@ from .forms import SignupForm, ProfileForm
 from .models import Profile, UserHistory, User
 import random
 # 회원가입
+
 class SignupView(CreateView):
     model = User
     form_class = SignupForm
@@ -95,7 +96,12 @@ def user(request):
             )
             user_result[5:] = ['0']
 
-    user_instance = User.objects.filter(id=request.user.id)[0]
+    try:
+        user_instance = User.objects.filter(id=request.user.id)[0]
+
+    except IndexError:
+        return redirect(reverse('data:data_home'))
+
     user_history = UserHistory.objects.filter(user_id=user_instance.id)
     return render(request, "accounts/profile.html", {'user_history': user_history})
 
