@@ -61,6 +61,10 @@ class MyPasswordChangeView(PasswordChangeView):
 #
 #
 def user(request):
+    # TODO : user_result[0], user_result[1] 이 아니라
+    # TODO : user_result['stock_name'] or user_result.stock_name과 같이
+    # TODO : 해당 변수가 무엇인지 추정할 수 있는 맥락이 필요함!
+    # TODO : 해당 함수는 html을 렌더링하는 뷰 이므로 함수의 기능이 추론 가능하게 user -> user_view / render_user 등과 같은 이름으로 변경하면 좋음
     if request.method == 'POST':
         user_result = request.POST.get("abc")
         user_result = user_result.split(",")  # 스플릿 결과는 리스트

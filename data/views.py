@@ -56,17 +56,15 @@ def ready(request):
 
 
 # def data_show(request, name):
+COMPANY_CODE_NAME_MAPPING = {
+    'jaebol_4': '삼성전자',
+    'pharma': '신라젠',
+    'media': 'NAVER'
+}
 def data_show(request):
     ceed = ceed_choice
     sector = sector_choice
-    if(sector == 'jaebol_4'):
-        name = "삼성전자"
-    elif(sector == "pharma"):
-        name = "신라젠"
-    elif(sector == "media"):
-        name = "NAVER"
-    else:
-        name = "현대차"
+    name = COMPANY_CODE_NAME_MAPPING.get(sector, '현대차')
     x = get_data_json(name)
     x = json.loads(x)
 
@@ -91,6 +89,9 @@ def data_show(request):
 
 
 def user_result(request):
+    # TODO : user_result[0], user_result[1] 이 아니라
+    # TODO : user_result['stock_name'] or user_result.stock_name과 같이
+    # TODO : 해당 변수가 무엇인지 추정할 수 있는 맥락이 필요함!
     if request.method == 'POST':
         user_result = request.POST.get("abc")
         user_result = user_result.split(",") #스플릿 결과는 리스트
@@ -129,20 +130,20 @@ def loading(request):
 
 
 def leader_board(request):
-    leader_board_data = User.objects.all()
+    users = User.objects.all()
 
     leader_board_data_list = []
-    for i in leader_board_data:
-        li = []
-        for j in UserHistory.objects.filter(user_id=i.id):
-            li.append(j.rate_of_return)
+    for user in users:
+        rate_of_returns = []
+        for user_history in UserHistory.objects.filter(user_id=user.id):
+            rate_of_returns.append(user_history.rate_of_return)
 
-        if li:
-            max_rate = max(li)
-            leader_board_data_list.append([i, float(max_rate)])
+        if rate_of_returns:
+            max_rate = max(rate_of_returns)
+            leader_board_data_list.append([user, float(max_rate)])
         else:
             max_rate = 0
-            leader_board_data_list.append([i, float(max_rate)])
+            leader_board_data_list.append([user, float(max_rate)])
     leader_board_data_list.sort(key=itemgetter(1), reverse=True)
     print(leader_board_data_list)
     return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list})
