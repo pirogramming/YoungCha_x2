@@ -10,7 +10,7 @@ from django.views.generic import CreateView, UpdateView
 
 from .forms import SignupForm, ProfileForm
 from .models import Profile, UserHistory, User
-
+import random
 # 회원가입
 class SignupView(CreateView):
     model = User
@@ -65,8 +65,12 @@ def user(request):
         user_result = request.POST.get("abc")
         user_result = user_result.split(",")  # 스플릿 결과는 리스트
 
+        try:
+            user_instance = User.objects.filter(id=request.user.id)[0]
+        except IndexError:
+            print("user 로그인 상태가 아닙니다")
+            return render(request, "accounts/user_unlogined.html")
 
-        user_instance = User.objects.filter(id=request.user.id)[0]
         if user_result[3] != '0':
             UserHistory.objects.create(
                 user=user_instance,
