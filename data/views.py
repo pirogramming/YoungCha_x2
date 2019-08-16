@@ -7,10 +7,16 @@ from data.data_excel import get_data_json
 from .models import CoName
 from operator import itemgetter
 
+from data.yahoo_excel import data_adjclose
+
+import random
 
 ceed_choice = None
 sector_choice =None
-
+names1 = ['삼성전자', 'SK하이닉스', 'LG디스플레이', '삼성SDI', '현대차', 'LG화학', 'POSCO','SK', 'SK텔레콤', 'LG생활건강']
+names2 = ['신라젠', '셀트리온']
+names3 = ['카카오', 'NAVER', 'NHN', '엔씨소프트']
+unnamed = ['아모레퍼시픽', '하이트진로홀딩스', '한국전력']
 
 def index(request):
     return render(request, 'data/index.html')
@@ -60,17 +66,18 @@ def data_show(request):
     ceed = ceed_choice
     sector = sector_choice
     if(sector == 'jaebol_4'):
-        name = "삼성전자"
+        list = names1
     elif(sector == "pharma"):
-        name = "신라젠"
+        list = names2
     elif(sector == "media"):
-        name = "NAVER"
+        list = names3
     else:
-        name = "현대차"
+        list = unnamed
+    name = random.choice(list)
     x = get_data_json(name)
     x = json.loads(x)
 
-
+    prc = data_adjclose()
 
     # for i in y:
     #     if name in i:
@@ -87,7 +94,7 @@ def data_show(request):
             (price[i+1]-price[i])/10
 
     # return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed})
-    return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed, 'sector':sector})
+    return render(request, "data/trading_game.html", {'data': prc, 'name': name, 'ceed': ceed, 'sector':sector})
 
 
 def user_result(request):

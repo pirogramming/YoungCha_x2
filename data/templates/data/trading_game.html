@@ -84,7 +84,7 @@
 
             var data = [];
             var visits = [];
-            var b = {{ data }};
+            var b = {{ data|safe }}
             var c = [];
             {#var x = [];#}
             var x_axis = [];
@@ -116,8 +116,8 @@
             var delta_return_place = document.getElementById("delta_return_place");
             var yields;
             var total_yield;
-            var deltatime = 100;
-            var duration = 0;
+            var deltatime = 500;
+            var duration = 500;
             var is_down = false;
             var user_result = []
             var jonber_period;
@@ -252,7 +252,7 @@
                     div = document.createElement('div');
                     div.setAttribute('id', 'div' + p);
                     trading_place.insertBefore(div, trading_place.firstChild);
-                    buy_at_s[p] = b[j - 1];
+                    buy_at_s[p] = b[j - 1]["Adj Close"];
                     holdingshares = Math.floor(ceed / buy_at_s[p]);
                     // console.log("매수가:"+buy_at);
                     buy_at_place = document.createElement('span');
@@ -267,7 +267,7 @@
             };
             function sell_action(){
                 is_down = false;
-                sell_at_s[p] = b[j - 1];
+                sell_at_s[p] = b[j - 1]["Adj Close"];
                 result = (sell_at_s[p] - buy_at_s[p])*holdingshares;
                 delta_return += result;
                 total_return += result;
@@ -305,22 +305,22 @@
                 trend.stroke = trend.fill = am4core.color("#c00");
                 trend.data = data;
 
-                valueAxis.interpolationDuration = 500;
-                valueAxis.rangeChangeDuration = 500;
+                valueAxis.interpolationDuration = duration;
+                valueAxis.rangeChangeDuration = duration;
 
 
-                series.interpolationDuration = 500;
-                series.defaultState.transitionDuration = 500;
+                series.interpolationDuration = duration;
+                series.defaultState.transitionDuration = duration;
 
-                dateAxis.interpolationDuration = 500;
-                dateAxis.rangeChangeDuration = 500;
+                dateAxis.interpolationDuration = duration;
+                dateAxis.rangeChangeDuration = duration;
                 return trend;
             };
             function show_line(is_down, x_axis, lastdataItem){
                 if(is_down){
                     createTrendLine([
                         {"date": x_axis, "value": buy_at_s[p]},
-                        {"date": new Date(lastdataItem.dateX.getTime() + 100), "value": buy_at_s[p]}
+                        {"date": new Date(lastdataItem.dateX.getTime() + 1000), "value": buy_at_s[p]}
                     ]);
                 }
             }
@@ -335,14 +335,15 @@
                     var lastdataItem = series.dataItems.getIndex(series.dataItems.length - 1);
                     x_axis[j] = new Date(lastdataItem.dateX.getTime() + 1000);
                     xaxis = new Date(lastdataItem.dateX.getTime() -36000)
-                    chart.addData(
-                        {date: x_axis[j], value: visits}, 1
-                    );
                     show_line(is_down, xaxis, lastdataItem);
-                    content.innerHTML = "현재가: &#8361;"+b[j].toLocaleString();
+                    chart.addData(
+                        {date: x_axis[j], value: b[j]["Adj Close"]}, 1
+                    );
+
+                    content.innerHTML = "현재가: &#8361;"+b[j]["Adj Close"].toLocaleString();
                     content.innerHTML += " 매수가: &#8361;"+show_buy_at_s(p);
-                    content.innerHTML += " 현재 수익률: " + calculate_yields(is_down, b[j], sell_at_s[p]) + "% " + comments(calculate_yields(is_down, b[j], sell_at_s[p]));
-                    bgchange(is_down, calculate_yields(is_down, b[j], sell_at_s[p]));
+                    content.innerHTML += " 현재 수익률: " + calculate_yields(is_down, b[j]["Adj Close"], sell_at_s[p]) + "% " + comments(calculate_yields(is_down, b[j], sell_at_s[p]));
+                    bgchange(is_down, calculate_yields(is_down, b[j]["Adj Close"], sell_at_s[p]));
                     {#colorchange()#}
                     j++
                 } else {

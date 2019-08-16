@@ -1302,3 +1302,25 @@ Feb 01, 2000	28.72	29.19	23.78	24.31	10.61	189,933,800
 Jan 01, 2000	29.00	33.44	27.63	28.72	12.53	224,495,200
 """
 print(ko_data.index("Dividend"))
+
+import pandas
+import html5lib
+import requests
+from bs4 import BeautifulSoup as BS
+
+# mcd_df = pandas.read_html('https://finance.yahoo.com/quote/MCD/history?period1=946652400&period2=1565881200&interval=1mo&filter=history&frequency=1mo', flavor='bs4')
+# mcd_df = mcd_df[0]
+# print(mcd_df)
+# mcd_price = mcd_df.drop(["Open", "Low", "High", "Close*", "Volume"], axis=1)
+# print(mcd_price)
+# print(type(mcd_price))
+#
+# pep_df = pandas.read_html('https://finance.yahoo.com/quote/KO/history?period1=946652400&period2=1565794800&interval=1mo&filter=history&frequency=1mo', flavor='html5lib')
+# print(pep_df)
+
+# response = requests.get('https://finance.yahoo.com/quote/PEP/history?period1=946652400&period2=1565794800&interval=1mo&filter=history&frequency=1mo')
+# html = response.text
+# soup = BS(html, 'html.parser')
+# soup = soup.select('table[data-test="historical-prices"]')
+# print(soup)
+# print(type(soup))
