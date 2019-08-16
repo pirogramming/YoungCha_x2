@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView
-from django.shortcuts import redirect, render, resolve_url
+from django.shortcuts import redirect, render, resolve_url, reverse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
@@ -68,8 +68,7 @@ def user(request):
         try:
             user_instance = User.objects.filter(id=request.user.id)[0]
         except IndexError:
-            print("user 로그인 상태가 아닙니다")
-            return render(request, "accounts/user_unlogined.html")
+            return redirect(reverse('data:data_home'))
 
         if user_result[3] != '0':
             UserHistory.objects.create(
@@ -98,6 +97,7 @@ def user(request):
     user_instance = User.objects.filter(id=request.user.id)[0]
     user_history = UserHistory.objects.filter(user_id=user_instance.id)
     return render(request, "accounts/profile.html", {'user_history': user_history})
+
 
 
 
