@@ -39,28 +39,28 @@ else:
 
 if env_file is None: # System environ
     try:
-        # FACEBOOK_KEY = os.environ['FACEBOOK_KEY']
-        # FACEBOOK_SECRET = os.environ['FACEBOOK_SECRET']
+        FACEBOOK_KEY = os.environ['FACEBOOK_KEY']
+        FACEBOOK_SECRET = os.environ['FACEBOOK_SECRET']
         GOOGLE_KEY = os.environ['GOOGLE_KEY']
         GOOGLE_SECRET = os.environ['GOOGLE_SECRET']
     except KeyError as error_msg:
         raise ImproperlyConfigured(error_msg)
 else: # JSON env
     envs = json.loads(env_file.read())
-    # FACEBOOK_KEY = get_env('FACEBOOK_KEY', envs)
-    # FACEBOOK_SECRET = get_env('FACEBOOK_SECRET', envs)
+    FACEBOOK_KEY = get_env('FACEBOOK_KEY', envs)
+    FACEBOOK_SECRET = get_env('FACEBOOK_SECRET', envs)
     GOOGLE_KEY = get_env('GOOGLE_KEY', envs)
     GOOGLE_SECRET = get_env('GOOGLE_SECRET', envs)
 
 ###########################
 
 # SocialLogin: Facebook
-# SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_KEY
-# SOCIAL_AUTH_FACEBOOK_SECRET = FACEBOOK_SECRET
-# SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-# SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-#   'fields': 'id, name, email'
-# }
+SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_KEY
+SOCIAL_AUTH_FACEBOOK_SECRET = FACEBOOK_SECRET
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email'
+}
 
 # SocialLogin: Google
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = GOOGLE_KEY
