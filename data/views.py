@@ -75,7 +75,7 @@ def data_show(request):
         'media': names3
     }
     names = COMPANY_CODE_NAMES_MAPPING.get(sector, unnamed)
-    name = random.sample(names)
+    name = random.sample(names, 1)
 
     x = CoData.objects.filter(name_id=name)[0].data
 
