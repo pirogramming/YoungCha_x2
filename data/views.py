@@ -76,7 +76,6 @@ def data_show(request):
     }
     names = COMPANY_CODE_NAMES_MAPPING.get(sector, unnamed)
     name = random.sample(names, 1)[0]
-
     x = CoData.objects.filter(name_id=name)[0].data
 
     x = json.loads(x)
