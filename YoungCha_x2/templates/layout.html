@@ -323,14 +323,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:signup' %}?next={{ request.path }}">회원가입</a>
             </li>
-            <a href="{% url "social:begin" "google-oauth2" %}"><i class="fab fa-google-plus-square" style="color: white; margin: 14px;"></i></a>
-            <a href="{% url "social:begin" "facebook" %}"><i class="fab fa-facebook-square" style="color: white; margin: 14px;"></i></a>
-
-
             <li class="nav-item">
                <a class="opener2 nav-link" href="{% url 'accounts:login' %}?next={{ request.path }}">로그인</a>
             </li>
-
+            <a href="{% url "social:begin" "google-oauth2" %}"><i class="fab fa-google-plus-square" style="color: white; width: 44px; height: 44px; margin: 0px 5px;"></i></a>
+            <a href="{% url "social:begin" "facebook" %}"><i class="fab fa-facebook-square" style="color: white; width: 44px; height: 44px; margin: 0px 5px;"></i></a>
 
 {% endif %}
 
