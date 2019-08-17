@@ -1,4 +1,5 @@
 import json
+import random
 
 from django.shortcuts import render, redirect
 from accounts.models import UserHistory, User
@@ -10,7 +11,6 @@ from operator import itemgetter
 
 ceed_choice = None
 sector_choice =None
-
 
 def index(request):
     return render(request, 'data/index.html')
@@ -63,16 +63,19 @@ def ready(request):
 
 # def data_show(request, name):
 def data_show(request):
+    names1 = ['삼성전자', 'SK하이닉스', 'LG디스플레이', '삼성SDI', '현대차', 'LG화학', 'POSCO', 'SK', 'SK텔레콤', 'LG생활건강']
+    names2 = ['신라젠', '셀트리온']
+    names3 = ['카카오', 'NAVER', 'NHN', '엔씨소프트']
+    unnamed = ['아모레퍼시픽', '하이트진로홀딩스', '한국전력']
     ceed = ceed_choice
     sector = sector_choice
-    if(sector == 'jaebol_4'):
-        name = "삼성전자"
-    elif(sector == "pharma"):
-        name = "신라젠"
-    elif(sector == "media"):
-        name = "NAVER"
-    else:
-        name = "현대차"
+    COMPANY_CODE_NAMES_MAPPING = {
+        'jaebol_4': names1,
+        'pharma': names2,
+        'media': names3
+    }
+    names = COMPANY_CODE_NAMES_MAPPING.get(sector, unnamed)
+    name = random.sample(names)
 
     x = CoData.objects.filter(name_id=name)[0].data
 
