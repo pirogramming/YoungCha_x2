@@ -2,7 +2,7 @@ import json
 import random
 
 from django.shortcuts import render, redirect
-from accounts.models import UserHistory, User
+from accounts.models import UserHistory, User, Profile
 from data.data_excel import get_data_json
 
 from .models import CoName, CoData
@@ -11,6 +11,7 @@ from operator import itemgetter
 
 ceed_choice = None
 sector_choice =None
+
 
 def index(request):
     return render(request, 'data/index.html')
@@ -68,8 +69,18 @@ def data_show(request):
     names2 = ['신라젠', '셀트리온']
     names3 = ['카카오', 'NAVER', 'NHN', '엔씨소프트']
     unnamed = ['아모레퍼시픽', '하이트진로홀딩스', '한국전력']
-    ceed = ceed_choice
+
+    #TODO wallet에서 ceed머니 입력 값 만큼 빠지도록 수정 필요
+    ceed = int(ceed_choice)*10000
+    print(request.user.id)
+    user_instance = Profile.objects.filter(id=request.user.id)
+    print(0)
+    print(user_instance)
+    print(1)
+    #TODO ================================================
+
     sector = sector_choice
+
     COMPANY_CODE_NAMES_MAPPING = {
         'jaebol_4': names1,
         'pharma': names2,
