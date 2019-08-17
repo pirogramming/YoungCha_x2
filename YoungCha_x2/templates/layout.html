@@ -19,7 +19,6 @@
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Advent+Pro|Orbitron&display=swap" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <!--{% load staticfiles %}-->
 <!--    <script src="{% static 'css/layout.css' %}"></script>-->
     <!--    <link href="layout2.css" rel="stylesheet">-->
@@ -324,10 +323,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:signup' %}?next={{ request.path }}">회원가입</a>
             </li>
-<a href="{% url "social:begin" "google-oauth2" %}"><button class="btn btn-danger" style="margin: 8px">G+ Login</button></a>
-<a href="{% url "social:begin" "facebook" %}"><button class="btn btn-outline-primary" style="margin: 8px" style="color: white">FB Login</button></a>
-                 <i class="fab fa-google-plus-square" style="color: white;"></i>
-                 <i class="fab fa-facebook-square" style="color: white;"></i>
+<a href="{% url "social:begin" "google-oauth2" %}"><i class="fab fa-google-plus-square" style="color: white; margin: 8px;"></i></a>
+<a href="{% url "social:begin" "facebook" %}"><i class="fab fa-facebook-square" style="color: white; margin: 8px;"></i></a>
+
+
             <li class="nav-item">
                <a class="opener2 nav-link" href="{% url 'accounts:login' %}?next={{ request.path }}">로그인</a>
             </li>
