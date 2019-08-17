@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 
-app_name="accounts"
+app_name = "accounts"
 
 urlpatterns = [
     path('signup/', views.signup, name='signup'),#회원가입
@@ -11,7 +11,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.profile_edit, name='profile_edit'),
-
+    path('profile/delete/', views.profile_delete, name='delete'),
     path('user_history', views.user, name="history"),
 
     path('password_change/', views.MyPasswordChangeView.as_view(), name='password_change'),

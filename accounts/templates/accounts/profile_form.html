@@ -1,14 +1,20 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
-    <h2>프로필 수정</h2>
+<style>
 
+</style>
+    <h2>프로필 수정</h2>
+<hr>
     <form action="" method="post">
         {% csrf_token %}
         <table>
-            {{ form.name}}
+               현재 닉네임 : {{ form.name}}
+            <br/>
+            <br/>
+                바꿀 닉네임 : {{form.name}}
         </table>
-        <input type="submit" />
+        <input type="submit" value="변경"/>
     </form>
 {% endblock %}
 

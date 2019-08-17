@@ -1,12 +1,155 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<!--    <script>-->
+<!--        $(".delBtn").live("click", function(){-->
+<!--                var clickedRow = $(this).parent().parent();-->
+<!--                var cls = clickedRow.attr("class");-->
+
+<!--                // 각 항목의 첫번째 row를 삭제한 경우 다음 row에 td 하나를 추가해 준다.-->
+<!--                if( clickedRow.find("td:eq(0)").attr("rowspan") ){-->
+<!--                    if( clickedRow.next().hasClass(cls) ){-->
+<!--                        clickedRow.next().prepend(clickedRow.find("td:eq(0)"));-->
+<!--                    }-->
+<!--                }-->
+
+<!--                clickedRow.remove();-->
+
+<!--                // rowspan 조정-->
+<!--                resizeRowspan(cls);-->
+<!--            });-->
+
+<!--            // cls : rowspan 을 조정할 class ex) item1, item2, ...-->
+<!--            function resizeRowspan(cls){-->
+<!--                var rowspan = $("."+cls).length;-->
+<!--                $("."+cls+":first td:eq(0)").attr("rowspan", rowspan);-->
+<!--            }-->
+
+
+
+
+
+
+
+<!--        function rowCheDel() {-->
+<!--            var $obj = $("input[name='chk']");-->
+<!--            var checkCount = $obj.size();-->
+<!--            for (var i = 0; i < checkCount; i++) {-->
+<!--                if ($obj.eq(i).is(":checked")) {-->
+<!--                    $obj.eq(i).parent().parent().remove();-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+<!--        $(document).ready(function(){-->
+<!--            var tbl = $("#checkboxTestTbl");-->
+
+<!--            // 테이블 헤더에 있는 checkbox 클릭시-->
+<!--            $(":checkbox:first", tbl).click(function(){-->
+<!--                // 클릭한 체크박스가 체크상태인지 체크해제상태인지 판단-->
+<!--                if( $(this).is(":checked") ){-->
+<!--                    $(":checkbox", tbl).attr("checked", "checked");-->
+<!--                }-->
+<!--                else{-->
+<!--                    $(":checkbox", tbl).removeAttr("checked");-->
+<!--                }-->
+
+<!--                // 모든 체크박스에 change 이벤트 발생시키기-->
+<!--                $(":checkbox", tbl).trigger("change");-->
+<!--            });-->
+
+<!--            // 헤더에 있는 체크박스외 다른 체크박스 클릭시-->
+<!--            $(":checkbox:not(:first)", tbl).click(function(){-->
+<!--                var allCnt = $(":checkbox:not(:first)", tbl).length;-->
+<!--                var checkedCnt = $(":checkbox:not(:first)", tbl).filter(":checked").length;-->
+
+<!--                // 전체 체크박스 갯수와 현재 체크된 체크박스 갯수를 비교해서 헤더에 있는 체크박스 체크할지 말지 판단-->
+<!--                if( allCnt==checkedCnt ){-->
+<!--                    $(":checkbox:first", tbl).attr("checked", "checked");-->
+<!--                }-->
+<!--                else{-->
+<!--                    $(":checkbox:first", tbl).removeAttr("checked");-->
+<!--                }-->
+<!--            }).change(function(){-->
+<!--                if( $(this).is(":checked") ){-->
+<!--                    // 체크박스의 부모 > 부모 니까 tr 이 되고 tr 에 selected 라는 class 를 추가한다.-->
+<!--                    $(this).parent().parent().addClass("selected");-->
+<!--                }-->
+<!--                else{-->
+<!--                    $(this).parent().parent().removeClass("selected");-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+
+<script>
+      $(function(){
+        $("#delete").click(function(){
+            $("input[name=cbx]:checked").each(function(){
+                 $(this).parent().parent().remove();
+                $(this).parent().parent().remove();
+            });
+        })
+    });
+
+function checkAll(){
+      if( $("#th_checkAll").is(':checked') ){
+        $("input[name=checkRow]").prop("checked", true);
+      }else{
+        $("input[name=checkRow]").prop("checked", false);
+      }
+}
+
+
+
+</script>
+
+
+
+
+
+
+<style>
+    .set{
+        overflow : hidden;
+    }
+
+    .set a{
+     float:left;
+        margin-right : 60px;
+        margin-left : -25px;
+    }
+    li{
+        list-style : none;
+    }
+
+
+        #checkboxTestTbl {border-collapse: collapse;}
+        #checkboxTestTbl td, #checkboxTestTbl th{padding:20px;}
+        #checkboxTestTbl th{background-color: #ccc;}
+
+        #checkboxTestTbl tr.selected{background-color: navy;color: #fff; font-weight: bold;}
+</style>
+
     <h3>{{ user.profile.name|default:"&dash;" }}'s Profile</h3>
     <br>
+  <th><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();"/></th>
 
+
+<form action="{% url 'accounts:delete' %}" method="post">
+    <button id="delete" type="submit">삭제</button>
+    {% csrf_token %}
     <table class="table">
         <thead class="thead-dark">
         <tr>
+
+
+
+
             <th scope="col">id</th>
             <th scope="col">사용자이름</th>
             <th scope="col">기업명</th>
@@ -16,6 +159,7 @@
             <th scope="col">매매횟수</th>
             <th scope="col">존버기간</th>
             <th scope="col">플레이 일시</th>
+<!--            <th scope="col">삭제</th>-->
         </tr>
         </thead>
         <tbody>
@@ -23,17 +167,20 @@
 
             {% for user_h in user_history %}
                  <tr>
-                {#    수익 : {{ user_h.rate_of_return }}#}
-                <th scope="row">{{ user_h.id }}</th>
-                <td>{{ user_h.user }}</td>
-                <td>{{ user_h.stock_name }}</td>
-                <td>{{ user_h.rate_of_return }}(%)</td>
-                <td>{{ user_h.total_assets }}</td>
-                <td>{{ user_h.amount_of_asset_change}}</td>
-                <td>{{ user_h.trade_numbers }}</td>
-                <td>{{ user_h.john_bur_term }}</td>
-                <td>{{ user_h.game_date}}</td>
+<!--                {#    수익 : {{ user_h.rate_of_return }}#}-->
+                    <td class="center"><input type="checkbox" name="checkRow" value="${content.IDX}" /></td>
 
+
+                     <td>{{ user_h.id }}</td>
+                     <td>{{ user_h.user }}</td>
+                     <td>{{ user_h.stock_name }}</td>
+                     <td>{{ user_h.rate_of_return }}(%)</td>
+                     <td>{{ user_h.total_assets }}</td>
+                     <td>{{ user_h.amount_of_asset_change}}</td>
+                     <td>{{ user_h.trade_numbers }}</td>
+                     <td>{{ user_h.john_bur_term }}</td>
+                     <td>{{ user_h.game_date}}</td>
+<!--                    <td><button class="delBtn">삭제</button></td>-->
 
                 </tr>
             {% endfor %}
@@ -41,7 +188,7 @@
         </tbody>
     </table>
 
-
+</form>
 
 
 
@@ -52,10 +199,13 @@
 
 
     <br>
+ <div class="set">
+    <ul>
+        <li> <a href="{% url "accounts:profile_edit" %}">닉네임 변경</a></li>
+        <li><a href="{% url "accounts:password_change" %}">암호 변경하기</a></li>
+    </ul>
+</div>
 
-
-    <a href="{% url "accounts:profile_edit" %}">프로필 수정</a>
-    <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
 
 {% endblock %}
 

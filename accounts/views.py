@@ -96,5 +96,13 @@ def user(request):
     return render(request, "accounts/profile.html", {'user_history': user_history})
 
 
+def profile_delete(request):
+    if request.method == 'POST':
+
+        print(request.POST.getlist('checkRow'))
+        # print(UserHistory.objects.filter(pk__in=a))
+        return redirect()
+
+
 
 
