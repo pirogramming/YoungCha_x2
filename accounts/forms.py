@@ -21,9 +21,9 @@ class SignupForm(UserCreationForm):
         user.save()
 
         name = self.cleaned_data.get('name', None)
-        score= self.cleaned_data.get('score', None)
+        score = self.cleaned_data.get('score', None)
 
-        Profile.objects.create(user=user, name=name,score=score,)
+        Profile.objects.create(user=user, name=name, score=score,)
 
         return user
 

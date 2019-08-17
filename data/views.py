@@ -38,7 +38,8 @@ def ready(request):
         SK
         SK텔레콤
         엔씨소프트
-        LG생활건강'''
+        LG생활건강
+        '''
 
         for i in yyy.split():
             CoName.objects.create(name=i)

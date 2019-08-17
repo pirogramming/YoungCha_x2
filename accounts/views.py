@@ -13,6 +13,7 @@ from .models import Profile, UserHistory, User
 import random
 # 회원가입
 
+
 class SignupView(CreateView):
     model = User
     form_class = SignupForm

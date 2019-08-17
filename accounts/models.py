@@ -18,8 +18,9 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30,blank=True)
-    score = models.CharField(blank=True,max_length=600,)
+    name = models.CharField(max_length=30, blank=True)
+    score = models.CharField(default='10000000', max_length=30)
+    wallet = models.IntegerField(default=10000000)
 
 
 class UserHistory(models.Model):
