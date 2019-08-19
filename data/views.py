@@ -7,19 +7,13 @@ from data.data_excel import get_data_json
 
 from .models import CoName, CoData
 from operator import itemgetter
-
+from data.csvtodb import adjclose_list
 
 ceed_choice = None
 sector_choice =None
 
 
 def index(request):
-    return render(request, 'data/index.html')
-
-
-def ready(request):
-
-
     kkk = CoName.objects.all()
     if not kkk:
         yyy = '''
@@ -52,29 +46,47 @@ def ready(request):
     if not CoData_instance:
         for i in CoName_instance:
             CoData.objects.create(name=i, data=get_data_json("%s" % i.name))
+        staples = ['GIS', 'HRL', 'K', 'KHC', 'KO', 'MCD', 'MDLZ', 'MO', 'PEP', 'SBUX', 'STZ', 'WMT']
+        giants = ['AAPL', 'AMZN', 'FB', 'GOOG', 'NFLX', 'MSFT']
+        for item in staples:
+            if item not in CoName_instance:
+                CoName.objects.create(name = item)
+            if item not in CoData_instance:
+                CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
+        for item in giants:
+            if item not in CoName_instance:
+                CoName.objects.create(name = item)
+            if item not in CoData_instance:
+                CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
+    return render(request, 'data/index.html')
 
+
+def ready(request):
     if request.method == 'POST':
-        z = request.POST.get('name')
+        # z = request.POST.get('name')
         # url = '%s/' % z
         url = 'ing/'
         global ceed_choice, sector_choice
         ceed_choice = request.POST.get('ceed')
         sector_choice = request.POST.get('sector')
         return redirect(url)
-    name = CoName.objects.all()
+    # name = CoName.objects.all()
     try:
         user = Profile.objects.filter(user_id=request.user.id)[0]
-        return render(request, "data/ready.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice, 'user_wallet': user.wallet})
+        wallet_3 = format(user.wallet, ",")
+        return render(request, "data/ready.html", {'ceed':ceed_choice, 'sector': sector_choice, 'user_wallet': wallet_3})
     except Exception:
-        return render(request, "data/ready.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice, 'user_wallet': 0})
+        return render(request, "data/ready.html", {'ceed':ceed_choice, 'sector': sector_choice, 'user_wallet': 0})
 
 
 # def data_show(request, name):
 def data_show(request):
-    names1 = ['삼성전자', 'SK하이닉스', 'LG디스플레이', '삼성SDI', '현대차', 'LG화학', 'POSCO', 'SK', 'SK텔레콤', 'LG생활건강']
-    names2 = ['신라젠', '셀트리온']
-    names3 = ['카카오', 'NAVER', 'NHN', '엔씨소프트']
+    jaebol = ['삼성전자', 'SK하이닉스', 'LG디스플레이', '삼성SDI', '현대차', 'LG화학', 'POSCO', 'SK', 'SK텔레콤', 'LG생활건강']
+    pharma = ['신라젠', '셀트리온']
+    media = ['카카오', 'NAVER', 'NHN', '엔씨소프트']
     unnamed = ['아모레퍼시픽', '하이트진로홀딩스', '한국전력']
+    staples = ['GIS', 'HRL', 'K', 'KHC', 'KO', 'MCD', 'MDLZ', 'MO', 'PEP', 'SBUX', 'STZ', 'WMT']
+    giants = ['AAPL', 'AMZN', 'FB', 'GOOG', 'NFLX', 'MSFT']
 
     ceed = int(ceed_choice)*10000
     user_instance = Profile.objects.filter(user_id=request.user.id)[0]
@@ -84,9 +96,11 @@ def data_show(request):
     sector = sector_choice
 
     COMPANY_CODE_NAMES_MAPPING = {
-        'jaebol_4': names1,
-        'pharma': names2,
-        'media': names3
+        'jaebol': jaebol,
+        'pharma': pharma,
+        'media': media,
+        'staples': staples,
+        'giants': giants,
     }
     names = COMPANY_CODE_NAMES_MAPPING.get(sector, unnamed)
     name = random.sample(names, 1)[0]
@@ -115,7 +129,7 @@ def user_result(request):
         if user_result[3] != '0':
             UserHistory.objects.create(
                 user=user_instance,
-                stock_name=user_result[0],
+                stock_name=user_result["name"], # 0 = name
                 rate_of_return=user_result[1],
                 total_assets=user_result[2],
                 amount_of_asset_change=user_result[3],

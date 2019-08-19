@@ -10,6 +10,7 @@ from django.views.generic import CreateView, UpdateView
 
 from .forms import SignupForm, ProfileForm
 from .models import Profile, UserHistory, User
+import json
 import random
 # 회원가입
 
@@ -36,7 +37,9 @@ signup = SignupView.as_view()
 def profile(request):
     user_instance = User.objects.filter(id=request.user.id)[0]
     user_history = UserHistory.objects.filter(user_id=user_instance.id)
-    return render(request, 'accounts/profile.html', {'user_history': user_history})
+    user = Profile.objects.filter(user_id=request.user.id)[0]
+    wallet_3 = format(user.wallet, ",")
+    return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_wallet': wallet_3})
 
 
 class ProfileUpdateView(UpdateView, LoginRequiredMixin):
@@ -76,13 +79,17 @@ def user(request):
     print(1)
     if request.method == 'POST':
         user_result = request.POST.get("abc")
-        user_result = user_result.split(",")  # 스플릿 결과는 리스트
-        user_history = UserHistory.objects.all()
-        latest_score = user_history[len(user_history) - 1].total_assets
-        user_result = request.POST.get("abc")
-        user_result = user_result.split(",")  # 스플릿 결과는 리스트
+        print(json.loads(user_result))
+        print(type(json.loads(user_result)))
+        user_result = json.loads(user_result)
 
-        if user_result[2] != latest_score:
+        user_history = UserHistory.objects.all()
+        if user_history:
+            latest_score = user_history[len(user_history) - 1].total_assets
+        else:
+            latest_score = user_history[len(user_history)].total_assets
+
+        if user_result['total_return'] != latest_score:
 
             try:
                 user_instance = User.objects.filter(id=request.user.id)[0]
@@ -90,33 +97,34 @@ def user(request):
             except IndexError:
                 return redirect(reverse('data:data_home'))
 
-            profile_instance.wallet += int(user_result[2])
+            profile_instance.wallet += int(user_result['total_return'])
 
             profile_instance.save()
 
-            if user_result[3] != '0':
+            if user_result['delta_return'] != '0':
                 UserHistory.objects.create(
                     user=user_instance,
-                    stock_name=user_result[0],
-                    rate_of_return=user_result[1],
-                    total_assets=user_result[2],
-                    amount_of_asset_change=user_result[3],
-                    trade_numbers=user_result[4],
-                    john_bur_term=user_result[5],
+                    stock_name=user_result["name"], # 0 = name
+                    rate_of_return=user_result['total_yield'], # 1 = totalT_yield
+                    total_assets=user_result["total_return"], # 2 = total_return
+                    amount_of_asset_change=user_result['delta_return'], # 3 = delta_return
+                    trade_numbers=user_result['trading_numbers'], # 4 = trading_numbers
+                    john_bur_term=sum(list(map(float, user_result['jonber_periods']))), # 5 = jonber_periods
                 )
-                user_result[5:] = [sum(list(map(float, user_result[5:])))]
+                user_result['jonber_periods'] = [sum(list(map(float, user_result['jonber_periods'])))]
+                print(user_result['jonber_periods'])
 
             else:
                 UserHistory.objects.create(
                     user=user_instance,
                     stock_name=user_result[0],
                     rate_of_return=0,
-                    total_assets=user_result[2],
+                    total_assets=user_result['total_return'],
                     amount_of_asset_change=0,
                     trade_numbers=0,
                     john_bur_term=0,
                 )
-                user_result[5:] = ['0']
+                user_result['jonber_periods'] = ['0']
 
             try:
                 user_instance = User.objects.filter(id=request.user.id)[0]
@@ -126,8 +134,9 @@ def user(request):
 
             user_history = UserHistory.objects.filter(user_id=user_instance.id)
             user = Profile.objects.filter(user_id=request.user.id)[0]
-
-            return render(request, "accounts/profile.html", {'user_history': user_history, 'user_profile': profile_instance, 'user_wallet': user.wallet})
+            wallet_3 = format(user.wallet, ",")
+            print(wallet_3)
+            return render(request, "accounts/profile.html", {'user_history': user_history, 'user_profile': profile_instance, 'user_wallet': wallet_3})
 
         else:
             user_instance = User.objects.filter(id=request.user.id)[0]
