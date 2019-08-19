@@ -20,9 +20,18 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<div style="text-align: center; margin: 50px;font-family: 'Contrail One', cursive; font-size: 3em">
-    Leader board
-</div>
+    <div style="text-align: center; margin: 50px;font-family: 'Contrail One', cursive; font-size: 3em">
+        Leader board
+    </div>
+
+
+    <div>
+        <select id="sort-select" onchange="location = this.value;">
+            <option class="sort-max_rate" value="?sort=max_rate">최대수익률</option>
+            <option class="sort-wallet" value="?sort=wallet">현재 자산</option>
+        </select>
+    </div>
+
 <div class="container">
     <div class="row">
         <div class="col-sm-8" style="margin: 0 auto">
@@ -30,15 +39,15 @@
                 <thead>
                 <tr>
                     <th scope="col">ranking</th>
-                    <th scope="col">email</th>
-                    <th scope="col">max_rate</th>
+                    <th scope="col">user</th>
+                    <th scope="col">{{ sort }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for i in leader_board_data %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ i.0.email }}</td>
+                        <td>{{ i.0 }}</td>
                         <td>{{ i.1 }}</td>
                     </tr>
                 {% endfor %}
@@ -47,6 +56,35 @@
         </div>
     </div>
 </div>
-{%endblock%}
+
+    <script>
+        // get url query string
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+        // 정렬방식 셀렉트 박스 유지
+        $(document).ready(function () {
+            var sort = getUrlParameter('sort');
+            if (sort == 'max_rate') {
+                $('.sort-max_rate').prop('selected', 'selected')
+            } else if (sort == 'wallet') {
+                $('.sort-wallet').prop('selected', 'selected')
+            } else {
+                $('.sort-date').prop('selected', 'selected')
+            }
+        });
+    </script>
+{% endblock %}
 </body>
 </html>

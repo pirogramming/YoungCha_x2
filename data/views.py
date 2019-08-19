@@ -60,7 +60,11 @@ def ready(request):
         sector_choice = request.POST.get('sector')
         return redirect(url)
     name = CoName.objects.all()
-    return render(request, "data/ready.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice})
+    try:
+        user = Profile.objects.filter(user_id=request.user.id)[0]
+        return render(request, "data/ready.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice, 'user_wallet': user.wallet})
+    except Exception:
+        return render(request, "data/ready.html", {'name': name, 'ceed':ceed_choice, 'sector': sector_choice, 'user_wallet': 0})
 
 
 # def data_show(request, name):
@@ -70,14 +74,10 @@ def data_show(request):
     names3 = ['카카오', 'NAVER', 'NHN', '엔씨소프트']
     unnamed = ['아모레퍼시픽', '하이트진로홀딩스', '한국전력']
 
-    #TODO wallet에서 ceed머니 입력 값 만큼 빠지도록 수정 필요
     ceed = int(ceed_choice)*10000
-    print(request.user.id)
-    user_instance = Profile.objects.filter(id=request.user.id)
-    print(0)
-    print(user_instance)
-    print(1)
-    #TODO ================================================
+    user_instance = Profile.objects.filter(user_id=request.user.id)[0]
+    user_instance.wallet -= ceed
+    user_instance.save()
 
     sector = sector_choice
 
@@ -93,8 +93,6 @@ def data_show(request):
 
     x = json.loads(x)
 
-    print(x)
-
     # for i in y:
     #     if name in i:
     #         pass
@@ -105,11 +103,13 @@ def data_show(request):
 
 def user_result(request):
     if request.method == 'POST':
+
         user_result = request.POST.get("abc")
         user_result = user_result.split(",") #스플릿 결과는 리스트
-        print(user_result)
-
         user_instance = User.objects.filter(id=request.user.id)[0]
+        user_instance.wallet += user_result
+
+        user_instance.save()
         if user_result[3] != '0':
             UserHistory.objects.create(
                 user=user_instance,
@@ -142,21 +142,36 @@ def loading(request):
 
 
 def leader_board(request):
-    leader_board_data = User.objects.all()
 
+    sort = request.GET.get('sort', '')
     leader_board_data_list = []
-    for i in leader_board_data:
-        li = []
-        for j in UserHistory.objects.filter(user_id=i.id):
-            li.append(j.rate_of_return)
 
-        if li:
-            max_rate = max(li)
-            leader_board_data_list.append([i, float(max_rate)])
-        else:
-            max_rate = 0
-            leader_board_data_list.append([i, float(max_rate)])
-    leader_board_data_list.sort(key=itemgetter(1), reverse=True)
-    print(leader_board_data_list)
-    return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list})
+    if sort == 'max_rate' or sort == '':
+        leader_board_data = Profile.objects.all()
 
+        for i in leader_board_data:
+            li = []
+            for j in UserHistory.objects.filter(user_id=i.user_id):
+                li.append(j.rate_of_return)
+
+            if li:
+                max_rate = max(li)
+                leader_board_data_list.append([i.name, float(max_rate)])
+            else:
+                max_rate = 0
+                leader_board_data_list.append([i.name, float(max_rate)])
+
+        leader_board_data_list.sort(key=itemgetter(1), reverse=True)
+
+        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
+
+    if sort == "wallet":
+        leader_board_data = Profile.objects.all()
+        user_data = User.objects.all()
+        leader_board_data_list = []
+
+        for i in leader_board_data:
+            leader_board_data_list.append([i.name, i.wallet])
+            user_data.filter()
+        leader_board_data_list.sort(key=itemgetter(1), reverse=True)
+        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
