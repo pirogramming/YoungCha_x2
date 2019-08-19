@@ -1,9 +1,11 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
-    <h3>{{ user.profile.name|default:"&dash;" }}'s Profile</h3>
+    <h3>{{ user.name|default:"&dash;" }}'s Profile</h3>
     <br>
-
+    <div>
+    현재 자산: {{ user.wallet }}
+    </div>
     <table class="table">
         <thead class="thead-dark">
         <tr>

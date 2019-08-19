@@ -29,7 +29,7 @@ class SignupForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = UserCreationForm.Meta.fields + ('name','score')
+        fields = UserCreationForm.Meta.fields + ('name', 'score')
 
 
     '''

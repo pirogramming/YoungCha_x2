@@ -66,46 +66,57 @@ def user(request):
     if request.method == 'POST':
         user_result = request.POST.get("abc")
         user_result = user_result.split(",")  # 스플릿 결과는 리스트
+        user_history = UserHistory.objects.all()
+        latest_score = user_history[len(user_history) - 1].total_assets
+        user_result = request.POST.get("abc")
+        user_result = user_result.split(",")  # 스플릿 결과는 리스트
 
-        try:
-            user_instance = User.objects.filter(id=request.user.id)[0]
-        except IndexError:
-            return redirect(reverse('data:data_home'))
+        if user_result[2] != latest_score:
 
-        if user_result[3] != '0':
-            UserHistory.objects.create(
-                user=user_instance,
-                stock_name=user_result[0],
-                rate_of_return=user_result[1],
-                total_assets=user_result[2],
-                amount_of_asset_change=user_result[3],
-                trade_numbers=user_result[4],
-                john_bur_term=user_result[5],
-            )
-            user_result[5:] = [sum(list(map(float, user_result[5:])))]
+            try:
+                user_instance = User.objects.filter(id=request.user.id)[0]
+                profile_instance = Profile.objects.filter(user_id=request.user.id)[0]
+            except IndexError:
+                return redirect(reverse('data:data_home'))
+
+            profile_instance.wallet += int(user_result[2])
+
+            profile_instance.save()
+
+            if user_result[3] != '0':
+                UserHistory.objects.create(
+                    user=user_instance,
+                    stock_name=user_result[0],
+                    rate_of_return=user_result[1],
+                    total_assets=user_result[2],
+                    amount_of_asset_change=user_result[3],
+                    trade_numbers=user_result[4],
+                    john_bur_term=user_result[5],
+                )
+                user_result[5:] = [sum(list(map(float, user_result[5:])))]
+
+            else:
+                UserHistory.objects.create(
+                    user=user_instance,
+                    stock_name=user_result[0],
+                    rate_of_return=0,
+                    total_assets=user_result[2],
+                    amount_of_asset_change=0,
+                    trade_numbers=0,
+                    john_bur_term=0,
+                )
+                user_result[5:] = ['0']
+
+            try:
+                user_instance = User.objects.filter(id=request.user.id)[0]
+
+            except IndexError:
+                return redirect(reverse('data:data_home'))
+
+            user_history = UserHistory.objects.filter(user_id=user_instance.id)
+            return render(request, "accounts/profile.html", {'user_history': user_history, 'user': profile_instance})
 
         else:
-            UserHistory.objects.create(
-                user=user_instance,
-                stock_name=user_result[0],
-                rate_of_return=0,
-                total_assets=user_result[2],
-                amount_of_asset_change=0,
-                trade_numbers=0,
-                john_bur_term=0,
-            )
-            user_result[5:] = ['0']
-
-    try:
-        user_instance = User.objects.filter(id=request.user.id)[0]
-
-    except IndexError:
-        return redirect(reverse('data:data_home'))
-
-    user_history = UserHistory.objects.filter(user_id=user_instance.id)
-    return render(request, "accounts/profile.html", {'user_history': user_history})
-
-
-
-
-
+            user_instance = User.objects.filter(id=request.user.id)[0]
+            user_history = UserHistory.objects.filter(user_id=user_instance.id)
+            return render(request, 'accounts/profile.html', {'user_history': user_history})
