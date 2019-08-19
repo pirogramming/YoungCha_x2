@@ -60,9 +60,20 @@ class MyPasswordChangeView(PasswordChangeView):
         messages.info(self.request, '암호 변경을 완료했습니다.')
         return super().form_valid(form)
 
-#
-#
+
 def user(request):
+    user_check = User.objects.filter(id=request.user.id)
+    print(user_check)
+    if not user_check:
+        return redirect("data:data_home")
+    if not ("@" in request.user.username):
+        user_instance_check = Profile.objects.filter(user_id=user_check[0].id)
+        if not user_instance_check:
+            Profile.objects.create(name=user_check[0].last_name+user_check[0].first_name, user_id=user_check[0].id, wallet=10000000)
+            return redirect("data:data_home")
+        else:
+            pass
+    print(1)
     if request.method == 'POST':
         user_result = request.POST.get("abc")
         user_result = user_result.split(",")  # 스플릿 결과는 리스트
@@ -124,3 +135,5 @@ def user(request):
             user = Profile.objects.filter(user_id=request.user.id)[0]
 
             return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_wallet': user.wallet})
+    else:
+        return redirect("data:data_home")

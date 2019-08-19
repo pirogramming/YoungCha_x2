@@ -18,6 +18,8 @@ def index(request):
 
 
 def ready(request):
+
+
     kkk = CoName.objects.all()
     if not kkk:
         yyy = '''
@@ -133,9 +135,8 @@ def user_result(request):
                 john_bur_term=0,
             )
             user_result[5:] = ['0']
-        user = Profile.objects.filter(user_id=request.user.id)[0]
 
-        return render(request, "data/user_result.html", {'user_result': user_result, 'user_wallet': user.wallet})
+        return render(request, "data/user_result.html", {'user_result': user_result})
 
 
 def loading(request):
@@ -163,9 +164,8 @@ def leader_board(request):
                 leader_board_data_list.append([i.name, float(max_rate)])
 
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
-        user = Profile.objects.filter(user_id=request.user.id)[0]
 
-        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort, 'user_wallet': user.wallet})
+        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
 
     if sort == "wallet":
         leader_board_data = Profile.objects.all()
@@ -176,6 +176,5 @@ def leader_board(request):
             leader_board_data_list.append([i.name, i.wallet])
             user_data.filter()
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
-        user = Profile.objects.filter(user_id=request.user.id)[0]
 
-        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort, 'user_wallet': user.wallet})
+        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
