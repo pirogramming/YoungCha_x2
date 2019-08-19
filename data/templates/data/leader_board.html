@@ -23,40 +23,36 @@
     <div style="text-align: center; margin: 50px;font-family: 'Contrail One', cursive; font-size: 3em">
         Leader board
     </div>
-
-
-    <div>
-        <select id="sort-select" onchange="location = this.value;">
-            <option class="sort-max_rate" value="?sort=max_rate">최대수익률</option>
-            <option class="sort-wallet" value="?sort=wallet">현재 자산</option>
-        </select>
-    </div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-8" style="margin: 0 auto">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">ranking</th>
-                    <th scope="col">user</th>
-                    <th scope="col">{{ sort }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for i in leader_board_data %}
+    <div class="container">
+        <div>
+            <select id="sort-select" onchange="location = this.value;">
+                <option class="sort-max_rate" value="?sort=max_rate">최대수익률</option>
+                <option class="sort-wallet" value="?sort=wallet">현재 자산</option>
+            </select>
+        </div>
+        <div class="row">
+            <div class="col-sm-8" style="margin: 0 auto">
+                <table class="table table-hover">
+                    <thead>
                     <tr>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ i.0 }}</td>
-                        <td>{{ i.1 }}</td>
+                        <th scope="col">ranking</th>
+                        <th scope="col">user</th>
+                        <th scope="col">{{ sort }}</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for i in leader_board_data %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ i.0 }}</td>
+                            <td>{{ i.1 }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-
     <script>
         // get url query string
         var getUrlParameter = function getUrlParameter(sParam) {

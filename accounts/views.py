@@ -114,9 +114,13 @@ def user(request):
                 return redirect(reverse('data:data_home'))
 
             user_history = UserHistory.objects.filter(user_id=user_instance.id)
-            return render(request, "accounts/profile.html", {'user_history': user_history, 'user': profile_instance})
+            user = Profile.objects.filter(user_id=request.user.id)[0]
+
+            return render(request, "accounts/profile.html", {'user_history': user_history, 'user_profile': profile_instance, 'user_wallet': user.wallet})
 
         else:
             user_instance = User.objects.filter(id=request.user.id)[0]
             user_history = UserHistory.objects.filter(user_id=user_instance.id)
-            return render(request, 'accounts/profile.html', {'user_history': user_history})
+            user = Profile.objects.filter(user_id=request.user.id)[0]
+
+            return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_wallet': user.wallet})
