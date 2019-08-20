@@ -68,15 +68,29 @@ def ready(request):
         url = 'ing/'
         global ceed_choice, sector_choice
         ceed_choice = request.POST.get('ceed')
-        sector_choice = request.POST.get('sector')
-        return redirect(url)
+        user = Profile.objects.filter(user_id=request.user.id)[0]
+        if 0 < int(ceed_choice)*10000 < int(user.wallet):
+            sector_choice = request.POST.get('sector')
+            return redirect(url)
+        else:
+            text = "투자금은 0원보다는 크고 현재 자산보다는 작아야 합니다"
+            try:
+                user = Profile.objects.filter(user_id=request.user.id)[0]
+                wallet_3 = format(user.wallet, ",")
+
+                return render(request, "data/ready.html",
+                              {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': wallet_3, 'text': text})
+            except Exception:
+                return render(request, "data/ready.html",
+                              {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': 0, 'text': text})
     # name = CoName.objects.all()
     try:
         user = Profile.objects.filter(user_id=request.user.id)[0]
         wallet_3 = format(user.wallet, ",")
-        return render(request, "data/ready.html", {'ceed':ceed_choice, 'sector': sector_choice, 'user_wallet': wallet_3})
+
+        return render(request, "data/ready.html", {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': wallet_3})
     except Exception:
-        return render(request, "data/ready.html", {'ceed':ceed_choice, 'sector': sector_choice, 'user_wallet': 0})
+        return render(request, "data/ready.html", {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': 0})
 
 
 # def data_show(request, name):
