@@ -119,12 +119,15 @@
             var deltatime = 100;
             var duration = 0;
             var is_down = false;
-            var user_result = []
+            var user_result = {'name': '{{name}}'};
             var jonber_period;
             var jonber_periods = [];
 
             function setValue() {
-                document.getElementById("user").value = user_result;
+                document.getElementById("user").value = JSON.stringify(user_result);
+                console.log(typeof(user_result))
+                console.log(JSON.stringify(user_result))
+                console.log(typeof(JSON.stringify(user_result)))
             }
 
             for (var i = 0; i <= 36; i++) {
@@ -305,15 +308,15 @@
                 trend.stroke = trend.fill = am4core.color("#c00");
                 trend.data = data;
 
-                valueAxis.interpolationDuration = 500;
-                valueAxis.rangeChangeDuration = 500;
+                valueAxis.interpolationDuration = duration;
+                valueAxis.rangeChangeDuration = duration;
 
 
-                series.interpolationDuration = 500;
-                series.defaultState.transitionDuration = 500;
+                series.interpolationDuration = duration;
+                series.defaultState.transitionDuration = duration;
 
-                dateAxis.interpolationDuration = 500;
-                dateAxis.rangeChangeDuration = 500;
+                dateAxis.interpolationDuration = duration;
+                dateAxis.rangeChangeDuration = duration;
                 return trend;
             };
             function show_line(is_down, x_axis, lastdataItem){
@@ -354,13 +357,11 @@
                     total_yield= (delta_return / ceed)*100;
                     $("#exampleModal").modal()
                     alert("종료되었습니다!")
-                    user_result.push('{{ name }}')
-                    user_result.push(total_yield.toFixed(2))
-                    user_result.push(total_return)
-                    user_result.push(delta_return)
-                    user_result.push(p)
-                    user_result.push(jonber_period)
-                    user_result.push(jonber_periods)
+                    user_result['total_yield'] = total_yield.toFixed(2)
+                    user_result['total_return'] = total_return
+                    user_result['delta_return'] = delta_return
+                    user_result['trading_numbers'] = p
+                    user_result['jonber_periods'] = jonber_periods
                     setValue()
                     console.log(user_result)
                 }
