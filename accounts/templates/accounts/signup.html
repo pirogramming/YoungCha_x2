@@ -5,8 +5,10 @@
 
 
 
+    <div class="container shadow p-3 mb-5 bg-white rounded">
+      <h2>회원가입</h2>
+<hr>
 
-    <div class="container">
         <form action="" method="post">    {% csrf_token %}
             <div class="col-md-8">
                 <label for="name">your_name</label>
@@ -27,8 +29,6 @@
                 {#                 이것은 {{ form.username }}과 같아#}
                 <div class="valid-feedback">
                     이메일을 입력하세요!
-                    {{ form.errors.username }}
-                    {#                    현재 위에 메시지는 작동이 안됩니다..errors.username이것들 다 안되고 있어#}
 
                 </div>
             </div>
@@ -40,7 +40,6 @@
                            placeholder="password" required>
                     <div class="valid-feedback">
                         최소 8문자 이상의 비밀번호를 입력하세요!
-                        {{ form.errors.password1 }}
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -48,15 +47,13 @@
                     <input type="password" name="password2" class="form-control is-valid" id="id_password2"
                            placeholder="password_check"
                            required>
-                    <div class="valid-feedback">
-                        비밀번호를 한 번더 입력해주세요!
-                        {{ form.errors.password2 }}
-                    </div>
+
                 </div>
                 <div class="col-md-8">
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                        <label class="form-check-label" for="exampleCheck1">개인정보 사용에 동의합니다</label>
+                    <div class="form-group form-check"  style="margin-top: 20px">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"  required>
+                        <label class="form-check-label" for="exampleCheck1" style="font-size: large;
+                        ">개인정보 사용에 동의합니다</label>
                     </div>
                 </div>
                 <div class="col-md-8">
