@@ -83,7 +83,7 @@ def user(request):
             latest_score = 999999999999
         user_result = request.POST.get("abc")
         user_result = json.loads(user_result)
-        if user_result['total_return'] != int(latest_score):
+        if user_result['total_return'] != int(float(latest_score)):
             try:
                 user_instance = User.objects.filter(id=request.user.id)[0]
                 profile_instance = Profile.objects.filter(user_id=request.user.id)[0]
