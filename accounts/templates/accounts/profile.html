@@ -10,11 +10,10 @@ ul{
 table{
 text-align: center;
 }
-*{
-margin:0 auto;
 
+img{
+    margin: 0 auto;
 }
-
 
 
 
@@ -47,7 +46,7 @@ text-align:left;
              <li>  <i class="fas fa-wallet"></i>
 
 
-</strong>  {{ user_profile.wallet}}
+</strong>  {{ user_profile.wallet}}원
 
              </li>
              <li>
@@ -56,10 +55,12 @@ text-align:left;
 
                 </strong>{{ user.profile.name |default:"알수없음"}}
                 </li><li>
-               <strong><i class="fas fa-door-open"></i></strong></li><li>{{ user.date_joined }}</li></ul>
-            </div>
-            <div class="row">
-                <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
+               <strong><i class="fas fa-door-open"></i></strong></li><li>{{ user.date_joined }}</li>
+
+            <hr>
+    <li>     <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
+
+    </li>
             </div>
          </div>
       </div>
