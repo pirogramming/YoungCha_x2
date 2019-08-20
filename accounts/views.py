@@ -43,17 +43,10 @@ def profile(request):
     return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_profile': user, "user_wallet": wallet_3})
 
 
-class ProfileUpdateView(UpdateView, LoginRequiredMixin):
-    model = Profile
-    form_class = ProfileForm
-    success_url = reverse_lazy('accounts:history')
-
-    def get_object(self):
-        return self.request.user.profile
 
 
-# profile_edit = ProfileUpdateView.as_view()
-profile_edit = ProfileUpdateView.as_view()
+
+
 
 
 class MyPasswordChangeView(PasswordChangeView):

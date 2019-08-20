@@ -1,17 +1,51 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
-    <h2>로그인</h2>
+
+<div class="container shadow p-3 mb-5 bg-white rounded">
+  <h2>로그인</h2>
 
     <form action="" method="post">
         {% csrf_token %}
         <table>
-            {{ form.as_table }}
+
+
+
+
+            <div class="col-md-8">
+                <label for="username">Email(ID)</label>
+                <input type="text" name='username' class="form-control is-valid" id="id_username" placeholder="Email"
+                       required>
+                <div class="valid-feedback">
+                    이메일을 입력하세요!
+
+                </div>
+            </div>
+
+
+                <div class="col-md-8">
+                    <label for="password">password</label>
+                    <input type="password" name="password" class="form-control is-valid" id="id_password1"
+                           placeholder="password" required>
+                    <div class="valid-feedback">
+                        최소 8문자 이상의 비밀번호를 입력하세요!
+                        {{ form.errors.password1 }}
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-8">
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                </div>
+
         </table>
-        <input type="submit" />
+
     </form>
 
     <hr/>
+</div>
+
 
 
 {% endblock %}

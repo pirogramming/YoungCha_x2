@@ -34,6 +34,33 @@
             display: flex;
             align-items: center;
         }
+
+        nav{
+        margin-bottom: 70px;
+        }
+    .valid-feedback {
+    color: #0099FF;
+    }
+  .form-control.is-valid{
+   border-color: #0099FF;
+   width: 500px;
+       padding: inherit;
+
+}
+label{
+font-size: x-large;
+}
+form{
+margin-top: 30px;
+
+}
+
+.col-md-8{
+margin:0 auto;
+}
+button{
+margin-top: 30px;
+}
     </style>
 
 
@@ -113,7 +140,7 @@
 
             {% if user.is_authenticated %}
                 {% if user_wallet %}
-                    <a class="nav-link" href="{% url "accounts:profile" %}">현재 자산: {{ user_wallet }}원</a>
+                    <a class="nav-link" href="{% url "accounts:profile" %}"><i class="fas fa-money-bill-wave"></i> {{ user_wallet }}원</a>
                 {% endif %}
 
                 <a class="nav-link" href='{% url "accounts:profile" %}'>{{ user }}</a>

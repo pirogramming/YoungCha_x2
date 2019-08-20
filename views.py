@@ -59,16 +59,9 @@ def profile(request):
 
 
 
-class ProfileUpdateView(UpdateView, LoginRequiredMixin):
-    model = Profile
-    form_class = ProfileForm
-    success_url = reverse_lazy('profile')
 
-    def get_object(self):
-        return self.request.user.profile
 
-#profile_edit = ProfileUpdateView.as_view()
-profile_edit = ProfileUpdateView.as_view()
+
 
 
 # class RequestLoginViaUrlView(PasswordResetView):

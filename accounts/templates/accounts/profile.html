@@ -1,33 +1,64 @@
 {% extends "accounts/layout.html" %}
-{% load staticfiles %}
+
 {% block content %}
-    <div class="container" style="margin-top: 30px">
-    <div class="row">
+{% load staticfiles %}
+<style>
+ul{
+   list-style:none;
+   padding-left:5px;
+   }
+table{
+text-align: center;
+}
+*{
+margin:0 auto;
 
-        <div class="col-xsm-9 col-sm-9 col-md-3">
+}
+.left{
+text-align:left;
+}
+</style>
+<body>
+
+    <div class="container  shadow p-3 mb-5 bg-white rounded" style="margin-top: 30px">
+    <div class="row ">
+
+        <div class="col-xsm-9 col-sm-9 col-md-3 left">
+        <div class="container  ">
             <div class="row">
-                <img src="{% static "data/user.gif" %}" style="margin-bottom: 20px;    width: 200px;  height: 230px; border: 0px;"> <br>
-
+                <img src="{% static "data/user.gif" %}" style="margin-bottom: 30px;    width: 200px;  height: 230px; border: 0px;">
             </div>
-            <div class="row"><
-                <h3>{{ user.username|default:"&dash;" }}'s Profile</h3>
+            <div class="row" >
+            {% if user.profile.name%}
+             <ul>  <li> <h3 style="margin-bottom:10px">{{ user.profile.name|default:"&dash;" }}'s Profile</h3></li>
+             {%endif%}
+<hr>
+
+
+              <li>  <strong><i class="far fa-envelope-open"></i>
+
+</strong>
+                 {{ user.username}}
+             </li>
+             <li>  <i class="fas fa-wallet"></i>
+
+
+</strong>  {{ user_profile.wallet}}
+
+             </li>
+             <li>
+                <strong>
+                <i class="far fa-user"></i>
+
+                </strong>{{ user.profile.name |default:"알수없음"}}
+                </li><li>
+               <strong><i class="fas fa-door-open"></i></strong></li><li>{{ user.date_joined }}</li></ul>
             </div>
             <div class="row">
-            이메일: {{ user.username}}
-                <br>
-                이름: {{ user.name |default:"알수없음"}}
-                <br>
-                가입일시: {{ user.date_joined }}
-
-            </div>
-
-            <div class="row">
-                <a href="{% url "accounts:profile_edit" %}">프로필 수정</a>
                 <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
             </div>
-
-
-        </div>
+         </div>
+      </div>
         <div class="col-xsm-9 col-sm-9  col-md-9">
             <table class="table">
                 <thead class="thead-dark">
@@ -70,6 +101,6 @@
 
 
 
-
+</body>
 {% endblock %}
 
