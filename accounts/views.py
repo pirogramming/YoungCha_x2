@@ -83,6 +83,7 @@ def user(request):
         if len(user_history):
             latest_score = user_history[len(user_history) - 1].total_assets
         else:
+            #유저 히스토리가 없을 경우 유효성 검사를 적당히 함
             latest_score = -999999999
 
         user_result = request.POST.get("abc")
