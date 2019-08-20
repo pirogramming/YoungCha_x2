@@ -69,7 +69,6 @@ def user(request):
             return redirect("data:data_home")
         else:
             pass
-
     if request.method == 'POST':
         user_result = request.POST.get("abc")
 
@@ -81,10 +80,10 @@ def user(request):
             latest_score = user_history[len(user_history) - 1].total_assets
         else:
             #유저 히스토리가 없을 경우 유효성 검사를 적당히 함
-            latest_score = -999999999
+            latest_score = 999999999999
         user_result = request.POST.get("abc")
         user_result = json.loads(user_result)
-        if user_result['total_return'] != latest_score:
+        if user_result['total_return'] != int(latest_score):
             try:
                 user_instance = User.objects.filter(id=request.user.id)[0]
                 profile_instance = Profile.objects.filter(user_id=request.user.id)[0]
