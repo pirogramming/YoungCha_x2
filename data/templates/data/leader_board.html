@@ -40,9 +40,9 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th scope="col">ranking</th>
-                        <th scope="col">user</th>
-                        <th scope="col">{{ sort }}</th>
+                        <th scope="col" style="text-align: center">ranking</th>
+                        <th scope="col" style="text-align: center">user</th>
+                        <th scope="col" style="text-align: center">{{ sort }}</th>
                     </tr>
                     </thead>
                     <tbody id="tbody">
@@ -54,8 +54,8 @@
                                 {% endif %}
                                 {{ forloop.counter }}
                             </th>
-                            <td>{{ i.0 }}</td>
-                            <td>{{ i.1 }}</td>
+                            <td style="text-align: center">{{ i.0 }}</td>
+                            <td style="text-align: center">{{ i.1 }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
