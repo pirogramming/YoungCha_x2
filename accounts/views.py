@@ -66,7 +66,6 @@ class MyPasswordChangeView(PasswordChangeView):
 
 def user(request):
     user_check = User.objects.filter(id=request.user.id)
-    print(user_check)
     if not user_check:
         return redirect("data:data_home")
     if not ("@" in request.user.username):
@@ -76,12 +75,10 @@ def user(request):
             return redirect("data:data_home")
         else:
             pass
-    print(1)
 
     if request.method == 'POST':
         user_result = request.POST.get("abc")
-        print(json.loads(user_result))
-        print(type(json.loads(user_result)))
+
         user_result = json.loads(user_result)
 
         user_history = UserHistory.objects.all()
@@ -92,11 +89,8 @@ def user(request):
             #유저 히스토리가 없을 경우 유효성 검사를 적당히 함
             latest_score = -999999999
         user_result = request.POST.get("abc")
-        user_result = user_result.split(",")  # 스플릿 결과는 리스트
-
-
+        user_result = json.loads(user_result)
         if user_result['total_return'] != latest_score:
-
             try:
                 user_instance = User.objects.filter(id=request.user.id)[0]
                 profile_instance = Profile.objects.filter(user_id=request.user.id)[0]
@@ -118,7 +112,7 @@ def user(request):
                     john_bur_term=sum(list(map(float, user_result['jonber_periods']))), # 5 = jonber_periods
                 )
                 user_result['jonber_periods'] = [sum(list(map(float, user_result['jonber_periods'])))]
-                print(user_result['jonber_periods'])
+
 
             else:
                 UserHistory.objects.create(
@@ -141,7 +135,7 @@ def user(request):
             user_history = UserHistory.objects.filter(user_id=user_instance.id)
             user = Profile.objects.filter(user_id=request.user.id)[0]
             wallet_3 = format(user.wallet, ",")
-            print(wallet_3)
+
             return render(request, "accounts/profile.html", {'user_history': user_history, 'user_profile': profile_instance, 'user_wallet': wallet_3})
 
         else:
