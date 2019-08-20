@@ -104,58 +104,50 @@ def data_show(request):
     }
     names = COMPANY_CODE_NAMES_MAPPING.get(sector, unnamed)
     name = random.sample(names, 1)[0]
-
     x = CoData.objects.filter(name_id=name)[0].data
-
     x = json.loads(x)
-
-    # for i in y:
-    #     if name in i:
-    #         pass
-
-    # return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed})
-    return render(request, "data/trading_game.html", {'data': x, 'name': name, 'ceed': ceed, 'sector':sector})
-
-
-def user_result(request):
+    index = 0
+    is_ing = 'true'
     if request.method == 'POST':
+        aa = request.POST.get("value")
+        index += int(aa)
+        if index == 10:
+            is_ing = 'false'
+        print(index)
+        print(x[index])
+        print(is_ing)
+        return render(request, "data/trading_game.html", {'data': x[index], 'name': name, 'ceed': ceed, 'sector':sector, 'is_ing': is_ing})
+    else:
+        return render(request, "data/trading_game.html", {'data': x[index], 'name': name, 'ceed': ceed, 'sector':sector, 'is_ing': is_ing})
 
-        user_result = request.POST.get("abc")
-        user_result = user_result.split(",") #스플릿 결과는 리스트
-        user_instance = User.objects.filter(id=request.user.id)[0]
-        user_instance.wallet += user_result
-
-        user_instance.save()
-        if user_result[3] != '0':
-            UserHistory.objects.create(
-                user=user_instance,
-                stock_name=user_result["name"], # 0 = name
-                rate_of_return=user_result[1],
-                total_assets=user_result[2],
-                amount_of_asset_change=user_result[3],
-                trade_numbers=user_result[4],
-                john_bur_term=user_result[5],
-            )
-            user_result[5:] = [sum(list(map(float, user_result[5:])))]
-
-        else:
-            UserHistory.objects.create(
-                user=user_instance,
-                stock_name=user_result[0],
-                rate_of_return=0,
-                total_assets=user_result[2],
-                amount_of_asset_change=0,
-                trade_numbers=0,
-                john_bur_term=0,
-            )
-            user_result[5:] = ['0']
-
-        return render(request, "data/user_result.html", {'user_result': user_result})
-
+def showdb(request):
+    giants = ['AAPL', 'AMZN', 'FB', 'GOOG', 'MSFT']
+    staples = ['GIS', 'HRL', 'K', 'KHC', 'KO', 'MCD', 'MDLZ', 'MO', 'PEP', 'SBUX', 'STZ', 'WMT']
+    print('b')
+    index = 0
+    if request.method == 'POST':
+        aa = request.POST.get("value")
+        print(aa)
+        index += int(aa)
+        print(index)
+        context = {
+            'adjclose': adjclose_json[index],
+            'index': index
+        }
+        jsonctx = json.dumps(context)
+        print(jsonctx)
+        return HttpResponse(jsonctx, content_type="application/json")
+    else:
+        print('c')
+        context = {
+            'adjclose': adjclose_json[index],
+            'index': index,
+            'ticker': ticker
+        }
+        return render(request, 'csvdata/showdb.html', context)
 
 def loading(request):
     return render(request, 'data/loading.html')
-
 
 def leader_board(request):
 
@@ -178,8 +170,9 @@ def leader_board(request):
                 leader_board_data_list.append([i.name, float(max_rate)])
 
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
-
-        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
+        user = Profile.objects.filter(user_id=request.user.id)[0]
+        wallet_3 = format(user.wallet, ",")
+        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort, 'user_wallet': wallet_3})
 
     if sort == "wallet":
         leader_board_data = Profile.objects.all()
@@ -187,8 +180,9 @@ def leader_board(request):
         leader_board_data_list = []
 
         for i in leader_board_data:
-            leader_board_data_list.append([i.name, i.wallet])
+            leader_board_data_list.append([i.name, format(i.wallet, ",")])
             user_data.filter()
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
-
-        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
+        user = Profile.objects.filter(user_id=request.user.id)[0]
+        wallet_3 = format(user.wallet, ",")
+        return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort, 'user_wallet': wallet_3})

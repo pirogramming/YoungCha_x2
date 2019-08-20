@@ -19,7 +19,10 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
 <!-- {% load static %}
    <link rel="stylesheet" type="text/javascript" href="{% static "javascript/mouseevent.js" %}"> -->
 <style>
@@ -32,7 +35,7 @@
 <!-- HTML -->
 <div id="chartdiv"></div>
 <h2>기초 자산: &#8361; <span id="ceed_place"></span> 기말 자산: &#8361; <span id="total_return_place"></span> 증감액: &#8361; <span id="delta_return_place">---</span></h2>
-<h2 id="content">---</h2>
+<h2 id="content">{{ data }}</h2>
 
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -328,25 +331,39 @@
                 }
             }
 // add data
-
+            var k = 1;
             var xaxis;
             var interval = setInterval(function ()
-
             {
-                if (j < b.length) {
-                    visits = b[j];
+                if ({{ is_ing }}) {
+                    visits = {{ data }};
                     var lastdataItem = series.dataItems.getIndex(series.dataItems.length - 1);
                     x_axis[j] = new Date(lastdataItem.dateX.getTime() + 1000);
                     xaxis = new Date(lastdataItem.dateX.getTime() -36000)
                     chart.addData(
-                        {date: x_axis[j], value: visits}, 1
+                        {date: x_axis[j], value: {{data}} }, 1
                     );
                     show_line(is_down, xaxis, lastdataItem);
-                    content.innerHTML = "현재가: &#8361;"+b[j].toLocaleString();
-                    content.innerHTML += " 매수가: &#8361;"+show_buy_at_s(p);
-                    content.innerHTML += " 현재 수익률: " + calculate_yields(is_down, b[j], sell_at_s[p]) + "% " + comments(calculate_yields(is_down, b[j], sell_at_s[p]));
+                    //content.innerHTML = "현재가: &#8361;"+b[j].toLocaleString();
+                    //content.innerHTML += " 매수가: &#8361;"+show_buy_at_s(p);
+                    //content.innerHTML += " 현재 수익률: " + calculate_yields(is_down, b[j], sell_at_s[p]) + "% " + comments(calculate_yields(is_down, b[j], sell_at_s[p]));
                     bgchange(is_down, calculate_yields(is_down, b[j], sell_at_s[p]));
                     {#colorchange()#}
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'data:ing' %}",
+                        data: {'value': k, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                        dataType: "text",
+                        success: function (result) {
+                            console.log(JSON.parse(result)['index'])
+                            //$('#indexx').html(JSON.parse(result)['index'])
+                            //$('#adjclose').html(JSON.parse(result)['adjclose'])
+                        },
+                        error: function (request, status, error) {
+                            alert('오류!')
+                        },
+                    });
+                    k++
                     j++
                 } else {
                     clearInterval(interval);
