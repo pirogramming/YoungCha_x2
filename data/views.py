@@ -49,16 +49,23 @@ def index(request):
 
     staples = ['GIS', 'HRL', 'K', 'KHC', 'KO', 'MCD', 'MDLZ', 'MO', 'PEP', 'SBUX', 'STZ', 'WMT']
     giants = ['AAPL', 'AMZN', 'FB', 'GOOG', 'NFLX', 'MSFT']
-
     for item in staples:
-        if item not in CoName_instance:
+        if CoName_instance.get(name=item):
+            pass
+        else:
             CoName.objects.create(name = item)
-        if item not in CoData_instance:
+        if CoData_instance.get(name=item):
+            pass
+        else:
             CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
     for item in giants:
-        if item not in CoName_instance:
+        if CoName_instance.get(name=item):
+            pass
+        else:
             CoName.objects.create(name = item)
-        if item not in CoData_instance:
+        if CoData_instance.get(name=item):
+            pass
+        else:
             CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
     return render(request, 'data/index.html')
 
