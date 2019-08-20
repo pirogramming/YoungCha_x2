@@ -14,7 +14,6 @@
                          <th scope="col">플레이 일시</th>
                         <th scope="col">기업명</th>
                         <th scope="col">수익률</th>
-                        <th scope="col">기말자산</th>
                         <th scope="col">증감액</th>
                     </tr>
                     {% for user_h in user_history %}
@@ -23,10 +22,7 @@
                             <th scope="col">{{ user_h.game_date}}</th>
                             <th scope="col">{{ user_h.stock_name }}</th>
                             <th scope="col">{{ user_h.rate_of_return }}(%)</th>
-                            <th scope="col">{{ user_h.total_assets }}</th>
                             <th scope="col">{{ user_h.amount_of_asset_change }}</th>
-
-
                         </tr>
                     {% endfor %}
 
