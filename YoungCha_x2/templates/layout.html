@@ -1,12 +1,10 @@
 {% load staticfiles %}
-
-
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>영차영차</title>
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <script crossorigin="anonymous"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -19,72 +17,75 @@
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Advent+Pro|Orbitron&display=swap" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<!--{% load staticfiles %}-->
-<!--    <script src="{% static 'css/layout.css' %}"></script>-->
-    <!--    <link href="layout2.css" rel="stylesheet">-->
     <style>
         /*<!--   여기부터 회원가입 modal 페이지  css  -->*/
 
-/*    여기까지 회원가입 modal*/
-    nav a{
-        font-weight: bolder;
-        font-size: 1.5em;
-    }
-    .navbar-brand{
-        font-size: 2em;
-    }
+        /*    여기까지 회원가입 modal*/
+        nav a {
+            font-weight: bolder;
+            font-size: 1.5em;
+        }
+
+        .navbar-brand {
+            font-size: 2em;
+        }
+
         #navbar-brand {
             display: flex;
             align-items: center;
         }
     </style>
+
+
 </head>
 <body>
-<!-- Modal -->
-<div class="modal fade" id="ant_ModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">영차영차</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-              이 개미는 노란색입니다. 모든 개미투자자들의 희망이죠.<br>
-              이 땅 위의 모든 개미들을 응원합니다!
-      </div>
-      <div class="modal-footer">
-{#        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
-        <button type="button" class="btn btn-primary" data-dismiss="modal">오늘 하루도 힘내요</button>
-      </div>
+{#네비 YCYC 트레이딩 오늘하루 리더보드 현재 자산 계정이름 로그아웃#}
+
+{#modal1-개미란?#}
+<div class="modal fade" id="ant_ModalScrollable" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">영차영차</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                이 개미는 노란색입니다. 모든 개미투자자들의 희망이죠.<br>
+                이 땅 위의 모든 개미들을 응원합니다!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">오늘 하루도 힘내요</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+{#modal2-영차영차란?#}
+<div class="modal fade" id="ycyc_ModalScrollable" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">영어로 영차영차가 뭘까요? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                바로 YCYC입니다. <br>
+                그러나 주식을 사놓고 영차영차만 외치면 안 돼요! <br>
+                꼼꼼한 종목 분석과 발빠른 뉴스 확인, <br> 그리고 굳건한 멘탈이 필수죠.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">건승을 빕니다</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="modal fade" id="ycyc_ModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">영어로 영차영차가 뭘까요? </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          바로 YCYC입니다. <br>
-          그러나 주식을 사놓고 영차영차만 외치면 안 돼요! <br>
-          꼼꼼한 종목 분석과 발빠른 뉴스 확인, <br> 그리고 굳건한 멘탈이 필수죠.
-      </div>
-      <div class="modal-footer">
-{#        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
-        <button type="button" class="btn btn-primary" data-dismiss="modal">건승을 빕니다</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
+{#네비 설명#}
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div id="navbar-brand">
         <a class="navbar-brand" href="#" data-toggle="modal" data-target="#ant_ModalScrollable">
@@ -114,6 +115,7 @@
 
             {% if user.is_authenticated %}
                 <a class="nav-link" href="{% url "accounts:profile" %}">현재 자산: {{ user_wallet }}원</a>
+
                 <a class="nav-link" href='{% url "accounts:profile" %}'>{{ user }}</a>
                 <a class="nav-link" href="{% url 'accounts:logout' %}?next={{ request.path }}"
                    onclick="return confirm('Are you sure?');">로그아웃</a>
