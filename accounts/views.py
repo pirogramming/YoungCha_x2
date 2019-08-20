@@ -40,7 +40,7 @@ def profile(request):
     user = Profile.objects.filter(user_id=request.user.id)[0]
     wallet_3 = format(user.wallet, ",")
 
-    return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_profile': user})
+    return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_profile': user, "user_wallet": wallet_3})
 
 
 class ProfileUpdateView(UpdateView, LoginRequiredMixin):
