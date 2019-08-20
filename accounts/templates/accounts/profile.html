@@ -9,7 +9,7 @@
                 <img src="{% static "data/user.gif" %}" style="margin-bottom: 20px;    width: 200px;  height: 230px; border: 0px;"> <br>
 
             </div>
-            <div class="row">
+            <div class="row"><
                 <h3>{{ user.username|default:"&dash;" }}'s Profile</h3>
             </div>
             <div class="row">
@@ -40,6 +40,7 @@
                 </tr>
                 {% for user_h in user_history %}
                     <tr>
+
                         {#    수익 : {{ user_h.rate_of_return }}#}
                         <th scope="col">{{ user_h.game_date }}</th>
                         <th scope="col">{{ user_h.stock_name }}</th>

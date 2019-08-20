@@ -68,7 +68,19 @@ def ready(request):
         url = 'ing/'
         global ceed_choice, sector_choice
         ceed_choice = request.POST.get('ceed')
-        user = Profile.objects.filter(user_id=request.user.id)[0]
+        try:
+            user = Profile.objects.filter(user_id=request.user.id)[0]
+        except Exception:
+            try:
+                user = Profile.objects.filter(user_id=request.user.id)[0]
+                wallet_3 = format(user.wallet, ",")
+
+                return render(request, "data/ready.html",
+                              {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': wallet_3, 'text': text})
+            except Exception:
+                text = "로그인된 유저만 사용 가능한 기능입니다"
+                return render(request, "data/ready.html",
+                              {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': 0, 'text': text})
         if 0 < int(ceed_choice)*10000 < int(user.wallet):
             sector_choice = request.POST.get('sector')
             return redirect(url)
@@ -192,6 +204,7 @@ def leader_board(request):
                 leader_board_data_list.append([i.name, float(max_rate)])
 
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
+
 
         return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
 
