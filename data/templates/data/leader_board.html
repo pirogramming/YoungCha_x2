@@ -15,6 +15,11 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Contrail+One&display=swap" rel="stylesheet">
+    <style>
+        #tbody > tr:nth-child(1) > th{
+            color:gold;
+        }
+    </style>
 </head>
 <body>
 {% extends "layout.html" %}
@@ -40,10 +45,15 @@
                         <th scope="col">{{ sort }}</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbody">
                     {% for i in leader_board_data %}
                         <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
+                            <th scope="row" style="text-align: center;">
+                                {% if forloop.counter == 1%}
+                                    <i class="fas fa-crown"></i>
+                                {% endif %}
+                                {{ forloop.counter }}
+                            </th>
                             <td>{{ i.0 }}</td>
                             <td>{{ i.1 }}</td>
                         </tr>
@@ -60,7 +70,6 @@
                 sURLVariables = sPageURL.split('&'),
                 sParameterName,
                 i;
-
             for (i = 0; i < sURLVariables.length; i++) {
                 sParameterName = sURLVariables[i].split('=');
 
