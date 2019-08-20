@@ -39,7 +39,7 @@ def profile(request):
     user_history = UserHistory.objects.filter(user_id=user_instance.id)
     user = Profile.objects.filter(user_id=request.user.id)[0]
     wallet_3 = format(user.wallet, ",")
-    print(wallet_3)
+
     return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_profile': user})
 
 
