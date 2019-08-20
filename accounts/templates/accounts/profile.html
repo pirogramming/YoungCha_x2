@@ -2,55 +2,73 @@
 {% load staticfiles %}
 {% block content %}
     <div class="container" style="margin-top: 30px">
-        <div class="row">
+    <div class="row">
 
-            <div class="col-sm-3"><img src="{% static "data/user.gif" %}" style="    width: 200px;  height: 230px; border: 0px;"> <br>
+        <div class="col-xsm-9 col-sm-9 col-md-3">
+            <div class="row">
+                <img src="{% static "data/user.gif" %}" style="margin-bottom: 20px;    width: 200px;  height: 230px; border: 0px;"> <br>
+
+            </div>
+            <div class="row">
                 <h3>{{ user.username|default:"&dash;" }}'s Profile</h3>
             </div>
-            <div class="col-sm-9">
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                         <th scope="col">플레이 일시</th>
-                        <th scope="col">기업명</th>
-                        <th scope="col">수익률</th>
-                        <th scope="col">기말자산</th>
-                        <th scope="col">증감액</th>
-                    </tr>
-                    {% for user_h in user_history %}
-                        <tr>
-                            {#    수익 : {{ user_h.rate_of_return }}#}
-                            <th scope="col">{{ user_h.game_date}}</th>
-                            <th scope="col">{{ user_h.stock_name }}</th>
-                            <th scope="col">{{ user_h.rate_of_return }}(%)</th>
-                            <th scope="col">{{ user_h.total_assets }}</th>
-                            <th scope="col">{{ user_h.amount_of_asset_change }}</th>
+            <div class="row">
+            이메일: {{ user.username}}
+                <br>
+                이름: {{ user.name |default:"알수없음"}}
+                <br>
+                가입일시: {{ user.date_joined }}
 
-
-                        </tr>
-                    {% endfor %}
-
-
-                    </thead>
-                    <tbody>
-
-
-                    </tbody>
-                </table>
-                {% if not user_history %}
-                    {{ user_profile.profile.score|default:"전적이 없습니다." }}
-                {% endif %}
             </div>
-        </div>
 
-        <br>
-        <div>
-            {{ user_profile.wallet.0 }}
-        </div>
+            <div class="row">
+                <a href="{% url "accounts:profile_edit" %}">프로필 수정</a>
+                <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
+            </div>
 
-        <a href="{% url "accounts:profile_edit" %}">프로필 수정</a>
-        <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
+
+        </div>
+        <div class="col-xsm-9 col-sm-9  col-md-9">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">플레이 일시</th>
+                    <th scope="col">기업명</th>
+                    <th scope="col">수익률</th>
+                    <th scope="col">기말자산</th>
+                    <th scope="col">증감액</th>
+                </tr>
+                {% for user_h in user_history %}
+                    <tr>
+                        {#    수익 : {{ user_h.rate_of_return }}#}
+                        <th scope="col">{{ user_h.game_date }}</th>
+                        <th scope="col">{{ user_h.stock_name }}</th>
+                        <th scope="col">{{ user_h.rate_of_return }}(%)</th>
+                        <th scope="col">{{ user_h.total_assets }}</th>
+                        <th scope="col">{{ user_h.amount_of_asset_change }}</th>
+
+
+                    </tr>
+                {% endfor %}
+
+
+                </thead>
+                <tbody>
+
+
+                </tbody>
+            </table>
+            {% if not user_history %}
+                {{ user_profile.profile.score|default:"전적이 없습니다." }}
+            {% endif %}
+        </div>
     </div>
+
+    <br>
+
+
+
+
 
 {% endblock %}
 
