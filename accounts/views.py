@@ -85,22 +85,15 @@ def user(request):
         user_result = json.loads(user_result)
 
         user_history = UserHistory.objects.all()
-<<<<<<< HEAD
 
         if len(user_history):
             latest_score = user_history[len(user_history) - 1].total_assets
         else:
             #유저 히스토리가 없을 경우 유효성 검사를 적당히 함
             latest_score = -999999999
-
         user_result = request.POST.get("abc")
         user_result = user_result.split(",")  # 스플릿 결과는 리스트
-=======
-        if user_history:
-            latest_score = user_history[len(user_history) - 1].total_assets
-        else:
-            latest_score = user_history[len(user_history)].total_assets
->>>>>>> 81361d1da32514538b1cc883283d47acb2f56dac
+
 
         if user_result['total_return'] != latest_score:
 
