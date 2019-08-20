@@ -109,7 +109,8 @@
         <ul class="navbar-nav">
 
             {% if user.is_authenticated %}
-                <a class="nav-link" href="" style="width: 400px">현재 자산: {{ user_wallet }}원</a>
+                <a class="nav-link" href="{% url "accounts:profile" %}" style="width: 400px">현재 자산: {{ user_wallet }}원</a>
+
                 <a class="nav-link" href='{% url "accounts:profile" %}'>{{ user }}</a>
                 <a class="nav-link" href="{% url 'accounts:logout' %}?next={{ request.path }}"
                    onclick="return confirm('Are you sure?');">로그아웃</a>
