@@ -16,6 +16,26 @@ ceed_choice = None
 sector_choice =None
 
 
+def make_leaderBoard_data(leader_board_data):
+    for i in leader_board_data:
+        leader_board_data_list = []
+        li = []
+        for j in UserHistory.objects.filter(user_id=i.user_id):
+            li.append(j.rate_of_return)
+
+        if li:
+            max_rate = max(li)
+            leader_board_data_list.append([i.name, float(max_rate)])
+        else:
+            max_rate = 0
+            leader_board_data_list.append([i.name, float(max_rate)])
+
+    return leader_board_data_list
+
+
+#__________________________________________________________________________________________________
+
+
 def index(request):
     kkk = CoName.objects.all()
     if not kkk:
@@ -241,34 +261,18 @@ def loading(request):
 
 
 def leader_board(request):
-
     sort = request.GET.get('sort', '')
-    leader_board_data_list = []
 
     if sort == 'max_rate' or sort == '':
         leader_board_data = Profile.objects.all()
-
-        for i in leader_board_data:
-            li = []
-            for j in UserHistory.objects.filter(user_id=i.user_id):
-                li.append(j.rate_of_return)
-
-            if li:
-                max_rate = max(li)
-                leader_board_data_list.append([i.name, float(max_rate)])
-            else:
-                max_rate = 0
-                leader_board_data_list.append([i.name, float(max_rate)])
-
+        leader_board_data_list = make_leaderBoard_data(leader_board_data)
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
-
         return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
 
     if sort == "wallet":
         leader_board_data = Profile.objects.all()
         user_data = User.objects.all()
         leader_board_data_list = []
-
         for i in leader_board_data:
             leader_board_data_list.append([i.name, i.wallet])
             user_data.filter()
