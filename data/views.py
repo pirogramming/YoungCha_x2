@@ -46,20 +46,28 @@ def index(request):
     if not CoData_instance:
         for i in CoName_instance:
             CoData.objects.create(name=i, data=get_data_json("%s" % i.name))
-        staples = ['GIS', 'HRL', 'K', 'KHC', 'KO', 'MCD', 'MDLZ', 'MO', 'PEP', 'SBUX', 'STZ', 'WMT']
-        giants = ['AAPL', 'AMZN', 'FB', 'GOOG', 'NFLX', 'MSFT']
-        for item in staples:
-            if item not in CoName_instance:
-                CoName.objects.create(name = item)
-            if item not in CoData_instance:
-                CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
-        for item in giants:
-            if item not in CoName_instance:
-                CoName.objects.create(name = item)
-            if item not in CoData_instance:
-                CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
-    return render(request, 'data/index.html')
 
+    staples = ['GIS', 'HRL', 'K', 'KHC', 'KO', 'MCD', 'MDLZ', 'MO', 'PEP', 'SBUX', 'STZ', 'WMT']
+    giants = ['AAPL', 'AMZN', 'FB', 'GOOG', 'NFLX', 'MSFT']
+    for item in staples:
+        if CoName_instance.get(name=item):
+            pass
+        else:
+            CoName.objects.create(name = item)
+        if CoData_instance.get(name=item):
+            pass
+        else:
+            CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
+    for item in giants:
+        if CoName_instance.get(name=item):
+            pass
+        else:
+            CoName.objects.create(name = item)
+        if CoData_instance.get(name=item):
+            pass
+        else:
+            CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
+    return render(request, 'data/index.html')
 
 def ready(request):
     if request.method == 'POST':

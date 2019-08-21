@@ -247,9 +247,7 @@
                     return "---"
                 }
             }
-
-
-           chart_place.onmousedown = function () {
+            function buy_action(){
                 if(!is_end){
                     is_down = true;
                     div = document.createElement('div');
@@ -262,12 +260,17 @@
                     buy_at_place.innerHTML = (p + 1) + "번째 - 보유 수량: "+holdingshares+"주 "+"매수가: " + buy_at_s[p].toLocaleString() + " ";
                     div.appendChild(buy_at_place);
                     startTime = new Date().getTime();
-                    {#document.body.style.backgroundColor = "#A8F552"#}
                 }
                 else {
                     alert("장 끝났다고 븅신아ㅋㅋ")
                 }
             };
+           chart_place.onmousedown = function () {
+                buy_action()
+            };
+           chart_place.ontouchstart = function(){
+               buy_action()
+           }
             function sell_action(){
                 is_down = false;
                 sell_at_s[p] = b[j - 1];
@@ -297,9 +300,10 @@
             }
             chart_place.onmouseup = function () {
                 sell_action()
-
             };
-
+           chart_place.ontouchend = function(){
+               sell_action()
+           }
             function createTrendLine(data) {
                 var trend = chart.series.push(new am4charts.LineSeries());
                 trend.dataFields.valueY = "value";
