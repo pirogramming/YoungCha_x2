@@ -36,14 +36,24 @@
 
 
                 <div class="col-md-8">
-                    <button class="btn btn-primary" type="submit">Submit form</button>
+                    <button class="btn btn-primary" type="submit">로그인</button>
+
+
+
                 </div>
 
         </table>
+<hr>
+                <div class="col-md-8">
 
+
+  <a  href="{% url 'accounts:signup' %}?next={{ request.path }}">
+ <button type="button" class="btn btn-outline-info">
+
+회원가입</button>   </a>
+</div>
     </form>
 
-    <hr/>
 </div>
 
 

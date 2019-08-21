@@ -12,6 +12,8 @@ urlpatterns = [
     path('leaderboard/', views.leader_board, name='leader_board'),
     path('ready', views.ready, name='data_home'),
     path('', views.index, name="index"),
+    path('user_history', views.user_result, name="history"),
+
 ]
 
 

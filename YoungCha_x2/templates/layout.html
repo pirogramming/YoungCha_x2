@@ -30,6 +30,8 @@
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Advent+Pro|Orbitron&display=swap" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Noto+Sans+KR&display=swap" rel="stylesheet">
+
     <style>
         /*<!--   여기부터 회원가입 modal 페이지  css  -->*/
 
@@ -38,6 +40,8 @@
             font-weight: bolder;
             font-size: 1.5em;
         }
+
+
 
         .navbar-brand {
             font-size: 2em;
@@ -79,6 +83,29 @@
         button {
             margin-top: 30px;
         }
+
+
+
+
+
+
+
+
+
+*{
+    font-family:  'Noto Sans KR', sans-serif;
+    /*font-family: 'Black Han Sans', sans-serif;*/
+    font-size: large;
+
+    }
+
+button{
+margin:20px 0 0 0 ;
+width:500px;
+
+}
+
+
     </style>
 
 
@@ -163,12 +190,9 @@
                 {% endif %}
 
                 <a class="nav-link" href='{% url "accounts:profile" %}'>{{ user }}</a>
-                <a class="nav-link" href="{% url 'accounts:logout' %}?next={{ request.path }}"
-                   onclick="return confirm('Are you sure?');">로그아웃</a>
+
             {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'accounts:signup' %}?next={{ request.path }}">회원가입</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="opener2 nav-link" href="{% url 'accounts:login' %}?next={{ request.path }}">로그인</a>
                 </li>

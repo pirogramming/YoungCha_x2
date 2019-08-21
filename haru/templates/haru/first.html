@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load staticfiles %}
 <link href="https://fonts.googleapis.com/css?family=Song+Myung&display=swap" rel="stylesheet">
 
 <style>
@@ -77,7 +77,7 @@
     .refresh {
         color: white;
 
-    {#font-family: 'Open Sans Condensed', sans-serif;#} font-family: 'Song Myung', serif;
+    {#font-family: '{%static 'fonts/Zorque.ttf' %}';
         font-size: 3rem;
         font-weight: bold;
 
@@ -86,6 +86,8 @@
         text-align: center;
         margin: 250px 0 0 0;
     }
+
+
 
 
     /*
