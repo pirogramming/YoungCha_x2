@@ -62,6 +62,7 @@ def user(request):
     user_check = User.objects.filter(id=request.user.id)
     if not user_check:
         return redirect("data:data_home")
+
     if not ("@" in request.user.username):
         user_instance_check = Profile.objects.filter(user_id=user_check[0].id)
         if not user_instance_check:
@@ -69,6 +70,7 @@ def user(request):
             return redirect("data:data_home")
         else:
             pass
+
     if request.method == 'POST':
         user_result = request.POST.get("abc")
 

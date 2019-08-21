@@ -46,28 +46,28 @@ def index(request):
     if not CoData_instance:
         for i in CoName_instance:
             CoData.objects.create(name=i, data=get_data_json("%s" % i.name))
-
     staples = ['GIS', 'HRL', 'K', 'KHC', 'KO', 'MCD', 'MDLZ', 'MO', 'PEP', 'SBUX', 'STZ', 'WMT']
     giants = ['AAPL', 'AMZN', 'FB', 'GOOG', 'NFLX', 'MSFT']
     for item in staples:
-        if CoName_instance.get(name=item):
-            pass
-        else:
-            CoName.objects.create(name = item)
-        if CoData_instance.get(name=item):
-            pass
-        else:
+        try:
+            CoName_instance.get(name=item)
+        except Exception:
+            CoName.objects.create(name=item)
+        try:
+            CoData_instance.get(name=item)
+        except Exception:
             CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
     for item in giants:
-        if CoName_instance.get(name=item):
-            pass
-        else:
+        try:
+            CoName_instance.get(name=item)
+        except Exception:
             CoName.objects.create(name = item)
-        if CoData_instance.get(name=item):
-            pass
-        else:
+        try:
+            CoData_instance.get(name=item)
+        except Exception:
             CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
     return render(request, 'data/index.html')
+
 
 def ready(request):
     if request.method == 'POST':
@@ -212,7 +212,6 @@ def leader_board(request):
                 leader_board_data_list.append([i.name, float(max_rate)])
 
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
-
 
         return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
 
