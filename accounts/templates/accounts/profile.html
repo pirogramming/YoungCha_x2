@@ -58,7 +58,9 @@ text-align:left;
                <strong><i class="fas fa-door-open"></i></strong></li><li>{{ user.date_joined }}</li>
 
             <hr>
-    <li>     <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
+    <li>        <a style="margin-right: 20px; "href="{% url 'accounts:logout' %}?next={{ request.path }}"
+                   onclick="return confirm('Are you sure?');">로그아웃</a>
+           <a href="{% url "accounts:password_change" %}">암호 변경하기</a>
 
     </li>
             </div>
