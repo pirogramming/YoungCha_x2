@@ -82,7 +82,7 @@ def ready(request):
             try:
                 user = Profile.objects.filter(user_id=request.user.id)[0]
                 wallet_3 = format(user.wallet, ",")
-
+                text = ''
                 return render(request, "data/ready.html",
                               {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': wallet_3, 'text': text})
             except Exception:
