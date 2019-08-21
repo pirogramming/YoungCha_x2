@@ -15,6 +15,28 @@ from data.csvtodb import adjclose_list
 ceed_choice = None
 sector_choice =None
 
+yyy = '''
+        삼성전자
+        SK하이닉스
+        아모레퍼시픽
+        카카오
+        NHN
+        신라젠
+        셀트리온
+        LG디스플레이
+        하이트진로홀딩스
+        삼성SDI
+        NAVER
+        현대차
+        LG화학
+        POSCO
+        한국전력
+        SK
+        SK텔레콤
+        엔씨소프트
+        LG생활건강
+        '''
+
 
 def make_leaderBoard_data(leader_board_data):
     for i in leader_board_data:
@@ -39,31 +61,8 @@ def make_leaderBoard_data(leader_board_data):
 def index(request):
     kkk = CoName.objects.all()
     if not kkk:
-        yyy = '''
-        삼성전자
-        SK하이닉스
-        아모레퍼시픽
-        카카오
-        NHN
-        신라젠
-        셀트리온
-        LG디스플레이
-        하이트진로홀딩스
-        삼성SDI
-        NAVER
-        현대차
-        LG화학
-        POSCO
-        한국전력
-        SK
-        SK텔레콤
-        엔씨소프트
-        LG생활건강
-        '''
-
         for i in yyy.split():
             CoName.objects.create(name=i)
-
     CoData_instance = CoData.objects.all()
     CoName_instance = CoName.objects.all()
     if not CoData_instance:
@@ -165,12 +164,6 @@ def data_show(request):
     x = CoData.objects.filter(name_id=name)[0].data
 
     x = json.loads(x)
-
-    # for i in y:
-    #     if name in i:
-    #         pass
-
-    # return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed})
     return render(request, "data/trading_game.html", {'data': x, 'name': name, 'ceed': ceed, 'sector':sector})
 
 
