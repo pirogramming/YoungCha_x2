@@ -25,12 +25,12 @@ class Profile(models.Model):
 
 class UserHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    stock_name = models.CharField(max_length=30)
-    rate_of_return = models.CharField(max_length=10)
-    total_assets = models.CharField(max_length=100)
-    amount_of_asset_change = models.CharField(max_length=100)
-    trade_numbers = models.CharField(max_length=100)
-    john_bur_term = models.CharField(max_length=10)
+    stock_name = models.CharField(max_length=30, default='0')
+    rate_of_return = models.CharField(max_length=10, default='0')
+    total_assets = models.CharField(max_length=100,  default='0')
+    amount_of_asset_change = models.CharField(max_length=100,  default='0')
+    trade_numbers = models.CharField(max_length=100,  default='0')
+    john_bur_term = models.CharField(max_length=10, default='0')
     game_date = models.DateTimeField(auto_now_add=True)
 
 

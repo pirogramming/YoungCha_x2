@@ -276,7 +276,14 @@
                 sell_at_s[p] = b[j - 1];
                 result = (sell_at_s[p] - buy_at_s[p])*holdingshares;
                 delta_return += result;
+
                 total_return += result;
+
+                if(delta_return =="null"|total_return=="null"){
+                    delta_return=0;
+                    total_return=0;
+                }
+
                 total_return_place.innerHTML = (total_return).toLocaleString();
                 delta_return_place.innerHTML = delta_return.toLocaleString();
                 yields = (((sell_at_s[p] - buy_at_s[p]) / buy_at_s[p]) * 100).toFixed(2);// console.log("매도가:"+sell_at)
@@ -359,6 +366,10 @@
                         sell_action()
                     }
                     total_yield= (delta_return / ceed)*100;
+                    if(total_yield=="NaN"){
+                        total_yield=0;
+                    }
+
                     $("#exampleModal").modal()
                     alert("종료되었습니다!")
                     user_result['total_yield'] = total_yield.toFixed(2)
