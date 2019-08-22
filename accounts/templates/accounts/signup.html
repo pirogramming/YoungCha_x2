@@ -1,68 +1,120 @@
 {% extends "accounts/layout.html" %}
 
 {% block content %}
+    {% load staticfiles %}
+    <style>
+
+        .left {
+            float: left;
+            text-align: center;
+            padding: 100px;
+
+        }
 
 
+        .image .image1 {
+            width: 100%;
+        }
+
+        .right {
+            float: left;
+
+            padding: 80px;
+        }
+    .image2{
+        width : 10%;
+    }
+    </style>
+    <link href="https://fonts.googleapis.com/css?family=Cinzel|Handlee|Libre+Baskerville|Lobster|Merienda+One|Nunito|Tangerine&display=swap"
+          rel="stylesheet">
 
 
-    <div class="container shadow p-3 mb-5 bg-white rounded">
-      <h2>회원가입</h2>
-<hr>
+    <div class="wrapper">
 
-        <form action="" method="post">    {% csrf_token %}
-            <div class="col-md-8">
-                <label for="name">your_name</label>
-                <input type="text" name='name' class="form-control is-valid" id="id_name" placeholder=""
-                       required>
+        <div class="left col-md-6">
+            {% load staticfiles %}
 
-                <div class="valid-feedback">
-                    이름을 입력하세요
-
-                </div>
+            <div class="image">
+            <img src="{% static "accounts/ant.jpg" %}" alt="??" class="image1">
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
+           <span class><img src="{% static "accounts/ant2.gif" %}" alt="" class="image2"></span>
             </div>
 
+        </div>
+        <div class="right col-md-6">
 
-            <div class="col-md-8">
-                <label for="username">Email(ID)</label>
-                <input type="text" name='username' class="form-control is-valid" id="id_username" placeholder="Email"
-                       required>
-                {#                 이것은 {{ form.username }}과 같아#}
-                <div class="valid-feedback">
-                    이메일을 입력하세요!
 
-                </div>
-            </div>
+            <form action="" method="post">    {% csrf_token %}
 
 
                 <div class="col-md-8">
-                    <label for="password1">password</label>
+                    <label for="name">Username</label>
+                    <input type="text" name='name' class="form-control is-valid" id="id_name" placeholder="Username"
+                           required>
+
+                    <div class="valid-feedback">
+                        이름을 입력하세요
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-8">
+                    <label for="username">Email(ID)</label>
+                    <input type="text" name='username' class="form-control is-valid" id="id_username"
+                           placeholder="Email"
+                           required>
+                    {#                 이것은 {{ form.username }}과 같아#}
+                    <div class="valid-feedback">
+                        이메일을 입력하세요!
+                        {{ form.errors.username }}
+                        {#                    현재 위에 메시지는 작동이 안됩니다..errors.username이것들 다 안되고 있어#}
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-8">
+                    <label for="password1">Password</label>
                     <input type="password" name="password1" class="form-control is-valid" id="id_password1"
                            placeholder="password" required>
                     <div class="valid-feedback">
                         최소 8문자 이상의 비밀번호를 입력하세요!
+                        {{ form.errors.password1 }}
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <label for="password2">password 확인</label>
+                    <label for="password2">Password check</label>
                     <input type="password" name="password2" class="form-control is-valid" id="id_password2"
                            placeholder="password_check"
                            required>
-
+                    <div class="valid-feedback">
+                        비밀번호를 한 번더 입력해주세요!
+                        {{ form.errors.password2 }}
+                    </div>
                 </div>
                 <div class="col-md-8">
-                    <div class="form-group form-check"  style="margin-top: 20px">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"  required>
-                        <label class="form-check-label" for="exampleCheck1" style="font-size: large;
-                        ">개인정보 사용에 동의합니다</label>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+                        <label class="form-check-label" for="exampleCheck1">개인정보 사용에 동의합니다</label>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <button class="btn btn-primary" type="submit">Submit form</button>
                 </div>
-        </form>
+            </form>
+        </div>
+
+
     </div>
 
 
 
 {% endblock %}
-

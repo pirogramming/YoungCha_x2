@@ -43,12 +43,6 @@ def profile(request):
     return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_profile': user, "user_wallet": wallet_3})
 
 
-
-
-
-
-
-
 class MyPasswordChangeView(PasswordChangeView):
     success_url = reverse_lazy('data:history')
     template_name = 'accounts/password_change_form.html'

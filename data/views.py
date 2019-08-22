@@ -15,11 +15,7 @@ from data.csvtodb import adjclose_list
 ceed_choice = None
 sector_choice =None
 
-
-def index(request):
-    kkk = CoName.objects.all()
-    if not kkk:
-        yyy = '''
+yyy = '''
         삼성전자
         SK하이닉스
         아모레퍼시픽
@@ -41,36 +37,59 @@ def index(request):
         LG생활건강
         '''
 
+
+def make_leaderBoard_data(leader_board_data):
+    leader_board_data_list = []
+    for i in leader_board_data:
+        li = []
+        for j in UserHistory.objects.filter(user_id=i.user_id):
+            li.append(j.rate_of_return)
+
+        if li:
+            max_rate = max(li)
+            leader_board_data_list.append([i.name, float(max_rate)])
+        else:
+            max_rate = 0
+            leader_board_data_list.append([i.name, float(max_rate)])
+
+    return leader_board_data_list
+
+
+#__________________________________________________________________________________________________
+
+
+def index(request):
+    kkk = CoName.objects.all()
+    if not kkk:
         for i in yyy.split():
             CoName.objects.create(name=i)
-
     CoData_instance = CoData.objects.all()
     CoName_instance = CoName.objects.all()
     if not CoData_instance:
         for i in CoName_instance:
             CoData.objects.create(name=i, data=get_data_json("%s" % i.name))
-
     staples = ['GIS', 'HRL', 'K', 'KHC', 'KO', 'MCD', 'MDLZ', 'MO', 'PEP', 'SBUX', 'STZ', 'WMT']
     giants = ['AAPL', 'AMZN', 'FB', 'GOOG', 'NFLX', 'MSFT']
     for item in staples:
-        if CoName_instance.get(name=item):
-            pass
-        else:
-            CoName.objects.create(name = item)
-        if CoData_instance.get(name=item):
-            pass
-        else:
+        try:
+            CoName_instance.get(name=item)
+        except Exception:
+            CoName.objects.create(name=item)
+        try:
+            CoData_instance.get(name=item)
+        except Exception:
             CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
     for item in giants:
-        if CoName_instance.get(name=item):
-            pass
-        else:
+        try:
+            CoName_instance.get(name=item)
+        except Exception:
             CoName.objects.create(name = item)
-        if CoData_instance.get(name=item):
-            pass
-        else:
+        try:
+            CoData_instance.get(name=item)
+        except Exception:
             CoData.objects.create(name = CoName.objects.get(name=item), data = adjclose_list(item)['Adj Close'])
     return render(request, 'data/index.html')
+
 
 def ready(request):
     if request.method == 'POST':
@@ -85,14 +104,14 @@ def ready(request):
             try:
                 user = Profile.objects.filter(user_id=request.user.id)[0]
                 wallet_3 = format(user.wallet, ",")
-
+                text = ''
                 return render(request, "data/ready.html",
                               {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': wallet_3, 'text': text})
             except Exception:
                 text = "로그인된 유저만 사용 가능한 기능입니다"
                 return render(request, "data/ready.html",
                               {'ceed': ceed_choice, 'sector': sector_choice, 'user_wallet': 0, 'text': text})
-        if 0 < int(ceed_choice)*10000 < int(user.wallet):
+        if 0 < int(ceed_choice)*10000 <= int(user.wallet):
             sector_choice = request.POST.get('sector')
             return redirect(url)
         else:
@@ -145,12 +164,6 @@ def data_show(request):
     x = CoData.objects.filter(name_id=name)[0].data
 
     x = json.loads(x)
-
-    # for i in y:
-    #     if name in i:
-    #         pass
-
-    # return render(request, "data/trading_game.html", {'data': price, 'name': name, 'ceed': ceed})
     return render(request, "data/trading_game.html", {'data': x, 'name': name, 'ceed': ceed, 'sector':sector})
 
 
@@ -174,7 +187,11 @@ def user_result(request):
         else:
             # 유저 히스토리가 없을 경우 유효성 검사를 적당히 함
             latest_score = 999999999999
-        if user_result['total_return'] != int(float(latest_score)):  # 새로고침 오류 수정(normal)
+
+        # user_result = request.POST.get("abc")
+        # user_result = json.loads(user_result)
+        if user_result['total_return'] != int(float(latest_score)):  # 새로고침 오류 수정
+
             try:
                 profile_instance = Profile.objects.filter(user_id=request.user.id)[0]
                 profile_instance.wallet += int(user_result['total_return'])
@@ -224,35 +241,18 @@ def loading(request):
 
 
 def leader_board(request):
-
     sort = request.GET.get('sort', '')
-    leader_board_data_list = []
 
     if sort == 'max_rate' or sort == '':
         leader_board_data = Profile.objects.all()
-
-        for i in leader_board_data:
-            li = []
-            for j in UserHistory.objects.filter(user_id=i.user_id):
-                li.append(j.rate_of_return)
-
-            if li:
-                max_rate = max(li)
-                leader_board_data_list.append([i.name, float(max_rate)])
-            else:
-                max_rate = 0
-                leader_board_data_list.append([i.name, float(max_rate)])
-
+        leader_board_data_list = make_leaderBoard_data(leader_board_data)
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
-
-
         return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
 
     if sort == "wallet":
         leader_board_data = Profile.objects.all()
         user_data = User.objects.all()
         leader_board_data_list = []
-
         for i in leader_board_data:
             leader_board_data_list.append([i.name, i.wallet])
             user_data.filter()
