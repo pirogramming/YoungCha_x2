@@ -28,7 +28,7 @@ def get_env(setting, envs):
         raise ImproperlyConfigured(error_msg)
 
 DEV_ENVS = os.path.join(BASE_DIR, "envs_dev.json")
-DEPLOY_ENVS = os.path.join(BASE_DIR, "envs.json")
+DEPLOY_ENVS = os.path.join(BASE_DIR, "../../envs.json")
 
 if os.path.exists(DEV_ENVS): # Develop Env
     env_file = open(DEV_ENVS, encoding='UTF-8')
@@ -70,7 +70,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['email']
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -79,15 +79,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*eq(2zom)y7q^1#r+(o^b=vyf%tw=gzyma%r8pdzwegxu#iz5q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = [
-
-    '127.0.0.1',
-    'http://127.0.0.1:8000/admin',
-    'kiljaeeun.pythonanywhere.com'
-
-]
 
 # Application definition
 
@@ -132,7 +123,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'YoungCha_x2', 'templates'),
+            os.path.join(BASE_DIR, '..', 'templates'),
 
         ],
         'APP_DIRS': True,
@@ -155,13 +146,6 @@ WSGI_APPLICATION = 'YoungCha_x2.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
