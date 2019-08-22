@@ -160,9 +160,11 @@ def data_show(request):
     }
     names = COMPANY_CODE_NAMES_MAPPING.get(sector, unnamed)
     name = random.sample(names, 1)[0]
-
+    # if names == 'staples' or names == 'giants':
+    #     ceed = ceed / 1200
+    # else:
+    #     pass
     x = CoData.objects.filter(name_id=name)[0].data
-
     x = json.loads(x)
     return render(request, "data/trading_game.html", {'data': x, 'name': name, 'ceed': ceed, 'sector':sector})
 
@@ -216,6 +218,7 @@ def user_result(request):
                     stock_name=user_result[0],
                     total_assets=user_result['total_return'],
                 )
+                profile_instance.wallet += int(user_result['total_return'])
                 user_result['jonber_periods'] = ['0']
             user_history = UserHistory.objects.filter(user_id=user_instance.id)
 
