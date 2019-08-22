@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>영차영차</title>
-        <link href="https://fonts.googleapis.com/css?family=Contrail+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Contrail+One&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -30,89 +30,16 @@
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Advent+Pro|Orbitron&display=swap" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Noto+Sans+KR&display=swap" rel="stylesheet">
-
-    <style>
-        /*<!--   여기부터 회원가입 modal 페이지  css  -->*/
-
-        /*    여기까지 회원가입 modal*/
-        nav a {
-            font-weight: bolder;
-            font-size: 1.5em;
-        }
+    <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Do+Hyeon|Noto+Sans+KR&display=swap"
+          rel="stylesheet">
 
 
-
-        .navbar-brand {
-            font-size: 2em;
-        }
-
-        #navbar-brand {
-            display: flex;
-            align-items: center;
-        }
-
-        nav {
-            margin-bottom: 70px;
-        }
-
-        .valid-feedback {
-            color: #0099FF;
-        }
-
-        .form-control.is-valid {
-            border-color: #0099FF;
-            width: 500px;
-            padding: inherit;
-
-        }
-
-        label {
-            font-size: x-large;
-        }
-
-        form {
-            margin-top: 30px;
-
-        }
-
-        .col-md-8 {
-            margin: 0 auto;
-        }
-
-        button {
-            margin-top: 30px;
-        }
-
-
-
-
-
-
-
-
-
-*{
-    font-family:  'Noto Sans KR', sans-serif;
-    /*font-family: 'Black Han Sans', sans-serif;*/
-    font-size: large;
-
-    }
-
-button{
-margin:20px 0 0 0 ;
-width:500px;
-
-}
-
-
-    </style>
-
-    <meta property= 'og:title' content='YCYC trading game'/>
+    <meta property='og:title' content='YCYC trading game'/>
     <meta property='og:type' content='website'/>
     <meta property='og:url' content='https://kiljaeeun.pythonanywhere.com'/>
     <meta property='og:description' content='play YCYC and earn money!'/>
-    <meta property='og:image' content='https://postfiles.pstatic.net/MjAxOTA4MjFfMjQy/MDAxNTY2Mzg4ODU4OTUw.ljZK6MXLBBSXAXpWoqWWel1Gy5PHBqdm1iLN2Y9TEEcg.mwgBsCBsS0lE6ojBWZAQlzTNiZsKZuUN95gw9eOg7RMg.PNG.sting7675/20190821_205912.png?type=w773'/>
+    <meta property='og:image'
+          content='https://postfiles.pstatic.net/MjAxOTA4MjFfMjQy/MDAxNTY2Mzg4ODU4OTUw.ljZK6MXLBBSXAXpWoqWWel1Gy5PHBqdm1iLN2Y9TEEcg.mwgBsCBsS0lE6ojBWZAQlzTNiZsKZuUN95gw9eOg7RMg.PNG.sting7675/20190821_205912.png?type=w773'/>
 </head>
 <body>
 {#네비 YCYC 트레이딩 오늘하루 리더보드 현재 자산 계정이름 로그아웃#}
@@ -198,7 +125,7 @@ width:500px;
             {% else %}
 
                 <li class="nav-item">
-                    <a class="opener2 nav-link" href="{% url 'accounts:login' %}?next={{ request.path }}">로그인</a>
+                    <a class="opener2 nav-link " href="{% url 'accounts:login' %}?next={{ request.path }}">로그인</a>
                 </li>
                 <a href="{% url "social:begin" "google-oauth2" %}"><i class="fab fa-google-plus-square"
                                                                       style="color: white; width: 44px; height: 44px; margin: 0px 5px;"></i></a>

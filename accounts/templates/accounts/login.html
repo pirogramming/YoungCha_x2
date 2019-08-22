@@ -7,12 +7,10 @@
 <hr>
     <form action="" method="post">
         {% csrf_token %}
-        <table>
+        <div style="display: flex; justify-content: center">
+            <div class="col-12">
 
-
-
-
-            <div class="col-md-8">
+           <div class="col-md-8" style="margin: 0 auto;">
                 <label for="username">Email(ID)</label>
                 <input type="text" name='username' class="form-control is-valid" id="id_username" placeholder="Email"
                        required>
@@ -23,7 +21,7 @@
             </div>
 
 
-                <div class="col-md-8">
+                <div class="col-md-8" style="margin: 0 auto;">
                     <label for="password">password</label>
                     <input type="password" name="password" class="form-control is-valid" id="id_password1"
                            placeholder="password" required>
@@ -35,14 +33,15 @@
 
 
 
-                <div class="col-md-8">
+                <div class="col-md-8" style="margin:0 auto">
                     <button class="btn btn-primary" type="submit">로그인</button>
 
 
 
                 </div>
 
-        </table>
+            </div>
+        </div>
 <hr>
                 <div class="col-md-8">
 
