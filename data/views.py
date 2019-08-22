@@ -39,8 +39,8 @@ yyy = '''
 
 
 def make_leaderBoard_data(leader_board_data):
+    leader_board_data_list = []
     for i in leader_board_data:
-        leader_board_data_list = []
         li = []
         for j in UserHistory.objects.filter(user_id=i.user_id):
             li.append(j.rate_of_return)
