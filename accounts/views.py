@@ -36,11 +36,17 @@ signup = SignupView.as_view()
 @login_required
 def profile(request):
     user_instance = User.objects.filter(id=request.user.id)[0]
+    print(user_instance)
     user_history = UserHistory.objects.filter(user_id=user_instance.id)
-    user = Profile.objects.filter(user_id=request.user.id)[0]
-    wallet_3 = format(user.wallet, ",")
+    try:
+        user_profile = Profile.objects.filter(user_id=user_instance.id)[0]
+    except Exception:
+        print(type(user_instance.first_name))
+        print(type(user_instance.last_name))
+        user_profile = Profile.objects.create(name=user_instance.first_name+user_instance.last_name, user_id=user_instance.id, wallet=10000000)
+    wallet_3 = format(user_profile.wallet, ",")
 
-    return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_profile': user, "user_wallet": wallet_3})
+    return render(request, 'accounts/profile.html', {'user_history': user_history, 'user_profile': user_profile, "user_wallet": wallet_3})
 
 
 class MyPasswordChangeView(PasswordChangeView):

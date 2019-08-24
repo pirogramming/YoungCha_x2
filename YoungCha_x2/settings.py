@@ -108,6 +108,7 @@ INSTALLED_APPS = [
     'data',
     'haru',
     'accounts',
+    'nps',
     # 안되는 친구들 ######################################
     # 'allauth',
     # 'allauth.account',
