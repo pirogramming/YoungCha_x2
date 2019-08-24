@@ -2,58 +2,95 @@
 
 {% block content %}
 
-<div class="container shadow p-3 mb-5 bg-white rounded">
-  <h2>로그인</h2>
-<hr>
-    <form action="" method="post">
-        {% csrf_token %}
-        <div style="display: flex; justify-content: center">
-            <div class="col-12">
+    <style>
+        .google, .facebook {
+            color: white;
+        }
 
-           <div class="col-md-8" style="margin: 0 auto;">
-                <label for="username">Email(ID)</label>
-                <input type="text" name='username' class="form-control is-valid" id="id_username" placeholder="Email"
-                       required>
-                <div class="valid-feedback">
-                    이메일을 입력하세요!
+    .bar{
+        display : flex;
+        justify-content: center;
+        margin-bottom : 5px;
 
-                </div>
-            </div>
+    }
+    .signup{
+        display: flex;
+        justify-content: center;
+    }
+    button{
+        width : 230.24px;
+    }
 
+    </style>
 
-                <div class="col-md-8" style="margin: 0 auto;">
-                    <label for="password">password</label>
-                    <input type="password" name="password" class="form-control is-valid" id="id_password1"
-                           placeholder="password" required>
-                    <div class="valid-feedback">
-                        최소 8문자 이상의 비밀번호를 입력하세요!
-                        {{ form.errors.password1 }}
+    <div class="container shadow p-3 mb-5 bg-white rounded">
+        <h2>로그인</h2>
+        <hr>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div style="display: flex; justify-content: center">
+                <div class="col-12">
+
+                    <div class="col-md-8" style="margin: 0 auto;">
+                        <label for="username">Email(ID)</label>
+                        <input type="text" name='username' class="form-control is-valid" id="id_username"
+                               placeholder="Email"
+                               required>
+                        <div class="valid-feedback">
+                            이메일을 입력하세요!
+
+                        </div>
                     </div>
+
+
+                    <div class="col-md-8" style="margin: 0 auto;">
+                        <label for="password">password</label>
+                        <input type="password" name="password" class="form-control is-valid" id="id_password1"
+                               placeholder="password" required>
+                        <div class="valid-feedback">
+                            최소 8문자 이상의 비밀번호를 입력하세요!
+                            {{ form.errors.password1 }}
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+
+
+                    <div class="col-md-8" style="margin:0 auto">
+                        <div class="bar">
+                            <button class="btn btn-primary" type="submit">로그인</button>
+                        </div>
+
+                        <div class="bar">
+                            <button class="btn btn-primary"><a class="google"
+                                                               href="{% url "social:begin" "google-oauth2" %}">
+                                <i
+                                        class="fab fa-google"></i> 구글아이디로 로그인하기.</a></button>
+                        </div>
+                        <div class="bar">
+                            <button class="btn btn-primary"><a class="facebook"
+                                                               href="{% url "social:begin" "facebook" %}"><i
+                                    class="fab fa-facebook-f"></i> 페북아이디로 로그인하기.</a></button>
+                        </div>
+                    </div>
+
                 </div>
-
-
-
-                <div class="col-md-8" style="margin:0 auto">
-                    <button class="btn btn-primary" type="submit">로그인</button>
-
-
-
-                </div>
-
             </div>
-        </div>
-<hr>
-                <div class="col-md-8">
+            <hr>
+            <div class="col-md-12">
 
 
-  <a  href="{% url 'accounts:signup' %}?next={{ request.path }}">
- <button type="button" class="btn btn-outline-info">
+                <a  class="signup" href="{% url 'accounts:signup' %}?next={{ request.path }}">
+                    <button type="button" class="btn btn-outline-info">
 
-회원가입</button>   </a>
-</div>
-    </form>
+                        회원가입
+                    </button>
+                </a>
+            </div>
+        </form>
 
-</div>
+    </div>
 
 
 

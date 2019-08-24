@@ -92,6 +92,13 @@ def index(request):
 
 
 def ready(request):
+    user_instance = User.objects.filter(id=request.user.id)[0]
+    try:
+        user_profile = Profile.objects.filter(user_id=user_instance.id)[0]
+    except Exception:
+        user_profile = Profile.objects.create(name=user_instance.first_name + user_instance.last_name,
+                                                  user_id=user_instance.id, wallet=10000000)
+
     if request.method == 'POST':
         # z = request.POST.get('name')
         # url = '%s/' % z

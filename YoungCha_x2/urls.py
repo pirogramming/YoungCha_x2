@@ -28,5 +28,6 @@ urlpatterns = [
 
     # path('login/',loginapp.views.login, name='social_login')
     path('login/', auth_views.LoginView.as_view(template_name='accounts/login.html'), name='login'),
+    path('nps/', include('nps.urls')),
 
 ]

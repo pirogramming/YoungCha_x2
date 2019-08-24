@@ -85,7 +85,10 @@ ALLOWED_HOSTS = [
 
     '127.0.0.1',
     'http://127.0.0.1:8000/admin',
-    'kiljaeeun.pythonanywhere.com'
+    'kiljaeeun.pythonanywhere.com',
+    '*',
+    '52.79.206.182',
+
 
 ]
 
@@ -105,6 +108,7 @@ INSTALLED_APPS = [
     'data',
     'haru',
     'accounts',
+    'nps',
     # 안되는 친구들 ######################################
     # 'allauth',
     # 'allauth.account',
@@ -198,7 +202,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_DIR= os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
+STATIC_ROOT = os.path.join(BASE_DIR, '.static_root')
+
 AUTH_USER_MODEL = "users_management.UserManage"
 
 from django.urls import reverse_lazy
