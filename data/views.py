@@ -42,9 +42,10 @@ def make_leaderBoard_data(leader_board_data):
     leader_board_data_list = []
     for i in leader_board_data:
         li = []
+        print(UserHistory.objects.filter(user_id=i.user_id))
         for j in UserHistory.objects.filter(user_id=i.user_id):
             li.append(j.rate_of_return)
-
+        li = list(map(float, li))
         if li:
             max_rate = max(li)
             leader_board_data_list.append([i.name, float(max_rate)])
@@ -92,12 +93,13 @@ def index(request):
 
 
 def ready(request):
-    user_instance = User.objects.filter(id=request.user.id)[0]
-    try:
-        user_profile = Profile.objects.filter(user_id=user_instance.id)[0]
-    except Exception:
-        user_profile = Profile.objects.create(name=user_instance.first_name + user_instance.last_name,
-                                                  user_id=user_instance.id, wallet=10000000)
+    if User.objects.filter(id=request.user.id):
+        user_instance = User.objects.filter(id=request.user.id)[0]
+        try:
+            user_profile = Profile.objects.filter(user_id=user_instance.id)[0]
+        except Exception:
+            user_profile = Profile.objects.create(name=user_instance.first_name + user_instance.last_name,
+                                                      user_id=user_instance.id, wallet=10000000)
 
     if request.method == 'POST':
         # z = request.POST.get('name')
@@ -165,6 +167,7 @@ def data_show(request):
         'staples': staples,
         'giants': giants,
     }
+
     names = COMPANY_CODE_NAMES_MAPPING.get(sector, unnamed)
     name = random.sample(names, 1)[0]
     x = CoData.objects.filter(name_id=name)[0].data
@@ -256,6 +259,7 @@ def leader_board(request):
     if sort == 'max_rate' or sort == '':
         leader_board_data = Profile.objects.all()
         leader_board_data_list = make_leaderBoard_data(leader_board_data)
+        print(leader_board_data_list)
         leader_board_data_list.sort(key=itemgetter(1), reverse=True)
         return render(request, 'data/leader_board.html', {'leader_board_data': leader_board_data_list, "sort": sort})
 
